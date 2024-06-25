@@ -87,7 +87,7 @@ export default function ViewProduct() {
 
     const updateProductStatus = (product_id, status) => {
         // สลับสถานะ 0 เป็น 1 และ 1 เป็น 0
-            const newStatus = status === 1 ? 0 : 1;
+        const newStatus = status === 1 ? 0 : 1;
 
         axios.put(`/api/product-updatestatus/${product_id}/${newStatus}`)
             .then(response => {
@@ -231,17 +231,21 @@ export default function ViewProduct() {
     return (
         <>
             <Sidebar>
-                <div className="flex justify-between items-center gap-4 mb-2 rounded-lg">
-                    <Link to={"create"}>
-                        <button type="submit" className="w-full relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300">
-                            <div>
-                                <IoAddCircleOutline size={26} />
-                            </div>
-                            <div>
-                                เพิ่มสินค้า
-                            </div>
-                        </button>
-                    </Link>
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-2 rounded-lg">
+                    
+                    <div>
+                        <Link to={"create"}>
+                            <button type="submit" className="relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300">
+                                <div>
+                                    <IoAddCircleOutline size={26} />
+                                </div>
+                                <div>
+                                    เพิ่มสินค้า
+                                </div>
+                            </button>
+                        </Link>
+                    </div>
+
 
                     <div className="flex items-center gap-x-4">
 
@@ -252,7 +256,7 @@ export default function ViewProduct() {
 
                         <div className="relative">
                             <input type="text" placeholder="ค้นหาสินค้า"
-                                className="w-[10rem] pl-8 placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+                                className="w-full md:w-[10rem] pl-8 placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                                 value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                             <FaSearch className="absolute top-2 left-0" />
                         </div>
@@ -369,21 +373,21 @@ export default function ViewProduct() {
                                         })
                                         .map((product, index) => (
                                             <div key={index}>
-                                            <Link to={`/product/${product.slug}`}>
-                                                <div className="relative overflow-hidden rounded-lg w-[12rem] h-[18rem] group">
-                                                    <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                                        <div className="flex flex-col items-center text-white text-xl">
-                                                            รายละเอียด
-                                                            <CgDetailsMore size={28} />
+                                                <Link to={`/product/${product.slug}`}>
+                                                    <div className="relative overflow-hidden rounded-lg w-[12rem] h-[18rem] group">
+                                                        <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                                            <div className="flex flex-col items-center text-white text-xl">
+                                                                รายละเอียด
+                                                                <CgDetailsMore size={28} />
+                                                            </div>
                                                         </div>
+                                                        {product.image ? (
+                                                            <img className="rounded-lg w-full h-full object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/${product.image}`} alt={product.name} />
+                                                        ) : (
+                                                            <img className="rounded-lg w-full h-full object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                                                        )}
                                                     </div>
-                                                    {product.image ? (
-                                                        <img className="rounded-lg w-full h-full object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/${product.image}`} alt={product.name} />
-                                                    ) : (
-                                                        <img className="rounded-lg w-full h-full object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="No Image" />
-                                                    )}
-                                                </div>
-                                            </Link>
+                                                </Link>
 
                                                 <h1 className="mt-2 font-bold text-xl h-[3.375rem] text-clip overflow-hidden">{product.name}</h1>
                                                 <div className="mt-1 flex justify-between items-center gap-2">

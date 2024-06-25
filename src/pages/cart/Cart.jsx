@@ -10,6 +10,9 @@ import { IoBagCheckOutline } from "react-icons/io5";
 import { CartContext } from '../../context/CartContext';
 
 export default function ViewProduct() {
+
+    document.title = "ตระกร้าสินค้า";
+
     const navigate = useNavigate();
     const { setCartCount } = useContext(CartContext);
     const [loading, setLoading] = useState(true);
@@ -135,7 +138,7 @@ export default function ViewProduct() {
             ) : (
                 <div>
                     <div className="mb-4">
-                        <h1 className="text-[1.5rem] font-semibold">ตระกร้าสินค้า</h1>
+                        <h1 className="text-base md:text-2xl font-semibold">ตระกร้าสินค้า</h1>
                     </div>
 
                     {carts.length > 0 ? (
@@ -146,19 +149,19 @@ export default function ViewProduct() {
                                         <div className="flex gap-4">
                                             <div className="w-[6rem] h-[8rem] overflow-hidden rounded-lg">
                                                 {cart.product.image ? (
-                                                    <img className="w-full h-full object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app//images/product/${cart.product.image}`} alt={`รูปภาพสินค้า ${cart.product.name}`} />
+                                                    <img className="w-full h-full object-cover" src={`https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/${cart.product.image}`} alt={`รูปภาพสินค้า ${cart.product.name}`} />
                                                 ) : (
-                                                    <img className="w-full h-full object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="ไม่มีรูปภาพ" />
+                                                    <img className="w-full h-full object-cover" src="https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="ไม่มีรูปภาพ" />
                                                 )}
                                             </div>
                                             <div className="flex justify-between w-full">
                                                 <div className="flex flex-col justify-between">
                                                     <div>
-                                                        <h1 className="text-2xl font-semibold">{cart.product.name}</h1>
+                                                        <h1 className="text-base md:text-2xl font-semibold">{cart.product.name}</h1>
                                                         <h2 className="text-black/40">{cart.product.category.name}</h2>
                                                     </div>
                                                     <div>
-                                                        <span className="text-2xl font-semibold">{cart.product.price * cart.product_qty} บาท</span>
+                                                        <span className="text-base md:text-2xl font-semibold">{cart.product.price * cart.product_qty} บาท</span>
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col justify-between">
@@ -181,20 +184,20 @@ export default function ViewProduct() {
                                 <div className="border rounded-lg p-4">
                                     <div className="border-b py-2">
                                         <div className="flex items-center justify-between">
-                                            <div className="text-[1rem] font-semibold">
+                                            <div className="text-sm md:text-base font-semibold">
                                                 ราคาโดยประมาณ:
                                             </div>
-                                            <div className="text-[1.2rem] font-semibold">
+                                            <div className="text-base md:text-xl font-semibold">
                                                 {totalCartPrice} บาท
                                             </div>
                                         </div>
                                     </div>
                                     <div className="border-b py-2">
                                         <div className="flex items-center justify-between">
-                                            <div className="text-[1rem] font-semibold">
+                                            <div className="text-sm md:text-base font-semibold">
                                                 ราคารวม:
                                             </div>
-                                            <div className="text-[1.2rem] font-semibold">
+                                            <div className="text-base md:text-xl font-semibold">
                                                 {totalCartPrice} บาท
                                             </div>
                                         </div>

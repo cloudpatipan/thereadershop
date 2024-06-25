@@ -29,6 +29,7 @@ export default function CategoryProduct() {
             if (response.data.status === 200) {
                 setProducts(response.data.product_data.product);
                 setCategory(response.data.product_data.category);
+                document.title = response.data.product_data.category.name
                 setLoading(false);
             } else if (response.data.status === 400) {
                 Swal.fire({

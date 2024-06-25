@@ -9,6 +9,8 @@ import Button from '../../components/Button';
 import { IoBagCheckOutline } from "react-icons/io5";
 export default function Order() {
 
+    document.title = "รายการสั่งซื้อ";
+
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [orders, setOrders] = useState([]);
@@ -53,10 +55,10 @@ export default function Order() {
                     </div>
                 ) : (
                     <div>
-                    <h1 className="mb-4 text-2xl font-semibold">รายการสังซื้อ</h1>
+                    <h1 className="mb-4 text-base md:text-2xl font-semibold">รายการสังซื้อ</h1>
                     <div className="p-4 border rounded-lg">
 
-                        <table className="w-full overflow-x-scroll">
+                        <table className="w-full overflow-x-scroll text-sm md:text-base">
                             <thead>
                                 <tr className="text-left">
                                     <th className="py-1 border-b">เลขที่สั่งซื้อ</th>

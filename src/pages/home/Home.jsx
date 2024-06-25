@@ -8,6 +8,9 @@ import { FaUserFriends } from "react-icons/fa";
 import { FaBox } from "react-icons/fa";
 
 export default function Home() {
+
+  document.title = "หน้าหลัก";
+
   const [userCount, setUserCount] = useState(0);
   const [productCount, setProductCount] = useState(0);
   const [featuredProducts, setFeaturedProducts] = useState([]);

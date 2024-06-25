@@ -2,6 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 export default function NotFound() {
+
+  document.title = "ไม่พบหน้า";
+
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-3xl">ไม่พบหน้า</h1>

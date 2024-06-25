@@ -75,7 +75,7 @@ export default function ViewCategory() {
     const updateCategoryStatus = (category_id, status) => {
         // สลับสถานะ 0 เป็น 1 และ 1 เป็น 0
         const newStatus = status === 1 ? 0 : 1;
-    
+
         axios.put(`/api/category-updatestatus/${category_id}/${newStatus}`)
             .then(response => {
                 if (response.data.status === 200) {
@@ -123,21 +123,23 @@ export default function ViewCategory() {
         <>
             <Sidebar>
 
-                <div className="flex justify-between items-center gap-4  mb-2 rounded-lg">
-                    <Link to={"create"}>
-                        <button type="submit" className="w-full relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300">
-                            <div>
-                                <IoAddCircleOutline size={26} />
-                            </div>
-                            <div>
-                                เพิ่มประเภทสินค้า
-                            </div>
-                        </button>
-                    </Link>
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4  mb-2 rounded-lg">
+                    <div>
+                        <Link to={"create"}>
+                            <button type="submit" className="relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300">
+                                <div>
+                                    <IoAddCircleOutline size={26} />
+                                </div>
+                                <div>
+                                    เพิ่มประเภทสินค้า
+                                </div>
+                            </button>
+                        </Link>
+                    </div>
 
                     <div className="relative">
                         <input type="text" placeholder="ค้นหาประเภทสินค้า"
-                            className="w-[10rem] pl-8 placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+                            className="w-full md:w-[10rem] pl-8 placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                             value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                         <FaSearch className="absolute top-2 left-0" />
                     </div>

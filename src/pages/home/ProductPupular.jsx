@@ -21,25 +21,28 @@ export default function ProductPopular({ products }) {
   return (
     <section>
       <div>
-        <div className="flex justify-between">
+        <div className="flex flex-col md:flex-row justify-between">
+
           <div>
             <h1 className="text-2xl font-semibold">แนะนำสินค้ายอดนิยม</h1>
           </div>
+
           <div className="relative">
-            <input type="text" placeholder="ค้นหาสินค้าแนะนำ"
-              className="w-[10rem] pl-8 placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+            <input type="text" placeholder="ค้นหาสินค้ายอดนิยม"
+              className="md:w-[10rem] w-full pl-8 placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
               value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             <FaSearch className="absolute top-2 left-0" />
           </div>
+
         </div>
 
         <div>
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-2 my-4 rounded-lg border p-4">
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-2 my-4 rounded-lg border p-4">
             {displayedProducts.length > 0 ? (
               displayedProducts.map((product, index) => (
                 <div key={index}>
                   <Link to={`/product/detail/${product.slug}`}>
-                    <div className="relative overflow-hidden rounded-lg w-[12rem] h-[18rem] group">
+                    <div className="relative overflow-hidden rounded-lg group">
                       <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                         <div className="flex flex-col items-center text-white text-xl">
                           รายละเอียด
@@ -54,7 +57,7 @@ export default function ProductPopular({ products }) {
                     </div>
                   </Link>
                   <div className="p-2 text-center">
-                    <p className="text-[1.2rem] font-semibold text-clip overflow-hidden">{product.name}</p>
+                    <p className="text-sm md:text-base font-semibold text-clip overflow-hidden">{product.name}</p>
                     <p className="text-sm text-clip overflow-hidden text-black/40 font-semibold">{product.category.name}</p>
                     <span className="font-bold">฿ {product.price}</span>
                   </div>
@@ -62,7 +65,7 @@ export default function ProductPopular({ products }) {
               ))
             ) : (
               <div className="flex items-center justify-center rounded-lg col-span-3 md:col-span-6">
-                <span className="text-3xl font-semibold">ไม่มีสินค้าแนะนำ</span>
+                <span className="text-3xl font-semibold">ไม่มีสินค้ายอดนิยม</span>
               </div>
             )}
           </div>

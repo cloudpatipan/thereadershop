@@ -50,7 +50,7 @@ export default function ProductDetail() {
         axios.get(`/api/product-detail/${slug}`).then(response => {
             if (response.data.status === 200) {
                 setProduct(response.data.products);
-                document.title = respose.data.products.name
+                document.title = response.data.products.name
                 setProductRandom(response.data.product_random);
                 setLoading(false);
             } else if (response.data.status === 400) {
@@ -73,7 +73,6 @@ export default function ProductDetail() {
             }
         })
     }
-
 
     const addToCart = async () => {
         const data = {
@@ -108,7 +107,6 @@ export default function ProductDetail() {
                 focusConfirm: false,
             });
         }
-
     }
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -157,12 +155,12 @@ export default function ProductDetail() {
                                 </div>
 
                                 <div className="w-full md:w-[80%]">
-                                    <h2 className="text-base block text-black/30 text-[1.2rem] font-semibold">{product.category.name}</h2>
-                                    <h1 className="text-[2rem] font-semibold">{product.name}</h1>
-                                    <span className="text-[1.2rem] font-semibold">รายละเอียด</span>
-                                    <p className="text-[1rem] mt-4">{product.description}</p>
-                                    <p className="text-[1.2rem] mt-4">
-                                        <span className="font-semibold text-base block text-black/30">
+                                    <h2 className="text-sm md:text-base block text-black/30 md:text-base font-semibold">{product.category.name}</h2>
+                                    <h1 className="text-base md:text-2xl font-semibold mb-4">{product.name}</h1>
+                                    <span className="text-sm md:text-xl font-semibold">รายละเอียด</span>
+                                    <p className="text-base md:text-xl">{product.description}</p>
+                                    <p className="mt-4 text-base md:text-xl font-semibold">
+                                        <span className="font-semibold text-sm md:text-base block text-black/30">
                                             ราคารวม
                                         </span>
                                         {product.price} บาท
@@ -190,14 +188,14 @@ export default function ProductDetail() {
                             </div>
 
                             <div>
-                                <h1 className="text-2xl font-semibold mt-4">สินค้าที่คุณอาจจะสนใจ</h1>
+                                <h1 className="text-base md:text-2xl font-semibold mt-4">สินค้าที่คุณอาจจะสนใจ</h1>
 
-                                <div className="grid grid-cols-2 md:grid-cols-6 gap-2 mt-4 border p-4 rounded-lg">
+                                <div className="grid grid-cols-3 md:grid-cols-6 gap-2 mt-4 border p-4 rounded-lg">
                                     {product_random.length > 0 ? (
                                         product_random.map((item, index) => (
                                             <div key={index}>
                                                 <a href={`/product/detail/${item.slug}`}>
-                                                    <div className="relative overflow-hidden rounded-lg w-[12rem] h-[18rem] group">
+                                                    <div className="relative overflow-hidden rounded-lg group">
                                                         <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                                             <div className="flex flex-col items-center text-white text-xl">
                                                                 รายละเอียด
@@ -212,7 +210,7 @@ export default function ProductDetail() {
                                                     </div>
                                                 </a>
                                                 <div className="p-2 text-center">
-                                                    <p className="text-[1.2rem] font-semibold text-clip overflow-hidden">{item.name}</p>
+                                                    <p className="text-sm md:text-base font-semibold text-clip overflow-hidden">{item.name}</p>
                                                     <p className="text-sm text-clip overflow-hidden text-black/40 font-semibold">{item.category.name}</p>
                                                     <span className="font-bold">฿ {item.price}</span>
                                                 </div>

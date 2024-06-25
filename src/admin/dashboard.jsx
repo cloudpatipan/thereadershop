@@ -103,7 +103,7 @@ export default function Dashboard() {
 
   return (
     <Sidebar>
-      <div className="grid grid-cols-3 gap-4 mb-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
 
       <div className="bg-white rounded-lg border flex items-center justify-between p-4">
           <div className="flex flex-col">
@@ -134,10 +134,11 @@ export default function Dashboard() {
 
       </div>
 
-
-        <div className="border p-4 rounded-lg">
+      <div className="border p-4 rounded-lg">
           <OrderChart />
         </div>
+
+
 
 
     </Sidebar>

@@ -82,7 +82,7 @@ export default function ViewAdsBanner() {
     return (
         <>
             <Sidebar>
-                <div className="flex justify-between items-center gap-4 mb-2 rounded-lg">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4  mb-2 rounded-lg">
                     <Link to={"create"}>
                         <button type="submit" className="w-full relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300">
                             <div>
@@ -182,11 +182,11 @@ export default function ViewAdsBanner() {
                                                             <img className="object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/adsbanner/no_image.png" alt="No Image" />
                                                         )}
                                                         <div className="absolute top-1 left-1">
-                                                        {adsbanner.logo ? (
-                                                            <img className="w-24 h-24 rounded-lg object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/adsbanner/${adsbanner.logo}`} alt="" />
-                                                        ) : (
-                                                            <img className="w-24 h-24 rounded-lg object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/adsbanner/no_image.png" alt="No Image" />
-                                                        )}
+                                                            {adsbanner.logo ? (
+                                                                <img className="w-24 h-24 rounded-lg object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/adsbanner/${adsbanner.logo}`} alt="" />
+                                                            ) : (
+                                                                <img className="w-24 h-24 rounded-lg object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/adsbanner/no_image.png" alt="No Image" />
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </Link>

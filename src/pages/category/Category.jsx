@@ -21,6 +21,8 @@ export default function CategoryAll() {
         }
     }
 
+    document.title = "ประเภทสินค้า";
+
     return (
         <Layout>
 

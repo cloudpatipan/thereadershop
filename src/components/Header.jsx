@@ -34,11 +34,11 @@ export default function Header() {
   };
 
   return (
-    <header className="my-4">
-      <div className="relative">
+    <header className="mb-4">
+      <div className="relative overflow-hidden rounded-lg h-[10rem] md:h-[24rem]">
         {banners.length > 0 ? (
           <>
-            <div className="overflow-hidden h-[24rem] rounded-lg">
+            <div>
               {banners.map((banner, index) => (
                 <div key={index} className={`absolute w-full h-full ${index === currentIndex ? 'block' : 'hidden'}`}>
                   <Link to={`/product/detail/${banner.product.slug}`}>

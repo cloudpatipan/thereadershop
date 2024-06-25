@@ -162,8 +162,10 @@ export default function Navbar() {
     <nav className="w-full mx-auto gap-4 text-black mt-4">
       <div className="flex items-center justify-between">
 
-        <h1 className="text-4xl font-semibold text-[#fc823f]">The Reader</h1>
-
+        <Link to={'/'}>
+          <h1 className="text-2xl font-semibold text-[#fc823f]">The Reader</h1>
+        </Link>
+        
         <div className="hidden md:flex gap-4">
           <Link to={'/'} className="relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black ease-in-out hover:-translate-y-1 transition-all duration-300">
             หน้าหลัก
@@ -211,15 +213,15 @@ export default function Navbar() {
                   </Link>
 
                   <Dropdown
-                  header={
-                  <div className="w-[3rem] h-[3rem] rounded-full overflow-hidden cursor-pointer" onClick={handleToggleDropdown}>
-                  {user.avatar ? (
-                    <img className="w-full h-full object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
-                  ) : (
-                    <img className="w-full h-full object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="No Image" />
-                  )}
-                </div>
-                }
+                    header={
+                      <div className="w-[3rem] h-[3rem] rounded-full overflow-hidden cursor-pointer" onClick={handleToggleDropdown}>
+                        {user.avatar ? (
+                          <img className="w-full h-full object-cover" src={`https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                        ) : (
+                          <img className="w-full h-full object-cover" src="https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                        )}
+                      </div>
+                    }
                   >
 
                     <div className="flex items-center gap-x-4">
@@ -256,7 +258,7 @@ export default function Navbar() {
 
                     {user.role == 'admin' && ( // เช็คว่ามีผู้ใช้ล็อคอินและเป็น admin หรือไม่
                       <Link to={'/dashboard'}>
-                       <Button icon={<RiAdminFill size={20} />} className="mt-1 w-full">
+                        <Button icon={<RiAdminFill size={20} />} className="mt-1 w-full">
                           แอดมิน
                         </Button>
                       </Link>
@@ -292,23 +294,24 @@ export default function Navbar() {
 
       </div>
       <div>
-      </div>
 
-      {isMenuOpen ? (
-        <div className="absolute w-full z-10 bg-white flex flex-col md:hidden bg-transparent font-medium uppercase mt-2 rounded-xl">
-          <Link to={'/'} className="relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1">
-            หน้าหลัก
-          </Link>
-          <Link to={'/'} className="relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1">
-            เกี่ยวกับ
-          </Link>
-          {user && user.role == 'admin' && ( // เช็คว่ามีผู้ใช้ล็อคอินและเป็น admin หรือไม่
-            <Link to={'/admin/product'} className="relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1">
-              แอดมิน
+        {isMenuOpen ? (
+          <div className=" bg-white z-1 flex flex-col md:hidden font-medium uppercase">
+            <Link to={'/'} className="bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1">
+              หน้าหลัก
             </Link>
-          )}
-        </div>
-      ) : null}
+            <Link to={'/category'} className="bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1">
+              ประเภทสินค้า
+            </Link>
+            {user && user.role == 'admin' && ( // เช็คว่ามีผู้ใช้ล็อคอินและเป็น admin หรือไม่
+              <Link to={'/admin/product'} className="bg-white relative flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1">
+                แอดมิน
+              </Link>
+            )}
+          </div>
+        ) : null}
+
+      </div>
 
     </nav>
   )
