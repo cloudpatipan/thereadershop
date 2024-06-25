@@ -165,7 +165,7 @@ export default function Navbar() {
         <Link to={'/'}>
           <h1 className="text-2xl font-semibold text-[#fc823f]">The Reader</h1>
         </Link>
-        
+
         <div className="hidden md:flex gap-4">
           <Link to={'/'} className="relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black ease-in-out hover:-translate-y-1 transition-all duration-300">
             หน้าหลัก
@@ -177,8 +177,8 @@ export default function Navbar() {
 
         <div>
           {!localStorage.getItem('token') ? (
-            <div className="flex items-center gap-4">
-              <Button icon={<IoIosLogIn size={25} />} onClick={openModalLogin}>
+            <div className="hidden md:flex items-center gap-4">
+              <Button className="text-sm md:text-base" icon={<IoIosLogIn size={25} />} onClick={openModalLogin}>
                 เข้าสู่ระบบ
               </Button>
 
@@ -186,9 +186,10 @@ export default function Navbar() {
                 <Login />
               </Modal>
 
-              <Button icon={<FaUserPlus size={25} />} onClick={openModalRegister}>
+              <Button className="text-sm md:text-base" icon={<FaUserPlus size={25} />} onClick={openModalRegister}>
                 สมัครสมาชิก
               </Button>
+
               <Modal isOpen={isModalOpenRegister} onClose={closeModalRegister}>
                 <Register />
               </Modal>
@@ -303,6 +304,21 @@ export default function Navbar() {
             <Link to={'/category'} className="bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1">
               ประเภทสินค้า
             </Link>
+            <button className="bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1" onClick={openModalLogin}>
+              เข้าสู่ระบบ
+            </button>
+
+            <Modal isOpen={isModalOpenLogin} onClose={closeModalLogin}>
+              <Login />
+            </Modal>
+
+            <button className="bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1" onClick={openModalRegister}>
+              สมัครสมาชิก
+            </button>
+
+            <Modal isOpen={isModalOpenRegister} onClose={closeModalRegister}>
+              <Register />
+            </Modal>
             {user && user.role == 'admin' && ( // เช็คว่ามีผู้ใช้ล็อคอินและเป็น admin หรือไม่
               <Link to={'/admin/product'} className="bg-white relative flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1">
                 แอดมิน
