@@ -65,15 +65,15 @@ export default function CategoryProduct() {
             ) : (
                 <div>
 
-                    <div className="flex justify-between">
+                    <div className="flex flex-col md:flex-row justify-between">
 
                         <div>
-                            <h1 className="text-2xl font-semibold">ประเภทสินค้า {category.name}</h1>
+                            <h1 className="text-base md:text-2xl font-semibold">ประเภทสินค้า {category.name}</h1>
                         </div>
 
                         <div className="relative">
                             <input type="text" placeholder={`ค้นหาสินค้า ${category.name}`}
-                                className="w-[10rem] pl-8 placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+                                className="w-full md:w-[10rem] pl-8 placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                                 value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                             <FaSearch className="absolute top-2 left-0" />
                         </div>
