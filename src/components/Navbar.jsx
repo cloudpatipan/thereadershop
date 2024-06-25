@@ -304,13 +304,13 @@ export default function Navbar() {
             <Link to={'/category'} className="bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1">
               ประเภทสินค้า
             </Link>
-            {!localStorage.getItem('token') ? (
+           {!localStorage.getItem('token') ? (
               <div>
-                <button className="bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1" onClick={openModalLogin}>
+                <button className="w-full bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1" onClick={openModalLogin}>
                   เข้าสู่ระบบ
                 </button>
 
-                <button className="bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1" onClick={openModalRegister}>
+                <button className="w-full bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1" onClick={openModalRegister}>
                   สมัครสมาชิก
                 </button>
               </div>
