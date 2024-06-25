@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <title>E-Commerce</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <div id="bn-root"></div>
+
+    <script>window.onload = function() { BN.init({ version: '1.0' }) }</script>
+    <script>
+        (function(d, s, id) {
+            var js, bjs = d.getElementsByTagName(s)[0];
+            if(d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://console.botnoi.ai/customerchat/index.js';
+            bjs.parentNode.insertBefore(js, bjs);
+        } (document, 'script', 'bn-jssdk'));  
+    </script>
+
+    <div class="bn-customerchat"
+        bot_id="667690f98f9af3f18dbc4d09"
+        bot_logo="https://img5.pic.in.th/file/secure-sv1/Black_and_White_Simple_Bookstore_Logo__1_-removebg-preview.png"
+        bot_name="The reader"
+        theme_color="#fc823f"
+        default_open="สวัสดี ผม The reader">
+    </div>
+  </body>
+</html>
