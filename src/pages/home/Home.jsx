@@ -67,7 +67,7 @@ export default function Home() {
           <div className="flex flex-col">
             <h2>สินค้าทั้งหมด</h2>
             <p className="text-[1.5rem] font-semibold">{productCount}</p>
-            <p>คน</p>
+            <p>ชิ้น</p>
           </div>
           <FaBox size={80} />
         </div>
