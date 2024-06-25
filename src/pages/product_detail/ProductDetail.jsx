@@ -50,6 +50,7 @@ export default function ProductDetail() {
         axios.get(`/api/product-detail/${slug}`).then(response => {
             if (response.data.status === 200) {
                 setProduct(response.data.products);
+                document.title = respose.data.products.name
                 setProductRandom(response.data.product_random);
                 setLoading(false);
             } else if (response.data.status === 400) {
