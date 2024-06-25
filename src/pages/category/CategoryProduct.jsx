@@ -91,7 +91,7 @@ export default function CategoryProduct() {
                                     .map((product, index) => (
                                         <div key={index}>
                                             <Link to={`/product/detail/${product.slug}`}>
-                                                <div className="relative overflow-hidden rounded-lg w-[12rem] h-[18rem] group">
+                                                <div className="relative overflow-hidden rounded-lg group">
                                                     <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                                         <div className="flex flex-col items-center text-white text-xl">
                                                             รายละเอียด
