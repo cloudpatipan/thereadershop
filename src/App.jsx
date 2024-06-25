@@ -47,7 +47,7 @@ import CategoryProduct from './pages/category/CategoryProduct';
 export default function App() {
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = "http://itrbru.thddns.net:6440/";
+  axios.defaults.baseURL = " https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app";
   axios.defaults.headers.post['Accept'] = 'application/json';
   axios.defaults.headers.post['Content-Type'] = 'application/json';
 

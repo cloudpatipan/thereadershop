@@ -114,7 +114,7 @@ export default function CreateProduct() {
                             {image ? (
                                 <img className="w-full h-full object-cover" src={URL.createObjectURL(image)} alt="Uploaded Image" />
                             ) : (
-                                <img className="w-full h-full object-cover" src="http://itrbru.thddns.net:6440/images/product/no_image.png" alt="No Image" />
+                                <img className="w-full h-full object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/no_image.png" alt="No Image" />
                             )}
                         </div>
                         <input hidden id="imageInput" type="file" onChange={onFileChange} />

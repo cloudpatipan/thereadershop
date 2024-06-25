@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import Sidebar from '../../components/Layouts/Sidebar';
 import { IoMdTrash } from "react-icons/io";
 import { MdEdit } from "react-icons/md";
-import { FaSearch } from "react-icons/fa";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { HiListBullet } from "react-icons/hi2";
 import { HiSquares2X2 } from "react-icons/hi2";
@@ -14,8 +13,7 @@ import { CgDetailsMore } from "react-icons/cg";
 import { IoMdArrowDropright } from "react-icons/io";
 import { IoMdArrowDropleft } from "react-icons/io";
 import { IoTrashBinOutline } from "react-icons/io5";
-import { FaToggleOn } from "react-icons/fa";
-import { FaToggleOff } from "react-icons/fa6";
+
 export default function ViewAdsBanner() {
     const [loading, setLoading] = useState(true);
     const [AdsBanners, setAdsBanners] = useState([]);
@@ -133,9 +131,9 @@ export default function ViewAdsBanner() {
 
                                                     <td className="py-1 border-b">
                                                         {adsbanner.image ? (
-                                                            <img className="w-48 h-10 rounded object-cover" src={`http://itrbru.thddns.net:6440/images/adsbanner/${adsbanner.image}`} alt="" />
+                                                            <img className="w-48 h-10 rounded object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/adsbanner/${adsbanner.image}`} alt="" />
                                                         ) : (
-                                                            <img className="w-12 h-18 rounded object-cover" src="http://itrbru.thddns.net:6440/images/product/No_image.png" alt="No Image" />
+                                                            <img className="w-12 h-18 rounded object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="No Image" />
                                                         )}
                                                         {console.log(adsbanner.image)}
                                                     </td>
@@ -179,15 +177,15 @@ export default function ViewAdsBanner() {
                                                             </div>
                                                         </div>
                                                         {adsbanner.image ? (
-                                                            <img className="object-cover" src={`http://itrbru.thddns.net:6440/images/adsbanner/${adsbanner.image}`} alt="" />
+                                                            <img className="object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/adsbanner/${adsbanner.image}`} alt="" />
                                                         ) : (
-                                                            <img className="object-cover" src="http://itrbru.thddns.net:6440/images/adsbanner/no_image.png" alt="No Image" />
+                                                            <img className="object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/adsbanner/no_image.png" alt="No Image" />
                                                         )}
                                                         <div className="absolute top-1 left-1">
                                                         {adsbanner.logo ? (
-                                                            <img className="w-24 h-24 rounded-lg object-cover" src={`http://itrbru.thddns.net:6440/images/adsbanner/${adsbanner.logo}`} alt="" />
+                                                            <img className="w-24 h-24 rounded-lg object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/adsbanner/${adsbanner.logo}`} alt="" />
                                                         ) : (
-                                                            <img className="w-24 h-24 rounded-lg object-cover" src="http://itrbru.thddns.net:6440/images/adsbanner/no_image.png" alt="No Image" />
+                                                            <img className="w-24 h-24 rounded-lg object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/adsbanner/no_image.png" alt="No Image" />
                                                         )}
                                                         </div>
                                                     </div>
