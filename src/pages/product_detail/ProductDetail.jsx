@@ -33,7 +33,7 @@ export default function ProductDetail() {
             setQuantity(prevCount => prevCount + 1);
         } else {
             Swal.fire({
-                text: "จำนวนสิค้าสูงสุดแล้ว",
+                text: "จำนวนสินค้าสูงสุดแล้ว",
                 icon: "warning",
                 confirmButtonText: "ตกลง",
                 confirmButtonColor: "black",
