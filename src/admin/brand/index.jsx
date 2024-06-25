@@ -122,7 +122,7 @@ export default function ViewBrand() {
         <>
             <Sidebar>
 
-                <div className="flex justify-between items-center gap-4  mb-2 rounded-lg">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4  mb-2 rounded-lg">
                     <Link to={"create"}>
                         <button type="submit" className="w-full relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300">
                             <div>
