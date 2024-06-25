@@ -20,8 +20,9 @@ export default function Modal({ children, isOpen, onClose }) {
                 >
                     <IoCloseCircleOutline className="text-black transition-all duration-300" size={40} />
                 </button>
-                    {children}
-
+                <div className="p-10 rounded-lg bg-white">
+                {children}
+                </div>
             </div>
         </div>
     )
