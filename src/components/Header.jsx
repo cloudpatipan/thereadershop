@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
-import { RiRadioButtonFill } from 'react-icons/ri';
+import { GoDotFill } from "react-icons/go";
 import { Link } from 'react-router-dom';
 
 export default function Header() {
@@ -44,7 +44,7 @@ export default function Header() {
                   <Link to={`/product/detail/${banner.product.slug}`}>
                     <img
                       src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/adsbanner/${banner.image}`}
-                      className="w-full h-full object-cover bg-center"
+                      className="w-full h-full object-cover object-center"
                       alt="banner"
                     />
                   </Link>
@@ -64,9 +64,12 @@ export default function Header() {
                 <div
                   key={slideIndex}
                   onClick={() => goToSlide(slideIndex)}
-                  className={`cursor-pointer ${currentIndex === slideIndex ? 'text-black' : 'text-white'}`}
+                  className="cursor-pointer"
                 >
-                  <RiRadioButtonFill size={30} />
+                  <GoDotFill
+                    className={ currentIndex === slideIndex ? "text-black" : "text-white/40"}
+                    size={20}
+                  />
                 </div>
               ))}
             </div>

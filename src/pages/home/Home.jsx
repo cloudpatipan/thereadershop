@@ -6,6 +6,7 @@ import ProductPopular from './ProductPupular'
 import axios from 'axios'
 import { FaUserFriends } from "react-icons/fa";
 import { FaBox } from "react-icons/fa";
+import Info from '../../components/Info'
 
 export default function Home() {
 
@@ -13,6 +14,7 @@ export default function Home() {
 
   const [userCount, setUserCount] = useState(0);
   const [productCount, setProductCount] = useState(0);
+  const [productLast, setProductLast] = useState(0);
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [popularProducts, setPopularProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,7 +35,16 @@ export default function Home() {
       }
 
       if (productResponse.data.status === 200) {
-        setProductCount(productResponse.data.products.length);
+        const products = productResponse.data.products;
+        setProductCount(products.length);
+        
+        if (products && products.length > 0) {
+          
+          const latestProduct = products[products.length - 1];
+          
+          setProductLast([latestProduct]);
+        }
+        console.log(productLast)
       }
 
       setFeaturedProducts(featuredResponse.data);
@@ -52,26 +63,30 @@ export default function Home() {
         </div>
       ) : (
         <>
-      <Header />
-      <div className="grid grid-col-1 md:grid-cols-2 gap-4 mb-4">
-        <div className="bg-white rounded-lg border flex items-center justify-between p-4">
-          <div className="flex flex-col">
-            <h2>ผู้ใช้ทั้งหมด</h2>
-            <p className="text-[1.5rem] font-semibold">{userCount}</p>
-            <p>คน</p>
-          </div>
-          <FaUserFriends size={100} />
-        </div>
+          <Header />
+          <div className="grid grid-col-1 md:grid-cols-2 gap-4 mb-4">
+            <div className="bg-white rounded-lg border flex items-center justify-between p-4">
+              <div className="flex flex-col">
+                <h2>ผู้ใช้ทั้งหมด</h2>
+                <p className="text-[1.5rem] font-semibold">{userCount}</p>
+                <p>คน</p>
+              </div>
+              <FaUserFriends size={100} />
+            </div>
 
-        <div className="bg-white rounded-lg border flex items-center justify-between p-4">
-          <div className="flex flex-col">
-            <h2>สินค้าทั้งหมด</h2>
-            <p className="text-[1.5rem] font-semibold">{productCount}</p>
-            <p>ชิ้น</p>
+            <div className="bg-white rounded-lg border flex items-center justify-between p-4">
+              <div className="flex flex-col">
+                <h2>สินค้าทั้งหมด</h2>
+                <p className="text-[1.5rem] font-semibold">{productCount}</p>
+                <p>ชิ้น</p>
+              </div>
+              <FaBox size={80} />
+            </div>
+
           </div>
-          <FaBox size={80} />
-        </div>
-      </div>
+          <Info>
+          {productLast[0].name}
+          </Info>
           <ProductFeatured products={featuredProducts} />
           <ProductPopular products={popularProducts} />
         </>

@@ -162,8 +162,8 @@ export default function Checkout() {
                 </div>
             ) : (
                 <div>
-                    <div className="mb-4">
-                        <h1 className="text-[1.5rem] font-semibold">ชำระเงิน</h1>
+                 <div className="mb-4">
+                        <h1 className="text-base md:text-2xl font-semibold">ชำระเงิน</h1>
                     </div>
 
                     <div className="flex flex-col md:flex-row justify-between gap-4">
@@ -172,9 +172,9 @@ export default function Checkout() {
                             <div className="grid grid-cols-4 gap-4">
 
                                 <div className="col-span-2">
-                                    <label className="text-lg block font-semibold text-black">ชื่อ</label>
+                                    <label className="text-base md:text-lg block font-semibold">ชื่อ</label>
                                     <input
-                                        className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+                                        className="block w-full placeholder:text-sm text-sm md:text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                                         type="text"
                                         name="firstname"
                                         placeholder="กรุณาใส่ชื่อจริง"
@@ -184,9 +184,9 @@ export default function Checkout() {
                                 </div>
 
                                 <div className="col-span-2">
-                                    <label className="text-lg block font-semibold text-black">นามสกุล</label>
+                                    <label className="text-base md:text-lg block font-semibold">นามสกุล</label>
                                     <input
-                                        className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+                                        className="block w-full placeholder:text-sm text-sm md:text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                                         type="text"
                                         name="lastname"
                                         placeholder="กรุณาใส่นามสกุล"
@@ -196,7 +196,7 @@ export default function Checkout() {
                                 </div>
 
                                 <div className="col-span-2">
-                                    <label className="text-lg block font-semibold text-black">เบอร์โทรศัพท์</label>
+                                    <label className="text-base md:text-lg block font-semibold">เบอร์โทรศัพท์</label>
                                     <input
                                         className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                                         type="tel"
@@ -208,7 +208,7 @@ export default function Checkout() {
                                 </div>
 
                                 <div className="col-span-2">
-                                    <label className="text-lg block font-semibold text-black">อีเมล</label>
+                                    <label className="text-base md:text-lg block font-semibold">อีเมล</label>
                                     <input
                                         className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                                         type="email"
@@ -220,7 +220,7 @@ export default function Checkout() {
                                 </div>
 
                                 <div className="col-span-4">
-                                    <label className="text-lg block font-semibold text-black">ที่อยู่</label>
+                                    <label className="text-base md:text-lg block font-semibold">ที่อยู่</label>
                                     <textarea
                                         className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                                         name="address"
@@ -236,11 +236,11 @@ export default function Checkout() {
                             </Button>
 
                             <Modal isOpen={isModalEvidence} onClose={closeModalEvidence}>
-                                <div className="p-10 bg-white">
+                                <div className="h-[25rem] overflow-y-scroll">
                                     <h1 className="text-2xl font-semibold text-center text-black mb-4">QR Payment</h1>
                                     <p className="text-sm text-center mb-1">ส่งหลักฐานเป็นรูปภาพ</p>
                                     <div>
-                                        <div className="mx-auto cursor-pointer relative md:w-[18rem] h-[24rem] overflow-hidden group rounded-lg">
+                                        <div className="mx-auto cursor-pointer relative overflow-hidden group rounded-lg">
                                             <div
                                                 className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300"
                                                 onClick={handleImageUpload}
@@ -278,7 +278,7 @@ export default function Checkout() {
 
                                         <div id="cartItem" key={index} className="border-b py-1 w-full">
                                             <div className="flex gap-4">
-                                                <div className="w-[6rem] h-[7.5rem] overflow-hidden rounded-lg">
+                                                <div className="overflow-hidden rounded-lg w-[10rem]">
                                                     {cart.product.image ? (
                                                         <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/${cart.product.image}`} alt={`รูปภาพสินค้า ${cart.product.name}`} />
                                                     ) : (
@@ -288,15 +288,15 @@ export default function Checkout() {
                                                 <div className="flex justify-between w-full">
                                                     <div className="flex flex-col justify-between">
                                                         <div>
-                                                            <h1 className="text-2xl font-semibold">{cart.product.name}</h1>
-                                                            <h2 className="text-black/40">{cart.product.category.name}</h2>
+                                                            <h1 className="text-base md:text-2xl font-semibold">{cart.product.name}</h1>
+                                                            <h2 className="text-sm md:text-base text-black/40">{cart.product.category.name}</h2>
                                                         </div>
                                                         <div>
-                                                            <span className="text-2xl font-semibold">{cart.product.price * cart.product_qty} บาท</span>
+                                                            <span className="text-base md:text-2xl font-semibold">{cart.product.price * cart.product_qty} บาท</span>
                                                         </div>
                                                     </div>
 
-                                                    <div className="text-[1.2rem] font-semibold">
+                                                    <div className="text-base md:text-2xl font-semibold">
                                                         {cart.product_qty}
                                                     </div>
 
@@ -318,11 +318,11 @@ export default function Checkout() {
 
                                 <div className="border-b">
                                     <div className="flex items-center justify-between">
-                                        <div className="text-[1rem] font-semibold">
+                                        <div className="text-sm md:text-xl font-semibold">
                                             ราคารวม:
                                         </div>
 
-                                        <div className="text-[1.2rem] font-semibold">
+                                        <div className="text-base md:text-2xl font-semibold">
                                             {totalCartPrice} บาท
                                         </div>
                                     </div>
@@ -345,11 +345,11 @@ export default function Checkout() {
                                             </Button>
 
                                             <Modal isOpen={isModalBank[bank.id]} onClose={() => closeModalBank(bank.id)} title={`บัญชีธนาคาร ${bank.name}`}>
-                                                <div className="p-10 bg-white w-[30rem] h-[34rem] overflow-scroll">
+                                            <div className="h-[25rem] overflow-y-scroll">
                                                     <h1 className="text-xl font-semibold text-center">ธนาคาร {bank.name}</h1>
                                                     <p className="text-sm text-center mb-1">ส่งหลักฐานเป็นรูปภาพ</p>
                                                     <div>
-                                                        <div className="mx-auto cursor-pointer relative md:w-[18rem] h-[24rem] overflow-hidden group rounded-lg">
+                                                        <div className="mx-auto cursor-pointer relative overflow-hidden group rounded-lg">
                                                             <div
                                                                 className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300"
                                                                 onClick={handleImageUpload}
@@ -367,10 +367,10 @@ export default function Checkout() {
 
                                                     <div className="flex items-center justify-between my-2">
                                                         <p className="text-black/40 font-semibold">ราคารวม</p>
-                                                        <span className="text-lg font-semibold">{totalCartPrice} บาท</span>
+                                                        <span className="text-sm md:text-lg font-semibold">{totalCartPrice} บาท</span>
                                                     </div>
                                                     <div className="block">รายละเอียดบัญชีธนาคาร:
-                                                        <p>
+                                                        <p className="text-sm">
                                                             {bank.description}
                                                         </p>
                                                     </div>
