@@ -19,6 +19,7 @@ import { IoLogOut } from "react-icons/io5";
 import Button from './Button';
 import { UserContext } from '../context/UserContext';
 import { CartContext } from '../context/CartContext';
+import ModalImage from './ModalImage';
 export default function Navbar() {
 
   const navigate = useNavigate();
@@ -239,7 +240,7 @@ export default function Navbar() {
                           <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/no_image.png" alt="No Image" />
                         )}
                       </div>
-                      <Modal isOpen={isModalOpenAvatar} onClose={closeModalAvatar}>
+                      <ModalImage isOpen={isModalOpenAvatar} onClose={closeModalAvatar}>
                         <div className="w-[24rem] h-[34rem] overflow-hidden">
                           {user.avatar ? (
                             <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
@@ -247,7 +248,7 @@ export default function Navbar() {
                             <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/no_image.png" alt="No Image" />
                           )}
                         </div>
-                      </Modal>
+                      </ModalImage>
                       <div className="flex flex-col">
                         <div className="text-xs text-center relative flex justify-center items-center gap-2 rounded-full bg-black font-medium uppercase text-white">
                           {user.role}
