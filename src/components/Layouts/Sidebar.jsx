@@ -2,10 +2,6 @@ import React, { useContext, useState } from 'react';
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
-import { FaRegMessage } from "react-icons/fa6";
-import { TbDeviceDesktopAnalytics } from "react-icons/tb";
-import { FaRegFile } from "react-icons/fa";
-import { IoSettingsOutline } from "react-icons/io5";
 import { LuShoppingBag } from "react-icons/lu";
 import { AiOutlineProduct } from "react-icons/ai";
 import { MdOutlineBrandingWatermark } from "react-icons/md";
@@ -16,11 +12,13 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../Footer';
 import { UserContext } from '../../context/UserContext';
 import { PiFlagBannerFoldBold } from "react-icons/pi";
+import { AiOutlineHome } from "react-icons/ai";
 export default function Sidebar({ children }) {
     const { user, token, setUser, setToken } = useContext(UserContext);
     const navigate = useNavigate();
 
     const menus = [
+        { name: "หน้าหลัก", link: "/", icon: AiOutlineHome },
         { name: "แดชบอร์ด", link: "/dashboard", icon: MdOutlineDashboard },
         { name: "แบนเนอร์", link: "/admin/adsbanner", icon: PiFlagBannerFoldBold },
         { name: "ผู้ใช้", link: "/admin/user", icon: FaRegUser },
@@ -47,9 +45,9 @@ export default function Sidebar({ children }) {
 
                                 <div className="w-[3rem] h-[3rem] rounded-lg overflow-hidden cursor-pointer group">
                                     {user.avatar ? (
-                                        <img className="w-full h-full object-cover" src={`https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                                        <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
                                     ) : (
-                                        <img className="w-full h-full object-cover" src="https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                                        <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="No Image" />
                                     )}
                                 </div>
 
