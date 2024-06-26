@@ -234,17 +234,17 @@ export default function Navbar() {
                         </div>
 
                         {user.avatar ? (
-                          <img className="w-full h-full object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                          <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
                         ) : (
-                          <img className="w-full h-full object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/no_image.png" alt="No Image" />
+                          <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/no_image.png" alt="No Image" />
                         )}
                       </div>
                       <Modal isOpen={isModalOpenAvatar} onClose={closeModalAvatar}>
                         <div className="w-[24rem] h-[34rem] overflow-hidden">
                           {user.avatar ? (
-                            <img className="w-full h-full object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                            <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
                           ) : (
-                            <img className="w-full h-full object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/no_image.png" alt="No Image" />
+                            <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/no_image.png" alt="No Image" />
                           )}
                         </div>
                       </Modal>

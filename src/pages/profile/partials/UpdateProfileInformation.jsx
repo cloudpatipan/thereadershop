@@ -125,9 +125,9 @@ export default function UserProfile() {
           {newAvatar ? (
             <img className="w-full h-full object-cover" src={URL.createObjectURL(newAvatar)} alt="New Uploaded avatar" />
           ) : user.avatar ? (
-            <img className="w-full h-full object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+            <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
           ) : (
-            <img className="w-full h-full object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="No avatar" />
+            <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="No avatar" />
           )}
           <input hidden id="avatarInput" type="file" onChange={onFileChange} />
           <div className="text-red-700 text-sm">{error.avatar}</div>

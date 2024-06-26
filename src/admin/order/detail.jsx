@@ -126,9 +126,9 @@ export default function DetailOrder() {
           </div>
           <div className="w-[10rem] h-[14rem] overflow-hidden rounded-lg">
             {order.payment_image ? (
-              <img className="rounded object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/payment_image/${order.payment_image}`} alt="" />
+              <img className="rounded object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/payment_image/${order.payment_image}`} alt="" />
             ) : (
-              <img className="rounded object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/no_image.png" alt="No Image" />
+              <img className="rounded object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/no_image.png" alt="No Image" />
             )}
           </div>
 

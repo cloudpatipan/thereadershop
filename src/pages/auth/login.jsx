@@ -62,7 +62,7 @@ export default function Login() {
     }
 
     return (
-        <div className="p-10 bg-white md:w-[25rem]">
+        <div>
             <h1 className="text-2xl font-semibold text-center text-black mb-4">เข้าสู่ระบบ</h1>
             <form onSubmit={SubmitLogin}>
                 <div>

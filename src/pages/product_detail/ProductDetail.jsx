@@ -138,16 +138,16 @@ export default function ProductDetail() {
                                         </div>
                                     </div>
                                     {product.image ? (
-                                        <img className="w-full h-full object-cover" src={`https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/${product.image}`} alt="" />
+                                        <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/${product.image}`} alt="" />
                                     ) : (
-                                        <img className="w-full h-full object-cover" src="https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                                        <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="No Image" />
                                     )}
                                     <div>
                                         <ModalImage isOpen={isModalOpen} onClose={closeModal}>
                                             {product.image ? (
-                                                <img className="rounded-lg w-full h-full object-cover" src={`https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/${product.image}`} alt="" />
+                                                <img className="rounded-lg w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/${product.image}`} alt="" />
                                             ) : (
-                                                <img className=" rounded-lg w-full h-full object-cover" src="https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                                                <img className=" rounded-lg w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="No Image" />
                                             )}
                                         </ModalImage>
                                     </div>
@@ -203,9 +203,9 @@ export default function ProductDetail() {
                                                             </div>
                                                         </div>
                                                         {item.image ? (
-                                                            <img className="rounded-lg w-full h-full object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/${item.image}`} alt={item.name} />
+                                                            <img className="rounded-lg w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/${item.image}`} alt={item.name} />
                                                         ) : (
-                                                            <img className="rounded-lg w-full h-full object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                                                            <img className="rounded-lg w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="No Image" />
                                                         )}
                                                     </div>
                                                 </a>

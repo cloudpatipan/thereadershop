@@ -119,9 +119,9 @@ export default function EditBank() {
                             {newImage ? (
                                 <img className="w-full h-full object-cover" src={URL.createObjectURL(newImage)} alt="New Uploaded Image" />
                             ) : image ? (
-                                <img className="w-full h-full object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/bank/${image}`} alt={`รูปภาพของ ${name}`} />
+                                <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/bank/${image}`} alt={`รูปภาพของ ${name}`} />
                             ) : (
-                                <img className="w-full h-full object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/no_image.png" alt="No Image" />
+                                <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/no_image.png" alt="No Image" />
                             )}
                         </div>
                         <input hidden id="imageInput" type="file" onChange={onFileChangeImage} />
@@ -133,7 +133,7 @@ export default function EditBank() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full h-full">
 
                         <div>
-                            <div className="cursor-pointer relative md:w-[10rem] md:h-[10rem] overflow-hidden group rounded-lg">
+                        <div className="cursor-pointer relative w-full h-[30rem] overflow-hidden group rounded-lg">
                                 <div
                                     className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300"
                                     onClick={handleImageUploadLogo}
@@ -146,9 +146,9 @@ export default function EditBank() {
                                 {newLogo ? (
                                     <img className="w-full h-full object-cover" src={URL.createObjectURL(newLogo)} alt="New Uploaded Image" />
                                 ) : logo ? (
-                                    <img className="w-full h-full object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/bank/logo/${logo}`} alt={`รูปภาพของ ${name}`} />
+                                    <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/bank/logo/${logo}`} alt={`รูปภาพของ ${name}`} />
                                 ) : (
-                                    <img className="w-full h-full object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/no_image.png" alt="No Image" />
+                                    <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/no_image.png" alt="No Image" />
                                 )}
                             </div>
                             <input hidden id="logoInput" type="file" onChange={onFileChangeLogo} />

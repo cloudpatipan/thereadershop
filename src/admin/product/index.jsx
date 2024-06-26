@@ -297,9 +297,9 @@ export default function ViewProduct() {
                                                 <tr key={index}>
                                                     <td className="py-1 border-b">
                                                         {product.image ? (
-                                                            <img className="w-12 h-18 rounded object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/${product.image}`} alt="" />
+                                                            <img className="w-12 h-18 rounded object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/${product.image}`} alt="" />
                                                         ) : (
-                                                            <img className="w-12 h-18 rounded object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/no_image.png" alt="No Image" />
+                                                            <img className="w-12 h-18 rounded object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/no_image.png" alt="No Image" />
                                                         )}
                                                     </td>
                                                     <td className="py-1 border-b">{product.name}</td>
@@ -382,9 +382,9 @@ export default function ViewProduct() {
                                                             </div>
                                                         </div>
                                                         {product.image ? (
-                                                            <img className="rounded-lg w-full h-full object-cover" src={` https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/${product.image}`} alt={product.name} />
+                                                            <img className="rounded-lg w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/${product.image}`} alt={product.name} />
                                                         ) : (
-                                                            <img className="rounded-lg w-full h-full object-cover" src=" https://c45c-2405-9800-b540-dc40-d538-9787-5ce1-fc75.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                                                            <img className="rounded-lg w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="No Image" />
                                                         )}
                                                     </div>
                                                 </Link>
