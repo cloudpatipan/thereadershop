@@ -7,24 +7,40 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token') || '');
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (token) {
-        try {
-          const response = await axios.get('/api/user');
-          setUser(response.data);
-        } catch (error) {
-          console.error('เกิดข้อผิดพลาดกับการดึงข้อมูลผู้ใช้:', error);
-          setToken(null);
-          setUser(null);
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
-        }
-      }
-    };
 
+  useEffect(() => {
     fetchUser();
-  }, [token]);
+  }, [token, user]);
+
+  
+  const fetchUser = async () => {
+    axios.get('/api/user').then(response => {
+      if (response.data.status === 200) {
+        setUser(response.data);
+        setLoading(false);
+      } else if (response.data.status === 400) {
+        Swal.fire({
+          icon: "error",
+          text: response.data.message,
+          confirmButtonText: "ตกลง",
+          confirmButtonColor: "black",
+          focusConfirm: false,
+        }).then(() => {
+          navigate('/');
+        });
+      } else if (response.data.status === 401) {
+        Swal.fire({
+          icon: "warning",
+          text: response.data.message,
+          confirmButtonText: "ตกลง",
+          confirmButtonColor: "black",
+          focusConfirm: false,
+        }).then(() => {
+          navigate('/');
+        });
+      }
+    });
+  };
 
   return (
     <UserContext.Provider value={{ user, setUser, token, setToken }}>
