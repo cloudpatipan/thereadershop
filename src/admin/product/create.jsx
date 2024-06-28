@@ -156,7 +156,7 @@ export default function CreateProduct() {
                             {image ? (
                                 <img className="w-full h-full object-cover" src={URL.createObjectURL(image)} alt="อัพโหลดรูปภาพ" />
                             ) : (
-                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
+                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
                             )}
                         </div>
                         <input hidden id="imageInput" type="file" onChange={onFileChange} />
@@ -303,12 +303,16 @@ export default function CreateProduct() {
                                         className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
                                         onClick={() => deleteAdditionalImage(index)}
                                     >
-                                        <span className="text-white text-lg"><IoTrashBinOutline size={50}/></span>
+                                        <span className="text-white text-lg"><IoTrashBinOutline size={50} /></span>
                                     </div>
                                 </div>
                             ))}
 
-                            <div className="text-red-700 text-sm">{error.additional_images}</div>
+                            <div className="text-red-700 text-sm">
+                                {error.additional_images && error.additional_images.map((error, index) => (
+                                    <div key={index}>{error}</div>
+                                ))}
+                            </div>
                         </div>
 
 

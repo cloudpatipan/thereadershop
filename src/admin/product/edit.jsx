@@ -360,7 +360,11 @@ export default function EditProduct() {
                                 </div>
                             ))}
                         </div>
-                        <div className="text-red-700 text-sm">{error.additional_images}</div>
+                        <div className="text-red-700 text-sm">
+                            {error.additional_images && error.additional_images.map((error, index) => (
+                                <div key={index}>{error}</div>
+                            ))}
+                        </div>
                     </div>
 
                 </div>

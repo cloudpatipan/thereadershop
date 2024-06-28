@@ -46,7 +46,6 @@ export default function ProductDetail() {
 
     const displayedComments = comments.slice(pageNumber * commentsPerPage, (pageNumber + 1) * commentsPerPage);
 
-
     const handleDecrement = () => {
         if (quantity > 1) {
             setQuantity(prevCount => prevCount - 1);
@@ -76,7 +75,6 @@ export default function ProductDetail() {
                     document.title = response.data.products.name;
                     setProductRandom(response.data.product_random);
                     setAdditionalImages(response.data.products.additional_images);
-                    setComments(response.data.products.comments);
                     setLoading(false);
                 } else if (response.data.status === 400) {
                     Swal.fire({
@@ -283,10 +281,10 @@ export default function ProductDetail() {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     useEffect(() => {
-        fetchUserProfile();
-      }, []);
+        fetchUser();
+      }, [user]);
     
-      const fetchUserProfile = async () => {
+      const fetchUser = async () => {
         axios.get('/api/user').then(response => {
           if (response.data.status === 200) {
             setUser(response.data.user);
@@ -405,8 +403,8 @@ export default function ProductDetail() {
                                 <div className="w-full md:w-[80%]">
                                     <h2 className="text-sm md:text-base block text-black/30 md:text-base font-semibold">{product.category.name}</h2>
                                     <h1 className="text-base md:text-2xl font-semibold mb-4">{product.name}</h1>
-                                    <span className="text-sm md:text-xl font-semibold">รายละเอียด</span>
-                                    <p className="text-base md:text-xl">{product.description}</p>
+                                    <span className="text-base md:text-lg font-semibold">รายละเอียด</span>
+                                    <p className="text-sm md:text-base">{product.description}</p>
                                     <p className="mt-4 text-base md:text-xl font-semibold">
                                         <span className="font-semibold text-sm md:text-base block text-black/30">
                                             ราคารวม
@@ -435,11 +433,49 @@ export default function ProductDetail() {
                                 </div>
                             </div>
 
+                            <div>
+                                <h1 className="text-base md:text-2xl font-semibold mt-4">สินค้าที่คุณอาจจะสนใจ</h1>
+
+                                <div className="grid grid-cols-3 md:grid-cols-6 gap-2 mt-4 border p-4 rounded-lg">
+                                    {product_random.length > 0 ? (
+                                        product_random.map((item, index) => (
+                                            <div key={index}>
+                                                <Link to={`/product/detail/${item.slug}`}>
+
+                                                    <div className="relative overflow-hidden rounded-lg group">
+                                                        <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                                            <div className="flex flex-col items-center text-white text-base md:text-xl">
+                                                                รายละเอียด
+                                                                <CgDetailsMore size={28} />
+                                                            </div>
+                                                        </div>
+                                                        {item.image ? (
+                                                            <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/${item.image}`} alt={item.name} />
+                                                        ) : (
+                                                            <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png" alt="No Im`} />
+                                                        )}
+                                                    </div>
+                                                </Link>
+                                                <div className="p-2 text-center">
+                                                    <p className="text-sm md:text-base font-semibold text-clip overflow-hidden">{item.name}</p>
+                                                    <p className="text-sm text-clip overflow-hidden text-black/40 font-semibold">{item.category.name}</p>
+                                                    <span className="font-bold">฿ {item.price}</span>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="flex items-center justify-center rounded-lg col-span-3 md:col-span-6">
+                                            <span className="text-3xl font-semibold">ไม่มีสินค้าที่สุ่ม</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
                             <div className="mt-4">
                                 <h2 className="text-[1.5rem] font-semibold">ความคิดเห็น</h2>
                                 <div className="flex flex-col gap-4 border rounded-lg mt-2 p-4 overflow-scroll">
-                                    {comments.length > 0 ? (
-                                        comments.map((comment, index) => (
+                                    {displayedComments.length > 0 ? (
+                                        displayedComments.map((comment, index) => (
                                             <div key={index} className="p-4 border rounded-lg">
                                                 <div className="flex gap-2">
 
@@ -516,6 +552,22 @@ export default function ProductDetail() {
                                     )}
                                 </div>
 
+                                {user ? (
+                                    <form onSubmit={addComment}>
+                                        <textarea
+                                            value={text}
+                                            onChange={(e) => setText(e.target.value)}
+                                            placeholder="เขียนความคิดเห็นของคุณที่นี่..."
+                                            className="h-[5rem] p-2 border rounded-lg mt-2 w-full"
+                                        />
+                                        <div className="flex gap-2 mt-2">
+                                            <Button type="submit" icon={<FaPaperPlane size={20} />}>
+                                                ส่งความคิดเห็น
+                                            </Button>
+                                        </div>
+                                    </form>
+                                ) : null}
+
                                 <ReactPaginate
                                     previousLabel={
                                         <span className="w-10 h-10 flex items-center justify-center bg-black rounded-full text-white">
@@ -539,61 +591,8 @@ export default function ProductDetail() {
                                     activeClassName="bg-black/40"
                                 />
 
-
-                                {user ? (
-                                    <form onSubmit={addComment}>
-                                        <textarea
-                                            value={text}
-                                            onChange={(e) => setText(e.target.value)}
-                                            placeholder="เขียนความคิดเห็นของคุณที่นี่..."
-                                            className="h-[5rem] p-2 border rounded-lg mt-2 w-full"
-                                        />
-                                        <div className="flex gap-2 mt-2">
-                                            <Button type="submit" icon={<FaPaperPlane size={20} />}>
-                                                ส่งความคิดเห็น
-                                            </Button>
-                                        </div>
-                                    </form>
-                                ) : null}
                             </div>
 
-                            <div>
-                                <h1 className="text-base md:text-2xl font-semibold mt-4">สินค้าที่คุณอาจจะสนใจ</h1>
-
-                                <div className="grid grid-cols-3 md:grid-cols-6 gap-2 mt-4 border p-4 rounded-lg">
-                                    {product_random.length > 0 ? (
-                                        product_random.map((item, index) => (
-                                            <div key={index}>
-                                                <Link to={`/product/detail/${item.slug}`}>
-
-                                                    <div className="relative overflow-hidden rounded-lg group">
-                                                        <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                                            <div className="flex flex-col items-center text-white text-base md:text-xl">
-                                                                รายละเอียด
-                                                                <CgDetailsMore size={28} />
-                                                            </div>
-                                                        </div>
-                                                        {item.image ? (
-                                                            <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/${item.image}`} alt={item.name} />
-                                                        ) : (
-                                                            <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png" alt="No Im`} />
-                                                        )}
-                                                    </div>
-                                                </Link>
-                                                <div className="p-2 text-center">
-                                                    <p className="text-sm md:text-base font-semibold text-clip overflow-hidden">{item.name}</p>
-                                                    <p className="text-sm text-clip overflow-hidden text-black/40 font-semibold">{item.category.name}</p>
-                                                    <span className="font-bold">฿ {item.price}</span>
-                                                </div>
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <div className="flex items-center justify-center rounded-lg col-span-3 md:col-span-6">
-                                            <span className="text-3xl font-semibold">ไม่มีสินค้าที่สุ่ม</span>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
                         </div>
                     )}
                 </section>

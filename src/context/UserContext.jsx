@@ -4,20 +4,20 @@ import axios from 'axios';
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState([]);
   const [token, setToken] = useState(localStorage.getItem('token') || '');
 
 
   useEffect(() => {
     fetchUser();
-  }, [token, user]);
+  }, [token]);
 
-  
   const fetchUser = async () => {
     axios.get('/api/user').then(response => {
       if (response.data.status === 200) {
         setUser(response.data);
-        setLoading(false);
+        setToken(response.data.token)
+        console.log(response.data.user)
       } else if (response.data.status === 400) {
         Swal.fire({
           icon: "error",
