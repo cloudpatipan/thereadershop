@@ -131,9 +131,9 @@ export default function ViewAdsBanner() {
 
                                                     <td className="py-1 border-b">
                                                         {adsbanner.image ? (
-                                                            <img className="w-48 h-10 rounded object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/adsbanner/${adsbanner.image}`} alt="" />
+                                                            <img className="w-48 h-10 rounded object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/adsbanner/${adsbanner.image}`} alt="" />
                                                         ) : (
-                                                            <img className="w-12 h-18 rounded object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/No_image.png" alt="No Image" />
+                                                            <img className="w-12 h-18 rounded object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/No_image.png" alt="No Image" />
                                                         )}
                                                         {console.log(adsbanner.image)}
                                                     </td>
@@ -177,15 +177,15 @@ export default function ViewAdsBanner() {
                                                             </div>
                                                         </div>
                                                         {adsbanner.image ? (
-                                                            <img className="object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/adsbanner/${adsbanner.image}`} alt="" />
+                                                            <img className="object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/adsbanner/${adsbanner.image}`} alt="" />
                                                         ) : (
-                                                            <img className="object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/adsbanner/no_image.png" alt="No Image" />
+                                                            <img className="object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/adsbanner/no_image.png" alt="No Image" />
                                                         )}
                                                         <div className="absolute top-1 left-1">
                                                             {adsbanner.logo ? (
-                                                                <img className="w-24 h-24 rounded-lg object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/adsbanner/${adsbanner.logo}`} alt="" />
+                                                                <img className="w-24 h-24 rounded-lg object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/adsbanner/${adsbanner.logo}`} alt="" />
                                                             ) : (
-                                                                <img className="w-24 h-24 rounded-lg object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/adsbanner/no_image.png" alt="No Image" />
+                                                                <img className="w-24 h-24 rounded-lg object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/adsbanner/no_image.png" alt="No Image" />
                                                             )}
                                                         </div>
                                                     </div>

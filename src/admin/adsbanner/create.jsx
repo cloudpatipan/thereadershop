@@ -90,7 +90,7 @@ export default function CreateAdsBanner() {
                             {image ? (
                                 <img className="w-full h-full object-cover" src={URL.createObjectURL(image)} alt="Uploaded Image" />
                             ) : (
-                                <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/no_image.png" alt="No Image" />
+                                <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/no_image.png" alt="No Image" />
                             )}
                         </div>
                         <input hidden id="imageInput" type="file" onChange={onFileChangeImage} />

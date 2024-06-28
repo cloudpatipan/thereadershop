@@ -218,9 +218,9 @@ export default function Navbar() {
                     header={
                       <div className="w-[3rem] h-[3rem] rounded-full overflow-hidden cursor-pointer" onClick={handleToggleDropdown}>
                         {user.avatar ? (
-                          <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                          <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
                         ) : (
-                          <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/No_image.png" alt="No Image" />
+                          <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/No_image.png" alt="No Image" />
                         )}
                       </div>
                     }
@@ -235,17 +235,17 @@ export default function Navbar() {
                         </div>
 
                         {user.avatar ? (
-                          <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                          <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
                         ) : (
-                          <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/no_image.png" alt="No Image" />
+                          <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/no_image.png" alt="No Image" />
                         )}
                       </div>
                       <ModalImage isOpen={isModalOpenAvatar} onClose={closeModalAvatar}>
                         <div className="w-[24rem] h-[34rem] overflow-hidden">
                           {user.avatar ? (
-                            <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                            <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
                           ) : (
-                            <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/no_image.png" alt="No Image" />
+                            <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/no_image.png" alt="No Image" />
                           )}
                         </div>
                       </ModalImage>

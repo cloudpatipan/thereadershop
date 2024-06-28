@@ -200,9 +200,9 @@ export default function EditProduct() {
                             {newImage ? (
                                 <img className="w-full h-full object-cover" src={URL.createObjectURL(newImage)} alt="New Uploaded Image" />
                             ) : image ? (
-                                <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/${image}`} alt={`รูปภาพของ ${name}`} />
+                                <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/${image}`} alt={`รูปภาพของ ${name}`} />
                             ) : (
-                                <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/no_image.png" alt="No Image" />
+                                <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/no_image.png" alt="No Image" />
                             )}
                         </div>
                         <input hidden id="imageInput" type="file" onChange={onFileChange} />
@@ -338,7 +338,7 @@ export default function EditProduct() {
                                     {additional_image.id ? (
                                         <img
                                             className="w-full h-full object-cover rounded"
-                                            src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/${additional_image.additional_image}`}
+                                            src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/${additional_image.additional_image}`}
                                             alt={`รูปภาพเพิ่มเติม ${index}`}
                                         />
                                     ) : (
