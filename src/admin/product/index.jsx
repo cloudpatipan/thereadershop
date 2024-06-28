@@ -297,9 +297,9 @@ export default function ViewProduct() {
                                                 <tr key={index}>
                                                     <td className="py-1 border-b">
                                                         {product.image ? (
-                                                            <img className="w-12 h-18 rounded object-cover" src={`http://localhost:8000/images/product/${product.image}`} alt="" />
+                                                            <img className="w-12 h-18 rounded object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/${product.image}`} alt="" />
                                                         ) : (
-                                                            <img className="w-12 h-18 rounded object-cover" src="http://localhost:8000/images/product/no_image.png" alt="No Image" />
+                                                            <img className="w-12 h-18 rounded object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/no_image.png" alt="No Image" />
                                                         )}
                                                     </td>
                                                     <td className="py-1 border-b">{product.name}</td>
@@ -382,9 +382,9 @@ export default function ViewProduct() {
                                                             </div>
                                                         </div>
                                                         {product.image ? (
-                                                            <img className="rounded-lg w-full h-full object-cover" src={`http://localhost:8000/images/product/${product.image}`} alt={product.name} />
+                                                            <img className="rounded-lg w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/${product.image}`} alt={product.name} />
                                                         ) : (
-                                                            <img className="rounded-lg w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="No Image" />
+                                                            <img className="rounded-lg w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/No_image.png" alt="No Image" />
                                                         )}
                                                     </div>
                                                 </Link>

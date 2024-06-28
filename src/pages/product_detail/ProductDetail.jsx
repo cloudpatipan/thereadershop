@@ -302,16 +302,16 @@ export default function ProductDetail() {
                                             </div>
                                         </div>
                                         {product.image ? (
-                                            <img className="w-full h-full object-cover" src={`http://localhost:8000/images/product/${product.image}`} alt="" />
+                                            <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/${product.image}`} alt="" />
                                         ) : (
-                                            <img className="w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="No Image" />
+                                            <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/No_image.png" alt="No Image" />
                                         )}
                                         <div>
                                             <ModalImage isOpen={isModalOpenImage} onClose={closeModalImage}>
                                                 {product.image ? (
-                                                    <img className="rounded-lg w-full h-full object-cover" src={`http://localhost:8000/images/product/${product.image}`} alt="" />
+                                                    <img className="rounded-lg w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/${product.image}`} alt="" />
                                                 ) : (
-                                                    <img className=" rounded-lg w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="No Image" />
+                                                    <img className=" rounded-lg w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/No_image.png" alt="No Image" />
                                                 )}
                                             </ModalImage>
                                         </div>
@@ -329,7 +329,7 @@ export default function ProductDetail() {
                                                         </div>
                                                     </div>
                                                     {/* รูปภาพเพิ่มเติม */}
-                                                    <img className="w-full h-full object-cover" src={`http://localhost:8000/images/product/${item.additional_image}`} alt="" />
+                                                    <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/${item.additional_image}`} alt="" />
                                                 </div>
                                             ))
                                         ) : null}
@@ -353,7 +353,7 @@ export default function ProductDetail() {
                                                                 >
                                                                     <IoCloseCircleOutline className="text-white hover:text-red-800 transition-all duration-300" size={40} />
                                                                 </button>
-                                                                <img className="w-full h-full object-cover" src={`http://localhost:8000/images/product/${additional_images[currentImageIndex]?.additional_image}`} alt="" />
+                                                                <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/${additional_images[currentImageIndex]?.additional_image}`} alt="" />
                                                             </div>
 
                                                             <div className="cursor-pointer" onClick={() => setCurrentImageIndex((currentImageIndex + 1) % additional_images.length)}>
@@ -411,9 +411,9 @@ export default function ProductDetail() {
 
                                                     <div className="w-[3rem] h-[3rem] rounded-lg overflow-hidden cursor-pointer">
                                                         {comment.user && comment.user.avatar ? (
-                                                            <img className="w-full h-full object-cover" src={`http://localhost:8000/images/avatar/${comment.user.avatar}`} alt={`รูปภาพของ ${comment.user.name}`} />
+                                                            <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/avatar/${comment.user.avatar}`} alt={`รูปภาพของ ${comment.user.name}`} />
                                                         ) : (
-                                                            <img className="w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="No Image" />
+                                                            <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/No_image.png" alt="No Image" />
                                                         )}
 
                                                     </div>
@@ -540,9 +540,9 @@ export default function ProductDetail() {
                                                             </div>
                                                         </div>
                                                         {item.image ? (
-                                                            <img className="rounded-lg w-full h-full object-cover" src={`http://localhost:8000/images/product/${item.image}`} alt={item.name} />
+                                                            <img className="rounded-lg w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/${item.image}`} alt={item.name} />
                                                         ) : (
-                                                            <img className="rounded-lg w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="No Image" />
+                                                            <img className="rounded-lg w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/No_image.png" alt="No Image" />
                                                         )}
                                                     </div>
                                                 </Link>

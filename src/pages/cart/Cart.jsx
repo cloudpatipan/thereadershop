@@ -149,9 +149,9 @@ export default function ViewProduct() {
                                         <div className="flex gap-4">
                                             <div className="w-[6rem] h-[8rem] overflow-hidden rounded-lg">
                                                 {cart.product.image ? (
-                                                    <img className="w-full h-full object-cover" src={`http://localhost:8000/images/product/${cart.product.image}`} alt={`รูปภาพสินค้า ${cart.product.name}`} />
+                                                    <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/${cart.product.image}`} alt={`รูปภาพสินค้า ${cart.product.name}`} />
                                                 ) : (
-                                                    <img className="w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="ไม่มีรูปภาพ" />
+                                                    <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/No_image.png" alt="ไม่มีรูปภาพ" />
                                                 )}
                                             </div>
                                             <div className="flex justify-between w-full">

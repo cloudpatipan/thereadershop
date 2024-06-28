@@ -50,9 +50,9 @@ export default function ProductPopular({ products }) {
                         </div>
                       </div>
                       {product.image ? (
-                        <img className="rounded-lg w-full h-full object-cover" src={`http://localhost:8000/images/product/${product.image}`} alt={product.name} />
+                        <img className="rounded-lg w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/${product.image}`} alt={product.name} />
                       ) : (
-                        <img className="rounded-lg w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="No Image" />
+                        <img className="rounded-lg w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /images/product/No_image.png" alt="No Image" />
                       )}
                     </div>
                   </Link>
