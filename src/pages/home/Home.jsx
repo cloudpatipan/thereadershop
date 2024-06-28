@@ -30,6 +30,10 @@ export default function Home() {
       const featuredResponse = await axios.get(`/api/products-featured`);
       const popularResponse = await axios.get(`/api/products-popular`);
 
+      if (userResponse.data.status === 200) {
+        setUserCount(userResponse.data.users)
+      }
+
       if (productResponse.data.status === 200) {
         const { products, lastProduct } = productResponse.data;
 
