@@ -46,7 +46,7 @@ import CategoryProduct from './pages/category/CategoryProduct';
 export default function App() {
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = "https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app /";
+  axios.defaults.baseURL = "https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/";
   axios.defaults.headers.post['Accept'] = 'application/json';
   axios.defaults.headers.post['Content-Type'] = 'application/json';
 
