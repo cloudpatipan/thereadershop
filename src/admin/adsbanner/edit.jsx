@@ -7,6 +7,7 @@ import Sidebar from '../../components/Layouts/Sidebar';
 import { CiImageOn } from "react-icons/ci";
 import { FaRegSave } from "react-icons/fa";
 import Button from '../../components/Button';
+import baseUrl from '../../routes/BaseUrl';
 export default function EditAdsBanner() {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -113,9 +114,9 @@ export default function EditAdsBanner() {
                             {newImage ? (
                                 <img className="w-full h-full object-cover" src={URL.createObjectURL(newImage)} alt="New Uploaded Image" />
                             ) : image ? (
-                                <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/adsbanner/${image}`} alt={`รูปภาพของ ${id}`} />
+                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/adsbanner/${image}`} alt={`รูปภาพของ ${id}`} />
                             ) : (
-                                <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/no_image.png" alt="No Image" />
+                                <img className="w-full h-full object-cover" src="${baseUrl}/images/product/no_image.png" alt="No Image" />
                             )}
                         </div>
                         <input hidden id="imageInput" type="file" onChange={onFileChangeImage} />

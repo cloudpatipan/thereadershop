@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { CiCamera } from 'react-icons/ci';
 import { FaRegSave } from 'react-icons/fa';
 import { UserContext } from '../../../context/UserContext';
-
+import baseUrl from '../../../routes/BaseUrl';
 export default function UserProfile() {
   const { user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
@@ -130,9 +130,9 @@ export default function UserProfile() {
           {newAvatar ? (
             <img className="w-full h-full object-cover" src={URL.createObjectURL(newAvatar)} alt="New Uploaded avatar" />
           ) : user.avatar ? (
-            <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+            <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
           ) : (
-            <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/No_image.png" alt="No avatar" />
+            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ Avatar`} />
           )}
           <input hidden id="avatarInput" type="file" onChange={onFileChange} />
           <div className="text-red-700 text-sm">{error.avatar}</div>

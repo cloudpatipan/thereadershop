@@ -24,7 +24,7 @@ export default function Home() {
   }, []);
 
   const fetchData = async () => {
-    try {
+    
       const userResponse = await axios.get(`/api/userDashboard`);
       const productResponse = await axios.get(`/api/productDashboard`);
       const featuredResponse = await axios.get(`/api/products-featured`);
@@ -55,9 +55,6 @@ export default function Home() {
       setFeaturedProducts(featuredResponse.data);
       setPopularProducts(popularResponse.data);
       setLoading(false);
-    } catch (error) {
-      console.error('Error fetching dashboard data:', error);
-    }
   };
 
   return (

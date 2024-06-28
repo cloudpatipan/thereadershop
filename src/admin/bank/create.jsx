@@ -5,7 +5,7 @@ import axios from 'axios';
 import Sidebar from '../../components/Layouts/Sidebar';
 import { CiImageOn } from "react-icons/ci";
 import Button from '../../components/Button';
-
+import baseUrl from '../../routes/BaseUrl';
 export default function CreateBank() {
     const navigate = useNavigate();
 

@@ -20,7 +20,6 @@ export default function Dashboard() {
   const fetchOrder = async () => { 
     axios.get(`/api/orderDashboard`).then(response => {
         if (response.data.status === 200) {
-          console.log(response.data.orders);
           const orders = response.data.orders;
           const values = orders.map(data =>
             data.orderitems.reduce((total, item) => total + item.price, 0)
@@ -51,7 +50,6 @@ export default function Dashboard() {
     const fetchUsers = async () => { 
       axios.get(`/api/userDashboard`).then(response => {
         if (response.data.status === 200) {
-          console.log(response.data.users);
           const userCount = response.data.users;
           setUserCount(userCount);
         } else if (response.data.status === 400) {
@@ -77,7 +75,6 @@ export default function Dashboard() {
     const fetchProducts = async () => { 
       axios.get(`/api/productDashboard`).then(response => {
         if (response.data.status === 200) {
-          console.log(response.data.products);
           const productCount = response.data.products;
           setProductCount(productCount);
         } else if (response.data.status === 400) {

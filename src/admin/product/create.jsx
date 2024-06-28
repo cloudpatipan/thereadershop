@@ -7,6 +7,7 @@ import { CiImageOn } from "react-icons/ci";
 import Button from '../../components/Button';
 import { FaSave } from "react-icons/fa";
 import { IoTrashBinOutline } from "react-icons/io5";
+import baseUrl from '../../routes/BaseUrl';
 export default function CreateProduct() {
     const navigate = useNavigate();
 
@@ -153,9 +154,9 @@ export default function CreateProduct() {
                                 </div>
                             </div>
                             {image ? (
-                                <img className="w-full h-full object-cover" src={URL.createObjectURL(image)} alt="Uploaded Image" />
+                                <img className="w-full h-full object-cover" src={URL.createObjectURL(image)} alt="อัพโหลดรูปภาพ" />
                             ) : (
-                                <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/no_image.png" alt="No Image" />
+                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
                             )}
                         </div>
                         <input hidden id="imageInput" type="file" onChange={onFileChange} />

@@ -12,6 +12,7 @@ import { IoMdArrowDropright } from "react-icons/io";
 import { IoMdArrowDropleft } from "react-icons/io";
 import { FaToggleOn } from "react-icons/fa";
 import { FaToggleOff } from "react-icons/fa6";
+import baseUrl from '../../routes/BaseUrl';
 export default function ViewUser() {
     const [searchTerm, setSearchTerm] = useState('');
     const [users, setUsers] = useState([]);
@@ -176,9 +177,9 @@ export default function ViewUser() {
                                                         <td className="py-1 border-b">
                                                             <div className="w-[3rem] h-[3rem] overflow-hidden rounded-lg">
                                                                 {user.avatar ? (
-                                                                    <img className="w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                                                                    <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
                                                                 ) : (
-                                                                    <img className="w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                                                                    <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                                 )}
                                                             </div>
                                                         </td>
@@ -222,9 +223,9 @@ export default function ViewUser() {
                                                     <div className="relative overflow-hidden rounded-lg group">
                                                         <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
                                                         {user.avatar ? (
-                                                            <img className="object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/avatar/${user.avatar}`} alt="" />
+                                                            <img className="object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt="" />
                                                         ) : (
-                                                            <img className="object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/no_image.png" alt="No Image" />
+                                                            <img className="object-cover" src="${baseUrl}/images/no_image.png" alt="No Image" />
                                                         )}
                                                     </div>
 

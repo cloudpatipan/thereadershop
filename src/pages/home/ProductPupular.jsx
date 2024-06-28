@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import { CgDetailsMore } from "react-icons/cg";
 import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
 import { FaSearch } from "react-icons/fa";
-
+import baseUrl from '../../routes/BaseUrl';
 export default function ProductPopular({ products }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [pageNumber, setPageNumber] = useState(0);
@@ -50,9 +50,9 @@ export default function ProductPopular({ products }) {
                         </div>
                       </div>
                       {product.image ? (
-                        <img className="rounded-lg w-full h-full object-cover" src={`https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/${product.image}`} alt={product.name} />
+                        <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/${product.image}`} alt={`รูปภาพสินค้า ${product.name}`} />
                       ) : (
-                        <img className="rounded-lg w-full h-full object-cover" src="https://b3d5-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                        <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพสินค้า`} />
                       )}
                     </div>
                   </Link>

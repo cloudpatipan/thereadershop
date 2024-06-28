@@ -7,6 +7,7 @@ import Sidebar from '../../components/Layouts/Sidebar';
 import { CiImageOn } from "react-icons/ci";
 import { FaRegSave } from "react-icons/fa";
 import Button from '../../components/Button';
+import baseUrl from '../../routes/BaseUrl';
 export default function EditBank() {
     const navigate = useNavigate();
     const { id } = useParams();

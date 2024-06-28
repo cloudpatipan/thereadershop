@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { GoDotFill } from "react-icons/go";
 import { Link } from 'react-router-dom';
-
+import baseUrl from '../routes/BaseUrl';
 export default function Header() {
   const [banners, setBanners] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -43,7 +43,7 @@ export default function Header() {
                 <div key={index} className={`absolute w-full h-full ${index === currentIndex ? 'block' : 'hidden'}`}>
                   <Link to={`/product/detail/${banner.product.slug}`}>
                     <img
-                      src={`http://localhost:8000/images/adsbanner/${banner.image}`}
+                      src={`${baseUrl}/images/adsbanner/${banner.image}`}
                       className="w-full h-full object-cover object-center"
                       alt="banner"
                     />
@@ -75,7 +75,7 @@ export default function Header() {
             </div>
           </>
         ) : (
-          <div className="flex items-center justify-center h-[24rem]">
+          <div className="flex items-center justify-center h-[10rem] md:h-[24rem] rounded-lg border">
             <span className="text-3xl font-semibold">ไม่มีแบนเนอร์สินค้า</span>
           </div>
         )}

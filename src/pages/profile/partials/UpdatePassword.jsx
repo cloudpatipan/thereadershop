@@ -27,10 +27,6 @@ export default function UpdatePassword() {
         current_password: currentPassword,
         new_password: newPassword,
         new_password_confirmation: newPasswordConfirmation
-      }, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
       }).then(response => {
         if(response.data.status === 200)
             {
