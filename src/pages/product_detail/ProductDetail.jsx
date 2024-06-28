@@ -281,6 +281,39 @@ export default function ProductDetail() {
 
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+    useEffect(() => {
+        fetchUserProfile();
+      }, []);
+    
+      const fetchUserProfile = async () => {
+        axios.get('/api/user').then(response => {
+          if (response.data.status === 200) {
+            setUser(response.data.user);
+            setLoading(false);
+          } else if (response.data.status === 400) {
+            Swal.fire({
+              icon: "error",
+              text: response.data.message,
+              confirmButtonText: "ตกลง",
+              confirmButtonColor: "black",
+              focusConfirm: false,
+            }).then(() => {
+              navigate('/');
+            });
+          } else if (response.data.status === 401) {
+            Swal.fire({
+              icon: "warning",
+              text: response.data.message,
+              confirmButtonText: "ตกลง",
+              confirmButtonColor: "black",
+              focusConfirm: false,
+            }).then(() => {
+              navigate('/');
+            });
+          }
+        });
+      };
+    
 
     return (
         <>
