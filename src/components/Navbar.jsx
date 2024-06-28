@@ -31,24 +31,8 @@ export default function Navbar() {
   const { cartCount, setCartCount } = useContext(CartContext);
 
   useEffect(() => {
-    if (token) {
-      fetchUserData();
       fetchCart();
-    }
-  }, [token]);
-
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.get('/api/profile');
-      if (response.data.status === 200) {
-        setUser(response.data.user);
-      } else {
-        handleResponseError(response.data);
-      }
-    } catch (error) {
-      console.error('Failed to fetch user data:', error);
-    }
-  };
+  }, []);
 
   const fetchCart = async () => {
     axios.get(`/api/cart`).then(response => {

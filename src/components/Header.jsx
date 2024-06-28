@@ -42,11 +42,19 @@ export default function Header() {
               {banners.map((banner, index) => (
                 <div key={index} className={`absolute w-full h-full ${index === currentIndex ? 'block' : 'hidden'}`}>
                   <Link to={`/product/detail/${banner.product.slug}`}>
+                  {banner ? (
+                     <img
+                     src={`${baseUrl}/images/adsbanner/${banner.image}`}
+                     className="w-full h-full object-cover object-center"
+                     alt="banner"
+                   />
+                  ) : (
                     <img
-                      src={`${baseUrl}/images/adsbanner/${banner.image}`}
-                      className="w-full h-full object-cover object-center"
-                      alt="banner"
-                    />
+                    src={`${baseUrl}/images/product/No_image.png`}
+                    className="w-full h-full object-cover object-center"
+                    alt={`ไม่มีรูปภาพ`}
+                  /> 
+                  )}
                   </Link>
                 </div>
               ))}
@@ -75,9 +83,11 @@ export default function Header() {
             </div>
           </>
         ) : (
-          <div className="flex items-center justify-center h-[10rem] md:h-[24rem] rounded-lg border">
-            <span className="text-3xl font-semibold">ไม่มีแบนเนอร์สินค้า</span>
-          </div>
+          <img
+          src={`${baseUrl}/images/product/No_image.png`}
+          className="w-full h-full object-cover object-center"
+          alt={`ไม่มีรูปภาพ`}
+        /> 
         )}
       </div>
     </header>

@@ -68,32 +68,32 @@ export default function ProductDetail() {
 
     useEffect(() => {
         const fetchProductDetail = async () => {
-        
-                const response = await axios.get(`/api/product-detail/${slug}`);
-                if (response.data.status === 200) {
-                    setProduct(response.data.products);
-                    document.title = response.data.products.name;
-                    setProductRandom(response.data.product_random);
-                    setAdditionalImages(response.data.products.additional_images);
-                    setLoading(false);
-                } else if (response.data.status === 400) {
-                    Swal.fire({
-                        icon: "error",
-                        text: response.data.message,
-                        confirmButtonText: "ตกลง",
-                        confirmButtonColor: "black",
-                        focusConfirm: false,
-                    });
-                } else if (response.data.status === 401) {
-                    Swal.fire({
-                        icon: "warning",
-                        text: response.data.message,
-                        confirmButtonText: "ตกลง",
-                        confirmButtonColor: "black",
-                        focusConfirm: false,
-                    });
-                    navigate('/');
-                }
+
+            const response = await axios.get(`/api/product-detail/${slug}`);
+            if (response.data.status === 200) {
+                setProduct(response.data.products);
+                document.title = response.data.products.name;
+                setProductRandom(response.data.product_random);
+                setAdditionalImages(response.data.products.additional_images);
+                setLoading(false);
+            } else if (response.data.status === 400) {
+                Swal.fire({
+                    icon: "error",
+                    text: response.data.message,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+            } else if (response.data.status === 401) {
+                Swal.fire({
+                    icon: "warning",
+                    text: response.data.message,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+                navigate('/');
+            }
 
         };
 
@@ -102,29 +102,29 @@ export default function ProductDetail() {
 
     useEffect(() => {
         const fetchCommnets = async () => {
-        
-                const response = await axios.get(`/api/product-detail/${slug}`);
-                if (response.data.status === 200) {
-                    setComments(response.data.products.comments);
-                    setLoading(false);
-                } else if (response.data.status === 400) {
-                    Swal.fire({
-                        icon: "error",
-                        text: response.data.message,
-                        confirmButtonText: "ตกลง",
-                        confirmButtonColor: "black",
-                        focusConfirm: false,
-                    });
-                } else if (response.data.status === 401) {
-                    Swal.fire({
-                        icon: "warning",
-                        text: response.data.message,
-                        confirmButtonText: "ตกลง",
-                        confirmButtonColor: "black",
-                        focusConfirm: false,
-                    });
-                    navigate('/');
-                }
+
+            const response = await axios.get(`/api/product-detail/${slug}`);
+            if (response.data.status === 200) {
+                setComments(response.data.products.comments);
+                setLoading(false);
+            } else if (response.data.status === 400) {
+                Swal.fire({
+                    icon: "error",
+                    text: response.data.message,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+            } else if (response.data.status === 401) {
+                Swal.fire({
+                    icon: "warning",
+                    text: response.data.message,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+                navigate('/');
+            }
 
         };
 
@@ -181,13 +181,6 @@ export default function ProductDetail() {
 
         axios.post(`/api/comments/${product.id}`, data, {}).then(response => {
             if (response.data.status === 200) {
-                Swal.fire({
-                    icon: "success",
-                    text: response.data.message,
-                    confirmButtonText: "ตกลง",
-                    confirmButtonColor: "black",
-                    focusConfirm: false,
-                });
                 setComments(comments.map(comment => comment.id === commentId ? response.data.comment : comment));
                 setError([]);
             } else if (response.data.status === 422) {
@@ -215,39 +208,19 @@ export default function ProductDetail() {
             text: editingText,
         };
 
-        try {
-            const response = await axios.put(`/api/comments/${commentId}`, data);
-            if (response.data.status === 200) {
-                Swal.fire({
-                    icon: "success",
-                    text: response.data.message,
-                    confirmButtonText: "ตกลง",
-                    confirmButtonColor: "black",
-                    focusConfirm: false,
-                });
-                cancelEditing();
-            } else if (response.data.status === 422) {
-                setError(response.data.errors);
-            }
-        } catch (error) {
-            console.error("Error deleting comment:", error);
+        const response = await axios.put(`/api/comments/${commentId}`, data);
+        if (response.data.status === 200) {
+            cancelEditing();
+        } else if (response.data.status === 422) {
+            setError(response.data.errors);
         }
     };
-
 
 
     const deleteComment = async (commentId) => {
         try {
             const response = await axios.delete(`/api/comments/${commentId}`);
             if (response.data.status === 200) {
-                Swal.fire({
-                    icon: "success",
-                    text: response.data.message,
-                    confirmButtonText: "ตกลง",
-                    confirmButtonColor: "black",
-                    focusConfirm: false,
-                });
-
             } else if (response.data.status === 422) {
                 setError(response.data.errors);
             }
@@ -255,7 +228,6 @@ export default function ProductDetail() {
             console.error("Error deleting comment:", error);
         }
     };
-
 
     const [isModalOpenImage, setIsModalOpenImage] = useState(false);
 
@@ -277,42 +249,8 @@ export default function ProductDetail() {
         setIsModalOpenAdditionImages(false);
     };
 
-
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    useEffect(() => {
-        fetchUser();
-      }, [user]);
-    
-      const fetchUser = async () => {
-        axios.get('/api/user').then(response => {
-          if (response.data.status === 200) {
-            setUser(response.data.user);
-            setLoading(false);
-          } else if (response.data.status === 400) {
-            Swal.fire({
-              icon: "error",
-              text: response.data.message,
-              confirmButtonText: "ตกลง",
-              confirmButtonColor: "black",
-              focusConfirm: false,
-            }).then(() => {
-              navigate('/');
-            });
-          } else if (response.data.status === 401) {
-            Swal.fire({
-              icon: "warning",
-              text: response.data.message,
-              confirmButtonText: "ตกลง",
-              confirmButtonColor: "black",
-              focusConfirm: false,
-            }).then(() => {
-              navigate('/');
-            });
-          }
-        });
-      };
-    
 
     return (
         <>

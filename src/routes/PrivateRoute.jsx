@@ -13,25 +13,22 @@ export default function PrivateRoute() {
     }, []);
     
     const checkingAuthenticated = async () => {
-            axios.get(`/api/checkingAuthenticated`).then(response => {
-                if(response.data.status === 200)
-                    {
-                        setAuthenticated(true);
-                        setLoading(false);;
-                    } else if(response.data.status === 401)
-                        {
-                            navigate('/');
-                            Swal.fire({
-                                icon: "warning",
-                                text: response.data.message,
-                                confirmButtonText: "ตกลง",
-                                confirmButtonColor: "black",
-                                focusConfirm: false,
-                            });
-                        }
-                    setLoading(false);
+        axios.get('/api/checkingAuthenticated').then(response => {
+          if (response.data.status === 200) {
+            setAuthenticated(true)
+            setLoading(false);
+          } else if (response.data.status === 401) {
+            Swal.fire({
+              icon: "warning",
+              text: response.data.message,
+              confirmButtonText: "ตกลง",
+              confirmButtonColor: "black",
+              focusConfirm: false,
             });
-    };
+            navigate('/');
+          }
+        });
+      }
 
     if (loading) {
         return <div className="h-screen flex items-center justify-center">

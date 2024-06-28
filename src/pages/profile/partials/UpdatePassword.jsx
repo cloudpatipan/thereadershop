@@ -71,10 +71,10 @@ export default function UpdatePassword() {
   return (
     <form onSubmit={updatePassword}>
       
-    <div className="col-span-1 md:col-span-2">
-                          <label className="block mb-2">รหัสผ่านปัจจุบัน</label>
+    <div className="col-span-1 md:col-span-2 mb-2">
+                          <label className="block">รหัสผ่านปัจจุบัน</label>
                           <input 
-                          className="block w-full border-0 rounded-md text-black py-1.5 px-4 ring-1 ring-black/40 ring-inset-gray-300 placeholder:text-black/40 focus:ring-inset focus:ring-black text-sm md:text-sm leading-6" 
+                           className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1" 
                           type="password" 
                           value={currentPassword} 
                           onChange={(event) => setCurrentPassword(event.target.value)} 
@@ -85,10 +85,10 @@ export default function UpdatePassword() {
       )}
     </div>
 
-    <div className="col-span-1 md:col-span-2">
+    <div className="col-span-1 md:col-span-2 mb-2">
                           <label className="block mb-2">รหัสผ่านใหม่</label>
                           <input 
-                            className="block w-full border-0 rounded-md text-black py-1.5 px-4 ring-1 ring-black/40 ring-inset-gray-300 placeholder:text-black/40 focus:ring-inset focus:ring-black text-sm md:text-sm leading-6" 
+                             className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                             type="password" 
                             value={newPassword} 
                             onChange={(event) => setNewPassword(event.target.value)} 
@@ -99,10 +99,10 @@ export default function UpdatePassword() {
       )}
     </div>
 
-    <div className="col-span-1 md:col-span-2">
-                          <label className="block mb-2">ยืนยันรหัสผ่านใหม่</label>
+    <div className="col-span-1 md:col-span-2 mb-2">
+                          <label className="block">ยืนยันรหัสผ่านใหม่</label>
                           <input 
-                          className="block w-full border-0 rounded-md text-black py-1.5 px-4 ring-1 ring-black/40 ring-inset-gray-300 placeholder:text-black/40 focus:ring-inset focus:ring-black text-sm md:text-sm leading-6" 
+                          className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                           type="password" 
                           value={newPasswordConfirmation} 
                           onChange={(event) => setNewPasswordConfirmation(event.target.value)} 

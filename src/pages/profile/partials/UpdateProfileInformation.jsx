@@ -22,7 +22,7 @@ export default function UserProfile() {
   const fetchUser = async () => {
     axios.get('/api/user').then(response => {
       if (response.data.status === 200) {
-        setUser(response.data.user); // อัพเดทค่า user จาก context
+        setUser(response.data.user);
         setName(response.data.user.name);
         setLoading(false);
       } else if (response.data.status === 400) {
@@ -47,7 +47,7 @@ export default function UserProfile() {
         });
       }
     });
-  };
+  }
 
   const updateProfile = async (e) => {
     e.preventDefault();
@@ -73,7 +73,7 @@ export default function UserProfile() {
         confirmButtonColor: 'black',
         focusConfirm: false,
       }).then(() => {
-        fetchUserProfile();
+        fetchUser();
       });
     } else if (response.data.status === 400) {
       navigate('/');
@@ -106,13 +106,6 @@ export default function UserProfile() {
     setNewAvatar(event.target.files[0]);
   };
 
-  if (loading) {
-    return (
-      <div className="h-screen flex items-center justify-center">
-        <h1 className="text-[2rem] font-semibold">กำลังโหลดโปรไฟล์...</h1>
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -129,7 +122,7 @@ export default function UserProfile() {
           </div>
           {newAvatar ? (
             <img className="w-full h-full object-cover" src={URL.createObjectURL(newAvatar)} alt="New Uploaded avatar" />
-          ) : user.avatar ? (
+          ) : user && user.avatar ? (
             <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
           ) : (
             <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ Avatar`} />
@@ -142,7 +135,7 @@ export default function UserProfile() {
           <div className="col-span-1 md:col-span-2">
             <label className="block mb-2">ชื่อ</label>
             <input
-              className="block w-full border-0 rounded-md text-black py-1.5 px-4 ring-1 ring-black/40 ring-inset-gray-300 placeholder:text-black/40 focus:ring-inset focus:ring-black text-sm md:text-sm leading-6"
+               className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
               type="text"
               value={name}
               onChange={(event) => {

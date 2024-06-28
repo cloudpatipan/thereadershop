@@ -9,14 +9,12 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     fetchUser();
-  }, [token, user]);
+  }, [token]);
 
   const fetchUser = async () => {
     axios.get('/api/user').then(response => {
       if (response.data.status === 200) {
-        setUser(response.data.user); // อัพเดทค่า user จาก context
-        setName(response.data.user.name);
-        setLoading(false);
+        setUser(response.data.user);
       } else if (response.data.status === 400) {
         Swal.fire({
           icon: "error",
