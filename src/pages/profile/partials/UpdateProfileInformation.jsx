@@ -60,6 +60,11 @@ export default function UserProfile() {
       formData.append('avatar', newAvatar);
     }
 
+    const response = await axios.post(`/api/profile/update-information`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     if (response.data.status === 200) {
       Swal.fire({
         icon: 'success',
@@ -125,9 +130,9 @@ export default function UserProfile() {
           {newAvatar ? (
             <img className="w-full h-full object-cover" src={URL.createObjectURL(newAvatar)} alt="New Uploaded avatar" />
           ) : user.avatar ? (
-            <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+            <img className="w-full h-full object-cover" src={`http://localhost:8000/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
           ) : (
-            <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="No avatar" />
+            <img className="w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="No avatar" />
           )}
           <input hidden id="avatarInput" type="file" onChange={onFileChange} />
           <div className="text-red-700 text-sm">{error.avatar}</div>

@@ -113,9 +113,9 @@ export default function EditAdsBanner() {
                             {newImage ? (
                                 <img className="w-full h-full object-cover" src={URL.createObjectURL(newImage)} alt="New Uploaded Image" />
                             ) : image ? (
-                                <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/adsbanner/${image}`} alt={`รูปภาพของ ${id}`} />
+                                <img className="w-full h-full object-cover" src={`http://localhost:8000/images/adsbanner/${image}`} alt={`รูปภาพของ ${id}`} />
                             ) : (
-                                <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/no_image.png" alt="No Image" />
+                                <img className="w-full h-full object-cover" src="http://localhost:8000/images/product/no_image.png" alt="No Image" />
                             )}
                         </div>
                         <input hidden id="imageInput" type="file" onChange={onFileChangeImage} />

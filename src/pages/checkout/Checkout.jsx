@@ -8,6 +8,7 @@ import Modal from '../../components/Modal';
 import { CiImageOn } from "react-icons/ci";
 import { MdInsertPhoto } from "react-icons/md";
 import { MdPayment } from "react-icons/md";
+
 export default function Checkout() {
 
     const [carts, setCarts] = useState([]);
@@ -253,7 +254,7 @@ export default function Checkout() {
                                             {payment_image ? (
                                                 <img className="w-full h-full object-cover" src={URL.createObjectURL(payment_image)} alt="Uploaded Image" />
                                             ) : (
-                                                <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/no_image.png" alt="No Image" />
+                                                <img className="w-full h-full object-cover" src="http://localhost:8000/images/product/no_image.png" alt="No Image" />
                                             )}
                                         </div>
                                         <input hidden id="imageInput" type="file" onChange={onFileChange} />
@@ -280,9 +281,9 @@ export default function Checkout() {
                                             <div className="flex gap-4">
                                                 <div className="overflow-hidden rounded-lg w-[10rem]">
                                                     {cart.product.image ? (
-                                                        <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/${cart.product.image}`} alt={`รูปภาพสินค้า ${cart.product.name}`} />
+                                                        <img className="w-full h-full object-cover" src={`http://localhost:8000/images/product/${cart.product.image}`} alt={`รูปภาพสินค้า ${cart.product.name}`} />
                                                     ) : (
-                                                        <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="ไม่มีรูปภาพ" />
+                                                        <img className="w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="ไม่มีรูปภาพ" />
                                                     )}
                                                 </div>
                                                 <div className="flex justify-between w-full">
@@ -337,7 +338,7 @@ export default function Checkout() {
                                         <div key={index}>
 
                                             <Button
-                                                image={<img className="w-8 h-8 rounded object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/bank/logo/${bank.logo}`} alt={`รูปภาพสินค้า ${bank.name}`} />}
+                                                image={<img className="w-8 h-8 rounded object-cover" src={`http://localhost:8000/images/bank/logo/${bank.logo}`} alt={`รูปภาพสินค้า ${bank.name}`} />}
                                                 onClick={() => openModalBank(bank.id)} className="w-full mt-1">
                                                 <div>
                                                     {bank.name}
@@ -359,7 +360,7 @@ export default function Checkout() {
                                                                     <CiImageOn size={100} />
                                                                 </div>
                                                             </div>
-                                                            <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/bank/${bank.image}`} alt={`รูปภาพสินค้า ${bank.name}`} />
+                                                            <img className="w-full h-full object-cover" src={`http://localhost:8000/images/bank/${bank.image}`} alt={`รูปภาพสินค้า ${bank.name}`} />
                                                             <div className="flex flex-col items-center justify-center">
                                                             </div>
                                                         </div>

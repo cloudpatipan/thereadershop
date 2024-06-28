@@ -109,9 +109,9 @@ export default function ViewAdsBanner() {
                         <span className="text-3xl font-semibold">กำลังโหลด...</span>
                     </div>
                 ) : (
-                    <div className="border p-4 rounded">
+                    <div className="border p-4 rounded overflow-x-scroll">
                         {isTableFormat ? (
-                            <table className="w-full overflow-x-scroll">
+                            <table className="w-full">
                                 <thead>
                                     <tr className="text-left">
                                         <th className="py-1 border-b">รหัสแบนเนอร์</th>
@@ -131,9 +131,9 @@ export default function ViewAdsBanner() {
 
                                                     <td className="py-1 border-b">
                                                         {adsbanner.image ? (
-                                                            <img className="w-48 h-10 rounded object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/adsbanner/${adsbanner.image}`} alt="" />
+                                                            <img className="w-48 h-10 rounded object-cover" src={`http://localhost:8000/images/adsbanner/${adsbanner.image}`} alt="" />
                                                         ) : (
-                                                            <img className="w-12 h-18 rounded object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                                                            <img className="w-12 h-18 rounded object-cover" src="http://localhost:8000/images/product/No_image.png" alt="No Image" />
                                                         )}
                                                         {console.log(adsbanner.image)}
                                                     </td>
@@ -177,15 +177,15 @@ export default function ViewAdsBanner() {
                                                             </div>
                                                         </div>
                                                         {adsbanner.image ? (
-                                                            <img className="object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/adsbanner/${adsbanner.image}`} alt="" />
+                                                            <img className="object-cover" src={`http://localhost:8000/images/adsbanner/${adsbanner.image}`} alt="" />
                                                         ) : (
-                                                            <img className="object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/adsbanner/no_image.png" alt="No Image" />
+                                                            <img className="object-cover" src="http://localhost:8000/images/adsbanner/no_image.png" alt="No Image" />
                                                         )}
                                                         <div className="absolute top-1 left-1">
                                                             {adsbanner.logo ? (
-                                                                <img className="w-24 h-24 rounded-lg object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/adsbanner/${adsbanner.logo}`} alt="" />
+                                                                <img className="w-24 h-24 rounded-lg object-cover" src={`http://localhost:8000/images/adsbanner/${adsbanner.logo}`} alt="" />
                                                             ) : (
-                                                                <img className="w-24 h-24 rounded-lg object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/adsbanner/no_image.png" alt="No Image" />
+                                                                <img className="w-24 h-24 rounded-lg object-cover" src="http://localhost:8000/images/adsbanner/no_image.png" alt="No Image" />
                                                             )}
                                                         </div>
                                                     </div>

@@ -6,7 +6,7 @@ import Sidebar from '../../components/Layouts/Sidebar';
 import { CiImageOn } from "react-icons/ci";
 import Button from '../../components/Button';
 import { FaSave } from "react-icons/fa";
-
+import { IoTrashBinOutline } from "react-icons/io5";
 export default function CreateProduct() {
     const navigate = useNavigate();
 
@@ -22,6 +22,7 @@ export default function CreateProduct() {
     const [featured, setFeatured] = useState(false);
     const [popular, setPopular] = useState(false);
     const [status, setStatus] = useState(false);
+    const [additionalImages, setAdditionalImages] = useState([]);
 
     useEffect(() => {
         fetchCategories();
@@ -63,6 +64,10 @@ export default function CreateProduct() {
         formData.append('popular', popular ? 1 : 0);
         formData.append('status', status ? 1 : 0);
 
+        for (let i = 0; i < additionalImages.length; i++) {
+            formData.append('additional_images[]', additionalImages[i]);
+        }
+
         axios.post('api/products', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -95,13 +100,49 @@ export default function CreateProduct() {
         setImage(file);
     }
 
+    const [dragOver, setDragOver] = useState(false);
+
+    const onAdditionalFileChange = (event) => {
+        const files = Array.from(event.target.files);
+        setAdditionalImages([...additionalImages, ...files]);
+    };
+
+    const deleteAdditionalImage = (index) => {
+        const updatedImages = [...additionalImages];
+        updatedImages.splice(index, 1);
+        setAdditionalImages(updatedImages);
+    };
+
+    const handleDrop = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const files = Array.from(event.dataTransfer.files);
+        setAdditionalImages([...additionalImages, ...files]);
+        setDragOver(false);
+    };
+
+    const handleDragOver = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setDragOver(true);
+    };
+
+    const handleDragLeave = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        setDragOver(false);
+    };
+
+
     return (
         <Sidebar>
-            <h1 className="text-2xl font-semibold text-center mb-8">เพิ่มสินค้า</h1>
+            <h1 className="text-2xl font-semibold mb-4 border-b p-1 mb-4">เพิ่มสินค้า</h1>
             <form onSubmit={addProduct}>
                 <div className="p-4 flex flex-col md:flex-row justify-center gap-4 border rounded-lg">
-                    <div>
-                        <div className="mx-auto cursor-pointer relative md:w-[24rem] md:h-[34rem] overflow-hidden group rounded-lg">
+
+                    <div className="w-full md:w-[40%]">
+                        <div className="cursor-pointer relative overflow-hidden group rounded-lg">
                             <div
                                 className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300"
                                 onClick={handleImageUpload}
@@ -114,16 +155,17 @@ export default function CreateProduct() {
                             {image ? (
                                 <img className="w-full h-full object-cover" src={URL.createObjectURL(image)} alt="Uploaded Image" />
                             ) : (
-                                <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/no_image.png" alt="No Image" />
+                                <img className="w-full h-full object-cover" src="http://localhost:8000/images/product/no_image.png" alt="No Image" />
                             )}
                         </div>
                         <input hidden id="imageInput" type="file" onChange={onFileChange} />
                         <div className="text-red-700 text-sm">{error.image}</div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full h-full">
-                        <div className="col-span-1 md:col-span-2">
-                            <label className="text-lg block text-black font-semibold">ชื่อ</label>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:w-[60%]">
+
+                        <div className="col-span-2">
+                            <label className="text-sm md:text-base block text-black font-semibold">ชื่อ</label>
                             <input
                                 className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                                 type="text" value={name} onChange={(event) => setName(event.target.value)} placeholder="กรุณาใส่ชื่อ"
@@ -131,8 +173,8 @@ export default function CreateProduct() {
                             <div className="text-red-700 text-sm">{error.name}</div>
                         </div>
 
-                        <div className="col-span-1 md:col-span-2">
-                            <label className="text-lg block text-black font-semibold">รายละเอียด</label>
+                        <div className="col-span-2">
+                            <label className="text-sm md:text-base block text-black font-semibold">รายละเอียด</label>
                             <textarea
                                 className="block w-full placeholder:text-sm text-base border rounded h-20 px-2 appearance-none focus:outline-none bg-transparent text-black py-1"
                                 value={description} onChange={(event) => setDescription(event.target.value)} placeholder="กรุณาใส่รายละเอียด"
@@ -140,8 +182,8 @@ export default function CreateProduct() {
                             <div className="text-red-700 text-sm">{error.description}</div>
                         </div>
 
-                        <div>
-                            <label className="text-lg block text-black font-semibold">ราคา</label>
+                        <div className="col-span-2 md:col-span-1">
+                            <label className="text-sm md:text-base block text-black font-semibold">ราคา</label>
                             <input
                                 type="number"
                                 className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
@@ -150,8 +192,8 @@ export default function CreateProduct() {
                             <div className="text-red-700 text-sm">{error.price}</div>
                         </div>
 
-                        <div>
-                            <label className="text-lg block text-black font-semibold">จำนวน</label>
+                        <div className="col-span-2 md:col-span-1">
+                            <label className="text-sm md:text-base block text-black font-semibold">จำนวน</label>
                             <input
                                 type="number"
                                 className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
@@ -160,10 +202,10 @@ export default function CreateProduct() {
                             <div className="text-red-700 text-sm">{error.qty}</div>
                         </div>
 
-                        <div>
-                            <label className="text-lg block text-black font-semibold">ประเภท</label>
+                        <div className="col-span-2 md:col-span-1">
+                            <label className="text-sm md:text-base block text-black font-semibold">ประเภท</label>
                             <select
-                                className="block w-full border-0 rounded-md text-black py-1.5 px-4 ring-1 ring-black/40 ring-inset-gray-300 placeholder:text-black/40 focus:ring-inset focus:ring-black text-sm md:text-sm leading-6"
+                                className="text-xs md:text-sm w-full border rounded-md text-black p-1"
                                 value={category_id} onChange={(event) => setCategoryId(event.target.value)}
                             >
                                 <option disabled value="">-- เลือกประเภท --</option>
@@ -180,10 +222,10 @@ export default function CreateProduct() {
                             <div className="text-red-700 text-sm">{error.category_id}</div>
                         </div>
 
-                        <div>
-                            <label className="text-lg block text-black font-semibold">แบรนด์</label>
+                        <div className="col-span-2 md:col-span-1">
+                            <label className="text-sm md:text-base block text-black font-semibold">แบรนด์</label>
                             <select
-                                className="block w-full border-0 rounded-md text-black py-1.5 px-4 ring-1 ring-black/40 ring-inset-gray-300 placeholder:text-black/40 focus:ring-inset focus:ring-black text-sm md:text-sm leading-6"
+                                className="text-xs md:text-sm w-full border rounded-md text-black p-1"
                                 value={brand_id} onChange={(event) => setBrandId(event.target.value)}
                             >
                                 <option disabled value="">-- เลือกแบรนด์ --</option>
@@ -200,7 +242,7 @@ export default function CreateProduct() {
                             <div className="text-red-700 text-sm">{error.brand_id}</div>
                         </div>
 
-                        <div className="col-span-2 gap-4">
+                        <div>
 
                             <div className="flex items-center gap-2">
                                 <input className="accent-black"
@@ -208,7 +250,7 @@ export default function CreateProduct() {
                                     checked={popular}
                                     onChange={(event) => setPopular(event.target.checked)}
                                 />
-                                <label className="text-lg text-black font-semibold">ยอดนิยม</label>
+                                <label className="text-sm md:text-base block text-black font-semibold">ยอดนิยม</label>
                                 <div className="text-red-700 text-sm">{error.popular}</div>
                             </div>
 
@@ -218,21 +260,56 @@ export default function CreateProduct() {
                                     checked={featured}
                                     onChange={(event) => setFeatured(event.target.checked)}
                                 />
-                                <label className=" text-lg block text-black font-semibold">แนะนำ</label>
+                                <label className="text-sm md:text-base block text-black font-semibold">แนะนำ</label>
                                 <div className="text-red-700 text-sm">{error.featured}</div>
                             </div>
 
-                            <div className="flex items-center gap-2">                               
+                            <div className="flex items-center gap-2">
                                 <input className="accent-black"
                                     type="checkbox"
                                     checked={status}
                                     onChange={(event) => setStatus(event.target.checked)}
                                 />
-                                 <label className="text-lg block text-black font-semibold">สถานะ</label>
+                                <label className="text-sm md:text-base block text-black font-semibold">สถานะ</label>
                                 <div className="text-red-700 text-sm">{error.status}</div>
                             </div>
 
                         </div>
+
+                        <div className="col-span-2"
+                            onDrop={handleDrop}
+                            onDragOver={handleDragOver}
+                            onDragLeave={handleDragLeave}>
+                            <label className="text-sm md:text-base block text-black font-semibold">รูปภาพเพิ่มเติม</label>
+                            <input type="file" id="additionalImageInput" multiple onChange={onAdditionalFileChange} style={{ display: 'none' }} />
+                            <div
+                                className={`border rounded-lg text-center hover:underline p-4 ${dragOver ? 'border-dashed border-black' : ''}`}
+                                onClick={() => document.getElementById('additionalImageInput').click()}
+                            >
+                                อัพโหลดรูปภาพเพิ่มเติมตรงนี้
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-4 gap-2 mt-1 col-span-2">
+                            {additionalImages.map((image, index) => (
+                                <div key={index} className="relative group">
+                                    <img
+                                        className="w-full h-full object-cover rounded"
+                                        src={URL.createObjectURL(image)}
+                                        alt={`รูปภาพเพิ่มเติม ${index}`}
+                                    />
+                                    <div
+                                        className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+                                        onClick={() => deleteAdditionalImage(index)}
+                                    >
+                                        <span className="text-white text-lg"><IoTrashBinOutline size={50}/></span>
+                                    </div>
+                                </div>
+                            ))}
+
+                            <div className="text-red-700 text-sm">{error.additional_images}</div>
+                        </div>
+
 
                     </div>
                 </div>

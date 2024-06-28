@@ -99,9 +99,9 @@ export default function CategoryProduct() {
                                                         </div>
                                                     </div>
                                                     {product.image ? (
-                                                        <img className="rounded-lg w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/${product.image}`} alt={product.name} />
+                                                        <img className="rounded-lg w-full h-full object-cover" src={`http://localhost:8000/images/product/${product.image}`} alt={product.name} />
                                                     ) : (
-                                                        <img className="rounded-lg w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                                                        <img className="rounded-lg w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="No Image" />
                                                     )}
                                                 </div>
                                             </Link>

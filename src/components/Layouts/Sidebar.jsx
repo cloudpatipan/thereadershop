@@ -45,9 +45,9 @@ export default function Sidebar({ children }) {
 
                                 <div className="w-[3rem] h-[3rem] rounded-lg overflow-hidden cursor-pointer group">
                                     {user.avatar ? (
-                                        <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                                        <img className="w-full h-full object-cover" src={`http://localhost:8000/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
                                     ) : (
-                                        <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                                        <img className="w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="No Image" />
                                     )}
                                 </div>
 

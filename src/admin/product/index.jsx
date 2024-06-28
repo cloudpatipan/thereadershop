@@ -269,9 +269,9 @@ export default function ViewProduct() {
                         <span className="text-3xl font-semibold">กำลังโหลด...</span>
                     </div>
                 ) : (
-                    <div className="border p-4 rounded">
+                    <div className="border p-4 rounded overflow-x-scroll">
                         {isTableFormat ? (
-                            <table className="w-full overflow-x-scroll">
+                            <table className="w-full">
                                 <thead>
                                     <tr className="text-left">
                                         <th className="py-1 border-b">รูปภาพ</th>
@@ -297,9 +297,9 @@ export default function ViewProduct() {
                                                 <tr key={index}>
                                                     <td className="py-1 border-b">
                                                         {product.image ? (
-                                                            <img className="w-12 h-18 rounded object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/${product.image}`} alt="" />
+                                                            <img className="w-12 h-18 rounded object-cover" src={`http://localhost:8000/images/product/${product.image}`} alt="" />
                                                         ) : (
-                                                            <img className="w-12 h-18 rounded object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/no_image.png" alt="No Image" />
+                                                            <img className="w-12 h-18 rounded object-cover" src="http://localhost:8000/images/product/no_image.png" alt="No Image" />
                                                         )}
                                                     </td>
                                                     <td className="py-1 border-b">{product.name}</td>
@@ -374,7 +374,7 @@ export default function ViewProduct() {
                                         .map((product, index) => (
                                             <div key={index}>
                                                 <Link to={`/product/${product.slug}`}>
-                                                    <div className="relative overflow-hidden rounded-lg w-[12rem] h-[18rem] group">
+                                                    <div className="relative overflow-hidden rounded-lg group">
                                                         <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                                             <div className="flex flex-col items-center text-white text-xl">
                                                                 รายละเอียด
@@ -382,9 +382,9 @@ export default function ViewProduct() {
                                                             </div>
                                                         </div>
                                                         {product.image ? (
-                                                            <img className="rounded-lg w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/${product.image}`} alt={product.name} />
+                                                            <img className="rounded-lg w-full h-full object-cover" src={`http://localhost:8000/images/product/${product.image}`} alt={product.name} />
                                                         ) : (
-                                                            <img className="rounded-lg w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                                                            <img className="rounded-lg w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="No Image" />
                                                         )}
                                                     </div>
                                                 </Link>

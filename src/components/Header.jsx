@@ -43,7 +43,7 @@ export default function Header() {
                 <div key={index} className={`absolute w-full h-full ${index === currentIndex ? 'block' : 'hidden'}`}>
                   <Link to={`/product/detail/${banner.product.slug}`}>
                     <img
-                      src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/adsbanner/${banner.image}`}
+                      src={`http://localhost:8000/images/adsbanner/${banner.image}`}
                       className="w-full h-full object-cover object-center"
                       alt="banner"
                     />

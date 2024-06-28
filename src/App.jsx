@@ -43,11 +43,10 @@ import Dashboard from './admin/dashboard';
 import CategoryAll from './pages/category/Category';
 import CategoryProduct from './pages/category/CategoryProduct';
 
-
 export default function App() {
 
   axios.defaults.withCredentials = true;
-  axios.defaults.baseURL = "https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app";
+  axios.defaults.baseURL = "http://localhost:8000/";
   axios.defaults.headers.post['Accept'] = 'application/json';
   axios.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -64,7 +63,7 @@ export default function App() {
         <Route path="/category" element={<CategoryAll />} />
         <Route path="/category/:slug" element={<CategoryProduct />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/product/detail/:slug" element={<ProductDetail />} />
+        <Route exact path="/product/detail/:slug" element={<ProductDetail />} />
 
         <Route path="/" element={<PrivateRoute />}>
           <Route path="/profile" element={<EditProfile />} />
@@ -76,9 +75,11 @@ export default function App() {
         {/* Route สำหรับแอดมิน */}
         <Route element={<AdminRoute />}>
           <Route path="/admin/user" element={<ViewUser />} />
+
           <Route path="/admin/product" element={<ViewProduct />} />
           <Route path="/admin/product/create" element={<CreateProduct />} />
           <Route path="/admin/product/:id/edit" element={<EditProduct />} />
+
           <Route path="/admin/category" element={<ViewCategory />} />
           <Route path="/admin/category/create" element={<CreateCategory />} />
           <Route path="/admin/category/:id/edit" element={<EditCategory />} />

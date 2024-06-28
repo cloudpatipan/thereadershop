@@ -155,9 +155,9 @@ export default function ViewUser() {
                                 </div>
                             </div>
 
-                            <div className="border p-4 rounded">
+                            <div className="border p-4 rounded overflow-x-scroll">
                                 {isTableFormat ? (
-                                    <table className="w-full overflow-x-scroll">
+                                    <table className="w-full">
                                         <thead>
                                             <tr className="text-left">
                                                 <th className="py-1 border-b">รหัส</th>
@@ -176,9 +176,9 @@ export default function ViewUser() {
                                                         <td className="py-1 border-b">
                                                             <div className="w-[3rem] h-[3rem] overflow-hidden rounded-lg">
                                                                 {user.avatar ? (
-                                                                    <img className="w-full h-full object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                                                                    <img className="w-full h-full object-cover" src={`http://localhost:8000/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
                                                                 ) : (
-                                                                    <img className="w-full h-full object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/product/No_image.png" alt="No Image" />
+                                                                    <img className="w-full h-full object-cover" src="http://localhost:8000/images/product/No_image.png" alt="No Image" />
                                                                 )}
                                                             </div>
                                                         </td>
@@ -222,9 +222,9 @@ export default function ViewUser() {
                                                     <div className="relative overflow-hidden rounded-lg group">
                                                         <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
                                                         {user.avatar ? (
-                                                            <img className="object-cover" src={`https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/avatar/${user.avatar}`} alt="" />
+                                                            <img className="object-cover" src={`http://localhost:8000/images/avatar/${user.avatar}`} alt="" />
                                                         ) : (
-                                                            <img className="object-cover" src="https://ef9c-2405-9800-b540-dc40-a46a-cab9-89b-365c.ngrok-free.app/images/no_image.png" alt="No Image" />
+                                                            <img className="object-cover" src="http://localhost:8000/images/no_image.png" alt="No Image" />
                                                         )}
                                                     </div>
 

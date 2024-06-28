@@ -6,13 +6,13 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token') || '');
+
   useEffect(() => {
     const fetchUser = async () => {
       if (token) {
         try {
           const response = await axios.get('/api/user');
           setUser(response.data);
-
         } catch (error) {
           console.error('เกิดข้อผิดพลาดกับการดึงข้อมูลผู้ใช้:', error);
           setToken(null);

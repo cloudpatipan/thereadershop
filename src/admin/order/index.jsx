@@ -157,8 +157,8 @@ export default function ViewOrder() {
                         <span className="text-3xl font-semibold">กำลังโหลด...</span>
                     </div>
                 ) : (
-                    <div className="border p-4 rounded">
-                        <table className="w-full overflow-x-scroll">
+                    <div className="border p-4 rounded overflow-x-scroll">
+                        <table className="w-full">
                             <thead>
                                 <tr className="text-left">
                                     <th className="py-1 border-b">รหัส</th>

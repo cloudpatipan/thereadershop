@@ -52,7 +52,7 @@ export default function Dashboard() {
       axios.get(`/api/userDashboard`).then(response => {
         if (response.data.status === 200) {
           console.log(response.data.users);
-          const userCount = response.data.users.length;
+          const userCount = response.data.users;
           setUserCount(userCount);
         } else if (response.data.status === 400) {
           Swal.fire({
@@ -78,7 +78,7 @@ export default function Dashboard() {
       axios.get(`/api/productDashboard`).then(response => {
         if (response.data.status === 200) {
           console.log(response.data.products);
-          const productCount = response.data.products.length;
+          const productCount = response.data.products;
           setProductCount(productCount);
         } else if (response.data.status === 400) {
           Swal.fire({
@@ -134,12 +134,9 @@ export default function Dashboard() {
 
       </div>
 
-      <div className="border p-4 rounded-lg">
+      <div className="border p-4 rounded-lg overflow-x-scroll">
           <OrderChart />
         </div>
-
-
-
 
     </Sidebar>
   )

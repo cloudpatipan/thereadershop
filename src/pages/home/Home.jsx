@@ -30,21 +30,22 @@ export default function Home() {
       const featuredResponse = await axios.get(`/api/products-featured`);
       const popularResponse = await axios.get(`/api/products-popular`);
 
-      if (userResponse.data.status === 200) {
-        setUserCount(userResponse.data.users.length);
-      }
-
       if (productResponse.data.status === 200) {
-        const products = productResponse.data.products;
-        setProductCount(products.length);
-        
-        if (products && products.length > 0) {
-          
-          const latestProduct = products[products.length - 1];
-          
-          setProductLast([latestProduct]);
+        const { products, lastProduct } = productResponse.data;
+
+        // เซ็ตจำนวนผลิตภัณฑ์
+        setProductCount(products);
+
+        // ตรวจสอบว่ามีข้อมูลผลิตภัณฑ์ที่รับมาหรือไม่
+        if (lastProduct) {
+          const { id, name } = lastProduct;
+          const formattedLastProduct = {
+            id,
+            name,
+          };
+          setProductLast(formattedLastProduct);
+          console.log(formattedLastProduct);
         }
-        console.log(productLast)
       }
 
       setFeaturedProducts(featuredResponse.data);
@@ -85,7 +86,7 @@ export default function Home() {
 
           </div>
           <Info>
-          {productLast[0].name}
+            {productLast.name}
           </Info>
           <ProductFeatured products={featuredProducts} />
           <ProductPopular products={popularProducts} />
