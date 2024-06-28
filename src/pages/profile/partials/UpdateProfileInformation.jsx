@@ -16,11 +16,11 @@ export default function UserProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchUserProfile();
+    fetchUser();
   }, []);
 
-  const fetchUserProfile = async () => {
-    axios.get('/api/profile').then(response => {
+  const fetchUser = async () => {
+    axios.get('/api/user').then(response => {
       if (response.data.status === 200) {
         setUser(response.data.user); // อัพเดทค่า user จาก context
         setName(response.data.user.name);
