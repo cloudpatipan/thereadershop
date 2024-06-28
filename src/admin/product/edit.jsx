@@ -98,28 +98,29 @@ export default function EditProduct() {
                 formData.append(`additional_images[${index}]`, img);
             }
         });
-
-        const response = await axios.post(`/api/products/${id}`, formData, {
+        
+        axios.post(`/api/products/${id}`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
+        }).then(response => {
+            if (response.data.status === 200) {
+                Swal.fire({
+                    icon: "success",
+                    text: response.data.message,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+                setError([]);
+                navigate("/admin/product");
+            } else if (response.data.status === 422) {
+                setError(response.data.errors);
+                console.log(response.data.errors);
+            }
         });
-
-        if (response.data.status === 200) {
-            Swal.fire({
-                icon: "success",
-                text: response.data.message,
-                confirmButtonText: "ตกลง",
-                confirmButtonColor: "black",
-                focusConfirm: false,
-            });
-            setError([]);
-            navigate("/admin/product");
-        } else if (response.data.status === 422) {
-            setError(response.data.errors);
-            console.log(response.data.errors);
-        }
     }
+
 
     const onFileChange = (event) => {
         setNewImage(event.target.files[0]);
