@@ -4,20 +4,19 @@ import axios from 'axios';
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token') || '');
-
 
   useEffect(() => {
     fetchUser();
-  }, [token]);
+  }, [token, user]);
 
   const fetchUser = async () => {
     axios.get('/api/user').then(response => {
       if (response.data.status === 200) {
-        setUser(response.data);
-        setToken(response.data.token)
-        console.log(response.data.user)
+        setUser(response.data.user); // อัพเดทค่า user จาก context
+        setName(response.data.user.name);
+        setLoading(false);
       } else if (response.data.status === 400) {
         Swal.fire({
           icon: "error",
