@@ -89,9 +89,9 @@ export default function CreateAdsBanner() {
                                 </div>
                             </div>
                             {image ? (
-                                <img className="w-full h-full object-cover" src={URL.createObjectURL(image)} alt="Uploaded Image" />
+                                <img className="w-full h-full object-cover" src={URL.createObjectURL(image)} alt={`อัพโหลดรูปภาพ`} />
                             ) : (
-                                <img className="w-full h-full object-cover" src="${baseUrl}/images/product/no_image.png" alt="No Image" />
+                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
                             )}
                         </div>
                         <input hidden id="imageInput" type="file" onChange={onFileChangeImage} />

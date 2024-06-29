@@ -196,7 +196,7 @@ export default function ViewBank() {
                                                         {bank.logo ? (
                                                             <img className="w-12 h-12 rounded object-cover" src={`${baseUrl}/images/bank/logo/${bank.logo}`} alt="" />
                                                         ) : (
-                                                            <img className="w-12 h-12 rounded object-cover" src="${baseUrl}/images/product/No_image.png" alt="No Image" />
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                         )}
                                                     </td>
 

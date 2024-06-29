@@ -112,11 +112,11 @@ export default function EditAdsBanner() {
                                 </div>
                             </div>
                             {newImage ? (
-                                <img className="w-full h-full object-cover" src={URL.createObjectURL(newImage)} alt="New Uploaded Image" />
+                                <img className="w-full h-full object-cover" src={URL.createObjectURL(newImage)} alt={`อัพโหลดรูปภาพ`} />
                             ) : image ? (
                                 <img className="w-full h-full object-cover" src={`${baseUrl}/images/adsbanner/${image}`} alt={`รูปภาพของ ${id}`} />
                             ) : (
-                                <img className="w-full h-full object-cover" src="${baseUrl}/images/product/no_image.png" alt="No Image" />
+                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} /> 
                             )}
                         </div>
                         <input hidden id="imageInput" type="file" onChange={onFileChangeImage} />

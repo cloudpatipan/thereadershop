@@ -204,7 +204,7 @@ export default function EditProduct() {
                             ) : image ? (
                                 <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/${image}`} alt={`รูปภาพของ ${name}`} />
                             ) : (
-                                <img className="w-full h-full object-cover" src="${baseUrl}/images/product/no_image.png" alt="No Image" />
+                               <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
                             )}
                         </div>
                         <input hidden id="imageInput" type="file" onChange={onFileChange} />
