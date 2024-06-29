@@ -9,7 +9,7 @@ export default function EditProfile() {
   document.title = "โปรไฟล์";
   return (
     <Layout>
-        <div className="w-[30rem] mx-auto border rounded-lg p-4">
+        <div className="mx-auto border rounded-lg p-4">
         <div>
         <UpdateProfileInformation/>
         </div>
