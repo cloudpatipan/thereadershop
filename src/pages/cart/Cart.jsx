@@ -8,7 +8,7 @@ import { IoTrashBinOutline } from "react-icons/io5";
 import Button from '../../components/Button';
 import { IoBagCheckOutline } from "react-icons/io5";
 import { CartContext } from '../../context/CartContext';
-
+import baseUrl from '../../routes/BaseUrl';
 export default function ViewProduct() {
 
     document.title = "ตระกร้าสินค้า";
