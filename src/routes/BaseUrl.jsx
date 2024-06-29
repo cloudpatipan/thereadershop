@@ -1,3 +1,3 @@
-const baseUrl = 'https://0b7d-2405-9800-b540-dc40-e4c6-fa23-b554-9155.ngrok-free.app';
+const baseUrl = 'https://26ee-2405-9800-b540-dc40-b13b-bdb6-891d-9459.ngrok-free.app';
 
 export default baseUrl;
