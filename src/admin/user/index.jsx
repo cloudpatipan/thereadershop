@@ -219,11 +219,11 @@ export default function ViewUser() {
                                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                                         {displayedUsers.length > 0 ? (
                                             displayedUsers.map((user, index) => (
-                                                <div className="mx-auto" key={index}>
-                                                    <div className="relative overflow-hidden rounded-lg group">
+                                                <div className="mx-auto w-[10rem]" key={index}>
+                                                    <div className="relative overflow-hidden  h-[10rem] rounded-lg group">
                                                         <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
                                                         {user.avatar ? (
-                                                            <img className="object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt="" />
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt="" />
                                                         ) : (
                                                             <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                         )}
@@ -234,7 +234,14 @@ export default function ViewUser() {
                                                         <p className="bg-black text-white rounded-lg px-2">{user.role}</p>
                                                     </div>
 
-                                                    <div className="mt-1 flex justify-center items-center gap-2">
+                                                    <div className="mt-1 flex justify-between items-center gap-2">
+                                                    <button
+                                                                type="button"
+                                                                className={`text-white w-[2rem] h-[2rem] flex items-center justify-center rounded-full bg-black transition-all duration-300`}
+                                                                onClick={() => updateUserRole(user.id, user.role)}
+                                                            >
+                                                                {user.role === 'admin' ? <FaToggleOn size={20} /> : <FaToggleOff size={20} />}
+                                                            </button>
                                                         <button type="button" className="bg-black p-2 rounded-full text-white"
                                                             onClick={() => deleteUser(user.id)}>
                                                             <IoMdTrash size={20} />
