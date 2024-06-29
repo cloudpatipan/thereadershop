@@ -225,7 +225,7 @@ export default function ViewUser() {
                                                         {user.avatar ? (
                                                             <img className="object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt="" />
                                                         ) : (
-                                                            <img className="object-cover" src="${baseUrl}/images/no_image.png" alt="No Image" />
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                         )}
                                                     </div>
 
