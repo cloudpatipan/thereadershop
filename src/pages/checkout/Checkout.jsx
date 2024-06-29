@@ -8,7 +8,7 @@ import Modal from '../../components/Modal';
 import { CiImageOn } from "react-icons/ci";
 import { MdInsertPhoto } from "react-icons/md";
 import { MdPayment } from "react-icons/md";
-
+import baseUrl from '../../routes/BaseUrl';
 export default function Checkout() {
 
     const [carts, setCarts] = useState([]);
