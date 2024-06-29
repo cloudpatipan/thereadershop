@@ -37,7 +37,7 @@ export default function ProductPopular({ products }) {
         </div>
 
         <div>
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-2 my-4 rounded-lg border p-4">
+          <div className="grid grid-cols-2 md:grid-cols-6 gap-2 my-4 rounded-lg border p-4">
             {displayedProducts.length > 0 ? (
               displayedProducts.map((product, index) => (
                 <div key={index}>
