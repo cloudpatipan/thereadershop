@@ -288,7 +288,7 @@ export default function ProductDetail() {
 
                                     </div>
 
-                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2">
+                                    <div className="grid grid-cols-4 gap-2 mt-2">
                                         {additional_images.length > 0 ? (
                                             additional_images.map((item, index) => (
                                                 <div key={index} className="relative overflow-hidden rounded-lg group">
