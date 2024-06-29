@@ -14,6 +14,7 @@ import { IoMdArrowDropright } from "react-icons/io";
 import { IoMdArrowDropleft } from "react-icons/io";
 import { IoTrashBinOutline } from "react-icons/io5";
 import baseUrl from '../../routes/BaseUrl';
+import { Rings } from 'react-loader-spinner';
 export default function ViewAdsBanner() {
     const [loading, setLoading] = useState(true);
     const [AdsBanners, setAdsBanners] = useState([]);
@@ -105,9 +106,14 @@ export default function ViewAdsBanner() {
                 </div>
 
                 {loading ? (
-                    <div className="flex items-center justify-center">
-                        <span className="text-3xl font-semibold">กำลังโหลด...</span>
-                    </div>
+                    (<Rings
+                        visible={true}
+                        height="500"
+                        width="500"
+                        color="black"
+                        ariaLabel="rings-loading"
+                        wrapperClass="flex justify-center"
+                      />)
                 ) : (
                     <div className="border p-4 rounded overflow-x-scroll">
                         {isTableFormat ? (

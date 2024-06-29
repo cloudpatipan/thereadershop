@@ -19,7 +19,7 @@ import { IoLogOut } from "react-icons/io5";
 import { FiHome } from "react-icons/fi";
 import { BiCategory } from "react-icons/bi";
 import { FiUserPlus } from "react-icons/fi";
-
+import { IoClose } from "react-icons/io5";
 import Button from './Button';
 import { UserContext } from '../context/UserContext';
 import { CartContext } from '../context/CartContext';
@@ -295,7 +295,7 @@ export default function Navbar() {
 
         <div className="md:hidden">
           <button className="bg-black text-white p-2 rounded-full" id="menu-toggle" onClick={toggleMenu}>
-            <GiHamburgerMenu size={25} />
+          {isMenuOpen ? <IoClose size={25} /> : <GiHamburgerMenu size={25} />}
           </button>
         </div>
 
@@ -303,43 +303,46 @@ export default function Navbar() {
       <div>
 
         {isMenuOpen ? (
-          <div className=" bg-white z-1 flex flex-col md:hidden font-medium uppercase">
-            {
-              menus?.map((menu, i) => (
-                <Link to={menu?.link} key={i}>
-                  <Button className={`w-full mt-1`} icon={React.createElement(menu?.icon, { size: "20" })}>
-                    <h2
-                      className={``}>
-                      {menu.name}
-                    </h2>
+          <div className="relative">
+            <div className="absolute bg-white py-1 z-10 w-full flex flex-col md:hidden font-medium uppercase">
+              {
+                menus?.map((menu, i) => (
+                  <Link to={menu?.link} key={i}>
+                    <Button className={`w-full mt-1 bg-white`} icon={React.createElement(menu?.icon, { size: "20" })}>
+                      <h2
+                        className={``}>
+                        {menu.name}
+                      </h2>
+                    </Button>
+                  </Link>
+                ))
+              }
+              {!token ? (
+                <div>
+
+                  <Button className={`w-full mt-1 text-sm md:text-base bg-white`} icon={<IoIosLogIn size={25} />} onClick={openModalLogin}>
+                    เข้าสู่ระบบ
                   </Button>
-                </Link>
-              ))
-            }
-            {!token ? (
-              <div>
 
-                <Button className={`w-full mt-1 text-sm md:text-base`} icon={<IoIosLogIn size={25} />} onClick={openModalLogin}>
-                  เข้าสู่ระบบ
-                </Button>
+                  <Modal isOpen={isModalOpenLogin} onClose={closeModalLogin}>
+                    <Login />
+                  </Modal>
 
-                <Modal isOpen={isModalOpenLogin} onClose={closeModalLogin}>
-                  <Login />
-                </Modal>
+                  <Button className={`w-full mt-1 text-sm md:text-base bg-white`} icon={<FiUserPlus size={25} />} onClick={openModalRegister}>
+                    สมัครสมาชิก
+                  </Button>
 
-                <Button className={`w-full mt-1 text-sm md:text-base`} icon={<FiUserPlus size={25} />} onClick={openModalRegister}>
-                  สมัครสมาชิก
-                </Button>
+                  <Modal isOpen={isModalOpenRegister} onClose={closeModalRegister}>
+                    <Register />
+                  </Modal>
 
-                <Modal isOpen={isModalOpenRegister} onClose={closeModalRegister}>
-                  <Register />
-                </Modal>
-
-              </div>
-            ) : null}
+                </div>
+              ) : null}
 
 
+            </div>
           </div>
+
         ) : null}
 
       </div>

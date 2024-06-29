@@ -9,6 +9,7 @@ import { CiImageOn } from "react-icons/ci";
 import { MdInsertPhoto } from "react-icons/md";
 import { MdPayment } from "react-icons/md";
 import baseUrl from '../../routes/BaseUrl';
+import { Rings } from 'react-loader-spinner'
 export default function Checkout() {
 
     const [carts, setCarts] = useState([]);
@@ -158,12 +159,18 @@ export default function Checkout() {
     return (
         <Layout>
             {loading ? (
-                <div className="flex items-center justify-center">
-                    <span className="text-3xl font-semibold">กำลังโหลดหน้าชำระเงิน...</span>
-                </div>
+                (<Rings
+                    visible={true}
+                    height="500"
+                    width="500"
+                    color="black"
+                    ariaLabel="rings-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="flex justify-center"
+                />)
             ) : (
                 <div>
-                 <div className="mb-4">
+                    <div className="mb-4">
                         <h1 className="text-base md:text-2xl font-semibold">ชำระเงิน</h1>
                     </div>
 
@@ -346,7 +353,7 @@ export default function Checkout() {
                                             </Button>
 
                                             <Modal isOpen={isModalBank[bank.id]} onClose={() => closeModalBank(bank.id)} title={`บัญชีธนาคาร ${bank.name}`}>
-                                            <div className="h-[25rem] overflow-y-scroll">
+                                                <div className="h-[25rem] overflow-y-scroll">
                                                     <h1 className="text-xl font-semibold text-center">ธนาคาร {bank.name}</h1>
                                                     <p className="text-sm text-center mb-1">ส่งหลักฐานเป็นรูปภาพ</p>
                                                     <div>

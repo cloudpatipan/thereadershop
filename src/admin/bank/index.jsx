@@ -18,6 +18,7 @@ import { FaToggleOn } from "react-icons/fa";
 import { FaToggleOff } from "react-icons/fa6";
 import { FaCheck } from "react-icons/fa6";
 import baseUrl from '../../routes/BaseUrl';
+import { Rings } from 'react-loader-spinner';
 export default function ViewBank() {
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
@@ -88,7 +89,7 @@ export default function ViewBank() {
     const updateBankStatus = (bank_id, status) => {
         // สลับสถานะ 0 เป็น 1 และ 1 เป็น 0
         const newStatus = status === 1 ? 0 : 1;
-    
+
         axios.put(`/api/bank-updatestatus/${bank_id}/${newStatus}`)
             .then(response => {
                 if (response.data.status === 200) {
@@ -135,7 +136,7 @@ export default function ViewBank() {
     return (
         <>
             <Sidebar>
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4  mb-2 rounded-lg">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4  mb-2 rounded-lg">
                     <Link to={"create"}>
                         <button type="submit" className="w-full relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300">
                             <div>
@@ -165,9 +166,14 @@ export default function ViewBank() {
                 </div>
 
                 {loading ? (
-                    <div className="flex items-center justify-center">
-                        <span className="text-3xl font-semibold">กำลังโหลด...</span>
-                    </div>
+                    (<Rings
+                        visible={true}
+                        height="500"
+                        width="500"
+                        color="black"
+                        ariaLabel="rings-loading"
+                        wrapperClass="flex justify-center"
+                    />)
                 ) : (
                     <div className="border p-4 rounded overflow-x-scroll">
                         {isTableFormat ? (
@@ -210,13 +216,13 @@ export default function ViewBank() {
                                                     <td className="py-1 border-b">{bank.name}</td>
                                                     <td className="py-1 border-b">{bank.description}</td>
                                                     <td className="py-1 border-b">
-                                                    <button
-                                                        type="button"
-                                                        className={`p-2 rounded-full bg-black text-white transition-all duration-300`}
-                                                        onClick={() => updateBankStatus(bank.id, bank.status)}
-                                                    >
-                                                        {bank.status === 1 ? <FaToggleOn size={20} /> : <FaToggleOff size={20} />}
-                                                    </button>
+                                                        <button
+                                                            type="button"
+                                                            className={`p-2 rounded-full bg-black text-white transition-all duration-300`}
+                                                            onClick={() => updateBankStatus(bank.id, bank.status)}
+                                                        >
+                                                            {bank.status === 1 ? <FaToggleOn size={20} /> : <FaToggleOff size={20} />}
+                                                        </button>
                                                     </td>
                                                     <td className="py-1 border-b">
                                                         <div className="flex items-center gap-2">
@@ -267,11 +273,11 @@ export default function ViewBank() {
                                                             <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                         )}
                                                         <div className="absolute top-1 left-1">
-                                                        {bank.logo ? (
-                                                            <img className="w-24 h-24 rounded-lg object-cover" src={`${baseUrl}/images/bank/logo/${bank.logo}`} alt="" />
-                                                        ) : (
-                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
-                                                        )}
+                                                            {bank.logo ? (
+                                                                <img className="w-24 h-24 rounded-lg object-cover" src={`${baseUrl}/images/bank/logo/${bank.logo}`} alt="" />
+                                                            ) : (
+                                                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </Link>

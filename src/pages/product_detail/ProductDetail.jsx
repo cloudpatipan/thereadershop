@@ -23,6 +23,7 @@ import { IoTrashBin } from "react-icons/io5";
 import ReactPaginate from 'react-paginate';
 import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
 import baseUrl from '../../routes/BaseUrl';
+import { Rings } from 'react-loader-spinner'
 export default function ProductDetail() {
 
     const { user, setUser } = useContext(UserContext);
@@ -257,9 +258,15 @@ export default function ProductDetail() {
             <Layout>
                 <section>
                     {loading ? (
-                        <div className="flex justify-center items-start min-h-screen">
-                            <h1 className="text-[2rem] font-semibold">กำลังโหลด...</h1>
-                        </div>
+                        (<Rings
+                            visible={true}
+                            height="500"
+                            width="500"
+                            color="black"
+                            ariaLabel="rings-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="flex justify-center"
+                        />)
                     ) : (
                         <div>
                             <Link to={`/`}>

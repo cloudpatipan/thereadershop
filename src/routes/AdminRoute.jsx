@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-
+import { Rings } from 'react-loader-spinner'
 export default function AdminRoute() {
     const [authenticated, setAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -40,9 +40,16 @@ export default function AdminRoute() {
     }
 
     if (loading) {
-        return <div className="h-screen flex items-center justify-center">
-            <h1 className="text-[2rem] font-semibold">กำลังโหลด...</h1>
-        </div>
+        return <>
+        (<Rings
+           visible={true}
+           height="500"
+           width="500"
+           color="black"
+           ariaLabel="rings-loading"
+           wrapperClass="flex justify-center"
+         />)
+       </>
     }
 
     return authenticated ? <Outlet /> : null;

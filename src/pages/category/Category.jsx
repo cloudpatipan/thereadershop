@@ -4,6 +4,7 @@ import Layout from '../../components/Layouts/Layout';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
 import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
+import { Rings } from 'react-loader-spinner';
 export default function CategoryAll() {
     const [categories, setCategoires] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -29,17 +30,22 @@ export default function CategoryAll() {
 
             <div>
                 {loading ? (
-                    <div className="flex items-center justify-center">
-                        <span className="text-3xl font-semibold">กำลังโหลด...</span>
-                    </div>
+                    (<Rings
+                        visible={true}
+                        height="500"
+                        width="500"
+                        color="black"
+                        ariaLabel="rings-loading"
+                        wrapperClass="flex justify-center"
+                    />)
                 ) : (
                     <div>
                         <h1 className="text-2xl font-semibold">ประเภทสินค้า</h1>
 
                         <Link to={`/`}>
-                        <Button icon={<IoMdArrowDropleft size={20}/>} className={`mb-2`}>
-                            กลับ
-                        </Button>
+                            <Button icon={<IoMdArrowDropleft size={20} />} className={`mb-2`}>
+                                กลับ
+                            </Button>
                         </Link>
 
                         <div div className="grid grid-cols-1 md:grid-cols-4 gap-4" >

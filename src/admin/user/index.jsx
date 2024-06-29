@@ -13,6 +13,7 @@ import { IoMdArrowDropleft } from "react-icons/io";
 import { FaToggleOn } from "react-icons/fa";
 import { FaToggleOff } from "react-icons/fa6";
 import baseUrl from '../../routes/BaseUrl';
+import { Rings } from 'react-loader-spinner';
 export default function ViewUser() {
     const [searchTerm, setSearchTerm] = useState('');
     const [users, setUsers] = useState([]);
@@ -138,9 +139,14 @@ export default function ViewUser() {
             <Sidebar>
                 <section>
                     {loading ? (
-                        <div className="flex items-center justify-center">
-                            <h1 className="text-[2rem] font-semibold">กำลังโหลด...</h1>
-                        </div>
+                        (<Rings
+                            visible={true}
+                            height="500"
+                            width="500"
+                            color="black"
+                            ariaLabel="rings-loading"
+                            wrapperClass="flex justify-center"
+                        />)
                     ) : (
                         <>
                             <div className="flex justify-end items-center gap-4 mb-2 rounded-lg">
@@ -235,13 +241,13 @@ export default function ViewUser() {
                                                     </div>
 
                                                     <div className="mt-1 flex justify-between items-center gap-2">
-                                                    <button
-                                                                type="button"
-                                                                className={`text-white w-[2rem] h-[2rem] flex items-center justify-center rounded-full bg-black transition-all duration-300`}
-                                                                onClick={() => updateUserRole(user.id, user.role)}
-                                                            >
-                                                                {user.role === 'admin' ? <FaToggleOn size={20} /> : <FaToggleOff size={20} />}
-                                                            </button>
+                                                        <button
+                                                            type="button"
+                                                            className={`text-white w-[2rem] h-[2rem] flex items-center justify-center rounded-full bg-black transition-all duration-300`}
+                                                            onClick={() => updateUserRole(user.id, user.role)}
+                                                        >
+                                                            {user.role === 'admin' ? <FaToggleOn size={20} /> : <FaToggleOff size={20} />}
+                                                        </button>
                                                         <button type="button" className="bg-black p-2 rounded-full text-white"
                                                             onClick={() => deleteUser(user.id)}>
                                                             <IoMdTrash size={20} />

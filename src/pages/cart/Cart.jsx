@@ -10,6 +10,7 @@ import { IoBagCheckOutline } from "react-icons/io5";
 import { CartContext } from '../../context/CartContext';
 import baseUrl from '../../routes/BaseUrl';
 import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
+import { Rings } from 'react-loader-spinner'
 export default function ViewProduct() {
 
     document.title = "ตระกร้าสินค้า";
@@ -133,9 +134,15 @@ export default function ViewProduct() {
     return (
         <Layout>
             {loading ? (
-                <div className="flex items-center justify-center">
-                    <span className="text-3xl font-semibold">กำลังโหลด...</span>
-                </div>
+                (<Rings
+                    visible={true}
+                    height="500"
+                    width="500"
+                    color="black"
+                    ariaLabel="rings-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="flex justify-center"
+                />)
             ) : (
                 <div>
                     <div className="mb-2">
@@ -144,9 +151,9 @@ export default function ViewProduct() {
                     <div>
 
                         <Link to={`/`}>
-                        <Button icon={<IoMdArrowDropleft size={20}/>} className={`mb-2`}>
-                            กลับ
-                        </Button>
+                            <Button icon={<IoMdArrowDropleft size={20} />} className={`mb-2`}>
+                                กลับ
+                            </Button>
                         </Link>
 
                     </div>

@@ -12,6 +12,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { IoTrashBinOutline } from "react-icons/io5";
 import { FaToggleOn } from "react-icons/fa";
 import { FaToggleOff } from "react-icons/fa6";
+import { Rings } from 'react-loader-spinner';
 export default function ViewCategory() {
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
@@ -146,9 +147,14 @@ export default function ViewCategory() {
                 </div>
 
                 {loading ? (
-                    <div className="flex items-center justify-center">
-                        <span className="text-3xl font-semibold">กำลังโหลด...</span>
-                    </div>
+                    (<Rings
+                        visible={true}
+                        height="500"
+                        width="500"
+                        color="black"
+                        ariaLabel="rings-loading"
+                        wrapperClass="flex justify-center"
+                      />)
                 ) : (
                     <div className="border p-4 rounded overflow-x-scroll">
                         <table className="w-full">

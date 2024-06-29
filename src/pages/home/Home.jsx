@@ -8,6 +8,7 @@ import { FiUsers } from "react-icons/fi"
 import { FaBox } from "react-icons/fa";
 import { FiBox } from "react-icons/fi";
 import Info from '../../components/Info'
+import { Rings } from 'react-loader-spinner'
 export default function Home() {
 
   document.title = "หน้าหลัก";
@@ -24,45 +25,50 @@ export default function Home() {
   }, []);
 
   const fetchData = async () => {
-    
-      const userResponse = await axios.get(`/api/userCount`);
-      const productResponse = await axios.get(`/api/productCount`);
-      const featuredResponse = await axios.get(`/api/products-featured`);
-      const popularResponse = await axios.get(`/api/products-popular`);
 
-      if (userResponse.data.status === 200) {
-        setUserCount(userResponse.data.users)
+    const userResponse = await axios.get(`/api/userCount`);
+    const productResponse = await axios.get(`/api/productCount`);
+    const featuredResponse = await axios.get(`/api/products-featured`);
+    const popularResponse = await axios.get(`/api/products-popular`);
+
+    if (userResponse.data.status === 200) {
+      setUserCount(userResponse.data.users)
+    }
+
+    if (productResponse.data.status === 200) {
+      const { products, lastProduct } = productResponse.data;
+
+      // เซ็ตจำนวนผลิตภัณฑ์
+      setProductCount(products);
+
+      // ตรวจสอบว่ามีข้อมูลผลิตภัณฑ์ที่รับมาหรือไม่
+      if (lastProduct) {
+        const { id, name } = lastProduct;
+        const formattedLastProduct = {
+          id,
+          name,
+        };
+        setProductLast(formattedLastProduct);
       }
+    }
 
-      if (productResponse.data.status === 200) {
-        const { products, lastProduct } = productResponse.data;
-
-        // เซ็ตจำนวนผลิตภัณฑ์
-        setProductCount(products);
-
-        // ตรวจสอบว่ามีข้อมูลผลิตภัณฑ์ที่รับมาหรือไม่
-        if (lastProduct) {
-          const { id, name } = lastProduct;
-          const formattedLastProduct = {
-            id,
-            name,
-          };
-          setProductLast(formattedLastProduct);
-          console.log(formattedLastProduct);
-        }
-      }
-
-      setFeaturedProducts(featuredResponse.data);
-      setPopularProducts(popularResponse.data);
-      setLoading(false);
+    setFeaturedProducts(featuredResponse.data);
+    setPopularProducts(popularResponse.data);
+    setLoading(false);
   };
 
   return (
     <Layout>
       {loading ? (
-        <div className="flex items-center justify-center">
-          <span className="text-3xl font-semibold">กำลังโหลด...</span>
-        </div>
+           (<Rings
+          visible={true}
+          height="500"
+          width="500"
+          color="black"
+          ariaLabel="rings-loading"
+          wrapperStyle={{}}
+          wrapperClass="flex justify-center"
+        />)
       ) : (
         <>
           <Header />
@@ -79,7 +85,7 @@ export default function Home() {
             <div className="bg-white rounded-lg border flex items-center justify-between p-4">
               <div className="flex flex-col">
                 <h2>สินค้าทั้งหมด</h2>
-                <p className="text-xl md:text-2xl font-semibold">{productCount}</p>
+                <p className="text-lg md:text-2xl font-semibold">{productCount}</p>
                 <p>ชิ้น</p>
               </div>
               <FiBox size={80} />

@@ -6,6 +6,7 @@ import Sidebar from '../../components/Layouts/Sidebar';
 import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 import baseUrl from '../../routes/BaseUrl';
+import { Rings } from 'react-loader-spinner';
 export default function DetailOrder() {
 
   const navigate = useNavigate();
@@ -75,9 +76,14 @@ export default function DetailOrder() {
   return (
     <Sidebar>
       {loading ? (
-        <div className="flex items-center justify-center">
-          <span className="text-3xl font-semibold">กำลังโหลด...</span>
-        </div>
+         (<Rings
+          visible={true}
+          height="500"
+          width="500"
+          color="black"
+          ariaLabel="rings-loading"
+          wrapperClass="flex justify-center"
+        />)
       ) : (
         <div className="border p-4 rounded">
           <h1 className="text-2xl font-semibold mb-8">รายการใบสั่งซื้อ</h1>

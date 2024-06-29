@@ -14,6 +14,7 @@ import { BiShow } from "react-icons/bi";
 import Modal from '../../components/Modal';
 import Button from '../../components/Button';
 import baseUrl from '../../routes/BaseUrl';
+import { Rings } from 'react-loader-spinner';
 export default function ViewOrder() {
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
@@ -154,9 +155,14 @@ export default function ViewOrder() {
                 </div>
 
                 {loading ? (
-                    <div className="flex items-center justify-center">
-                        <span className="text-3xl font-semibold">กำลังโหลด...</span>
-                    </div>
+                  (<Rings
+                    visible={true}
+                    height="500"
+                    width="500"
+                    color="black"
+                    ariaLabel="rings-loading"
+                    wrapperClass="flex justify-center"
+                  />)
                 ) : (
                     <div className="border p-4 rounded overflow-x-scroll">
                         <table className="w-full">
