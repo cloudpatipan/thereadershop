@@ -171,7 +171,7 @@ export default function CreateProduct() {
                                 className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                                 type="text" value={name} onChange={(event) => setName(event.target.value)} placeholder="กรุณาใส่ชื่อ"
                             />
-                            <div className="text-red-700 text-sm">{error.name}</div>
+                            <div className="text-red-700 text-sm">{error.name}</div> <div className="text-red-700 text-sm">{error.name}</div>
                         </div>
 
                         <div className="col-span-2">

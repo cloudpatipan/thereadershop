@@ -6,7 +6,9 @@ import { CgDetailsMore } from "react-icons/cg";
 import { IoMdArrowDropright } from "react-icons/io";
 import { IoMdArrowDropleft } from "react-icons/io";
 import { FaSearch } from "react-icons/fa";
+import Button from '../../components/Button';
 import Layout from '../../components/Layouts/Layout';
+import baseUrl from '../../routes/BaseUrl';
 export default function CategoryProduct() {
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
@@ -80,8 +82,14 @@ export default function CategoryProduct() {
 
                     </div>
 
+                    <Link to={`/category`}>
+                        <Button icon={<IoMdArrowDropleft size={20}/>} className={`mt-2 md:mt-0 mb-2`}>
+                            กลับ
+                        </Button>
+                        </Link>
+
                     <div>
-                        <div className="grid grid-cols-2 md:grid-cols-6 gap-2 my-4 border p-4 rounded-lg">
+                        <div className={`grid grid-container grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4`}>
                             {displayedProducts.length > 0 ? (
                                 displayedProducts
                                     .filter(product => {
@@ -106,9 +114,9 @@ export default function CategoryProduct() {
                                                 </div>
                                             </Link>
                                             <div className="p-2 text-center">
-                                                <p className="text-[1.2rem] font-semibold text-clip overflow-hidden">{product.name}</p>
+                                                <p className="text-sm md:text-lg font-semibold text-ellipsis overflow-hidden text-balance h-[4rem]">{product.name}</p>
                                                 <p className="text-sm text-clip overflow-hidden text-black/40 font-semibold">{product.category.name}</p>
-                                                <span className="font-bold">฿ {product.price}</span>
+                                                <span className="font-bold">{product.price} บาท</span>
                                             </div>
                                         </div>
 

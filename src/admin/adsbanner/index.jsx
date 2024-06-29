@@ -185,7 +185,7 @@ export default function ViewAdsBanner() {
                                                             {adsbanner.logo ? (
                                                                 <img className="w-24 h-24 rounded-lg object-cover" src={`${baseUrl}/images/adsbanner/${adsbanner.logo}`} alt="" />
                                                             ) : (
-                                                                <img className="w-24 h-24 rounded-lg object-cover" src="${baseUrl}/images/adsbanner/no_image.png" alt="No Image" />
+                                                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} /> 
                                                             )}
                                                         </div>
                                                     </div>

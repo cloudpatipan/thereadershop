@@ -16,13 +16,23 @@ import { LiaShoppingBagSolid } from "react-icons/lia";
 import { FaBagShopping } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
+import { FiHome } from "react-icons/fi";
+import { BiCategory } from "react-icons/bi";
+import { FiUserPlus } from "react-icons/fi";
+
 import Button from './Button';
 import { UserContext } from '../context/UserContext';
 import { CartContext } from '../context/CartContext';
 import ModalImage from './ModalImage';
-
 import baseUrl from '../routes/BaseUrl';
+
 export default function Navbar() {
+
+  const menus = [
+    { name: "หน้าหลัก", link: "/", icon: FiHome },
+    { name: "ประเภทสินค้า", link: "/category", icon: BiCategory },
+  ]
+
 
   const navigate = useNavigate();
   const { user, token, setUser, setToken } = useContext(UserContext);
@@ -32,7 +42,7 @@ export default function Navbar() {
 
 
   useEffect(() => {
-    if(token) {
+    if (token) {
       fetchCart();
     }
   }, []);
@@ -157,12 +167,18 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden md:flex gap-4">
-          <Link to={'/'} className="relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black ease-in-out hover:-translate-y-1 transition-all duration-300">
-            หน้าหลัก
-          </Link>
-          <Link to={'/category'} className="relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black ease-in-out hover:-translate-y-1 transition-all duration-300">
-            ประเภทสินค้า
-          </Link>
+          {
+            menus?.map((menu, i) => (
+              <Link to={menu?.link} key={i}>
+                <Button icon={React.createElement(menu?.icon, { size: "20" })}>
+                  <h2
+                    className={``}>
+                    {menu.name}
+                  </h2>
+                </Button>
+              </Link>
+            ))
+          }
         </div>
 
         <div>
@@ -176,7 +192,7 @@ export default function Navbar() {
                 <Login />
               </Modal>
 
-              <Button className="text-sm md:text-base" icon={<FaUserPlus size={25} />} onClick={openModalRegister}>
+              <Button className="text-sm md:text-base" icon={<FiUserPlus size={25} />} onClick={openModalRegister}>
                 สมัครสมาชิก
               </Button>
 
@@ -207,7 +223,7 @@ export default function Navbar() {
                     header={
                       <div className="w-[3rem] h-[3rem] rounded-full overflow-hidden cursor-pointer" onClick={handleToggleDropdown}>
                         {user.avatar ? (
-                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                          <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
                         ) : (
                           <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ Avatar`} />
                         )}
@@ -288,30 +304,37 @@ export default function Navbar() {
 
         {isMenuOpen ? (
           <div className=" bg-white z-1 flex flex-col md:hidden font-medium uppercase">
-            <Link to={'/'} className="bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1">
-              หน้าหลัก
-            </Link>
-            <Link to={'/category'} className="bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1">
-              ประเภทสินค้า
-            </Link>
-            {!localStorage.getItem('token') ? (
+            {
+              menus?.map((menu, i) => (
+                <Link to={menu?.link} key={i}>
+                  <Button className={`w-full mt-1`} icon={React.createElement(menu?.icon, { size: "20" })}>
+                    <h2
+                      className={``}>
+                      {menu.name}
+                    </h2>
+                  </Button>
+                </Link>
+              ))
+            }
+            {!token ? (
               <div>
-                <button className="w-full bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1" onClick={openModalLogin}>
+
+                <Button className={`w-full mt-1 text-sm md:text-base`} icon={<IoIosLogIn size={25} />} onClick={openModalLogin}>
                   เข้าสู่ระบบ
-                </button>
+                </Button>
 
                 <Modal isOpen={isModalOpenLogin} onClose={closeModalLogin}>
-                <Login />
-              </Modal>
+                  <Login />
+                </Modal>
 
-                <button className="w-full bg-white flex justify-center items-center border rounded-full bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300 mt-1" onClick={openModalRegister}>
+                <Button className={`w-full mt-1 text-sm md:text-base`} icon={<FiUserPlus size={25} />} onClick={openModalRegister}>
                   สมัครสมาชิก
-                </button>
+                </Button>
 
                 <Modal isOpen={isModalOpenRegister} onClose={closeModalRegister}>
-                <Register />
-              </Modal>
-              
+                  <Register />
+                </Modal>
+
               </div>
             ) : null}
 

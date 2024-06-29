@@ -9,6 +9,7 @@ import Button from '../../components/Button';
 import { IoBagCheckOutline } from "react-icons/io5";
 import { CartContext } from '../../context/CartContext';
 import baseUrl from '../../routes/BaseUrl';
+import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
 export default function ViewProduct() {
 
     document.title = "ตระกร้าสินค้า";
@@ -137,13 +138,21 @@ export default function ViewProduct() {
                 </div>
             ) : (
                 <div>
-                    <div className="mb-4">
+                    <div className="mb-2">
                         <h1 className="text-base md:text-2xl font-semibold">ตระกร้าสินค้า</h1>
                     </div>
+                    <div>
 
+                        <Link to={`/`}>
+                        <Button icon={<IoMdArrowDropleft size={20}/>} className={`mb-2`}>
+                            กลับ
+                        </Button>
+                        </Link>
+
+                    </div>
                     {carts.length > 0 ? (
-                        <div className="flex flex-col md:flex-row justify-between gap-4 border rounded-lg p-4">
-                            <div className="w-full">
+                        <div className="flex flex-col md:flex-row justify-between gap-4">
+                            <div className="w-full border p-4 rounded-lg">
                                 {carts.map((cart, index) => (
                                     <div key={index} className="border-b py-1">
                                         <div className="flex gap-4">

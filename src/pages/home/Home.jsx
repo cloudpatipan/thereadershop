@@ -4,8 +4,9 @@ import ProductFeatured from './ProductFeatured'
 import Header from '../../components/Header'
 import ProductPopular from './ProductPupular'
 import axios from 'axios'
-import { FaUserFriends } from "react-icons/fa";
+import { FiUsers } from "react-icons/fi"
 import { FaBox } from "react-icons/fa";
+import { FiBox } from "react-icons/fi";
 import Info from '../../components/Info'
 export default function Home() {
 
@@ -72,16 +73,16 @@ export default function Home() {
                 <p className="text-[1.5rem] font-semibold">{userCount}</p>
                 <p>คน</p>
               </div>
-              <FaUserFriends size={100} />
+              <FiUsers size={80} />
             </div>
 
             <div className="bg-white rounded-lg border flex items-center justify-between p-4">
               <div className="flex flex-col">
                 <h2>สินค้าทั้งหมด</h2>
-                <p className="text-[1.5rem] font-semibold">{productCount}</p>
+                <p className="text-xl md:text-2xl font-semibold">{productCount}</p>
                 <p>ชิ้น</p>
               </div>
-              <FaBox size={80} />
+              <FiBox size={80} />
             </div>
 
           </div>

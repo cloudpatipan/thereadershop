@@ -11,7 +11,8 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [validationErrors, setValidationErrors] = useState({});
+
+    const [error, setError] = useState([]);
 
     const submitRegister = async (e) => {
         e.preventDefault();
@@ -26,8 +27,6 @@ export default function Register() {
             });
             return;
         }
-
-        const [error, setError] = useState([]);
 
         const data = { name, email, password, password_confirmation: passwordConfirmation };
 
@@ -66,7 +65,7 @@ export default function Register() {
             <h1 className="text-2xl font-semibold text-center text-black mb-4">สมัครสมาชิก</h1>
             <form onSubmit={submitRegister}>
                 <div>
-                    <label className="text-lg block font-semibold text-black">ชื่อ</label>
+                    <label className="text-sm md:text-base block font-semibold">ชื่อ</label>
                     <input
                         className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                         type="text"
@@ -77,7 +76,7 @@ export default function Register() {
                     <div className="text-red-700 text-sm">{error.name}</div>
                 </div>
                 <div className="mt-2">
-                    <label className="text-lg block font-semibold text-black">อีเมล</label>
+                    <label className="text-sm md:text-base block font-semibold text-black">อีเมล</label>
                     <input
                         className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                         type="email"
@@ -89,7 +88,7 @@ export default function Register() {
 
                 </div>
                 <div className="mt-2">
-                    <label className="text-lg block font-semibold text-black">รหัสผ่าน</label>
+                    <label className="text-sm md:text-base block font-semibold text-black">รหัสผ่าน</label>
                     <input
                         className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                         type="password"
@@ -100,7 +99,7 @@ export default function Register() {
                       <div className="text-red-700 text-sm">{error.password}</div>
                 </div>
                 <div className="mt-2">
-                    <label className="text-lg block font-semibold text-black">ยืนยันรหัสผ่าน</label>
+                    <label className="text-sm md:text-base block font-semibold text-black">ยืนยันรหัสผ่าน</label>
                     <input
                         className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                         type="password"

@@ -365,7 +365,7 @@ export default function ViewProduct() {
                                 </tbody>
                             </table>
                         ) : (
-                            <div className="grid grid-cols-3 md:grid-cols-5 gap-8">
+                            <div className="grid grid-container grid-cols-3 md:grid-cols-5 gap-8">
                                 {displayedProducts.length > 0 ? (
                                     displayedProducts
                                         .filter(product => {
@@ -374,23 +374,23 @@ export default function ViewProduct() {
                                         })
                                         .map((product, index) => (
                                             <div key={index}>
-                                                    <Link to={`/product/detail/${product.slug}`}>
-                                                    <div className="relative overflow-hidden rounded-lg group">
-                                                        <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                                            <div className="flex flex-col items-center text-white text-xl">
-                                                                รายละเอียด
-                                                                <CgDetailsMore size={28} />
-                                                            </div>
+                                            <Link to={`/product/detail/${product.slug}`}>
+                                                <div className="relative overflow-hidden rounded-lg group">
+                                                    <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                                        <div className="flex flex-col items-center text-white text-xl">
+                                                            รายละเอียด
+                                                            <CgDetailsMore size={28} />
                                                         </div>
-                                                        {product.image ? (
-                                                            <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/${product.image}`} alt={product.name} />
-                                                        ) : (
-                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
-                                                        )}
                                                     </div>
-                                                </Link>
+                                                    {product.image ? (
+                                                        <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/${product.image}`} alt={`รูปภาพสินค้า ${product.name}`} />
+                                                    ) : (
+                                                        <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
+                                                    )}
+                                                </div>
+                                            </Link>
 
-                                                <h1 className="mt-2 font-bold text-xl h-[3.375rem] text-clip overflow-hidden">{product.name}</h1>
+                                                <h1 className="mt-2 font-semibold h-[3.375rem] text-clip overflow-hidden">{product.name}</h1>
                                                 <div className="mt-1 flex justify-between items-center gap-2">
                                                     <Link to={`${product.id}/edit`}>
                                                         <button className="bg-black p-2 rounded-full text-white">

@@ -21,7 +21,7 @@ export default function ProductPopular({ products }) {
   return (
     <section>
       <div>
-        <div className="flex flex-col md:flex-row justify-between">
+        <div className="flex flex-col md:flex-row justify-between mb-2">
 
           <div>
             <h1 className="text-2xl font-semibold">แนะนำสินค้ายอดนิยม</h1>
@@ -37,14 +37,14 @@ export default function ProductPopular({ products }) {
         </div>
 
         <div>
-          <div className="grid grid-cols-2 md:grid-cols-6 gap-2 my-4 rounded-lg border p-4">
+          <div className={`grid grid-container grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4`}>
             {displayedProducts.length > 0 ? (
               displayedProducts.map((product, index) => (
                 <div key={index}>
                   <Link to={`/product/detail/${product.slug}`}>
                     <div className="relative overflow-hidden rounded-lg group">
                       <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                        <div className="flex flex-col items-center text-white text-base md:text-xl">
+                        <div className="flex flex-col items-center text-white text-xl">
                           รายละเอียด
                           <CgDetailsMore size={28} />
                         </div>
@@ -52,14 +52,14 @@ export default function ProductPopular({ products }) {
                       {product.image ? (
                         <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/${product.image}`} alt={`รูปภาพสินค้า ${product.name}`} />
                       ) : (
-                        <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพสินค้า`} />
+                        <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
                       )}
                     </div>
                   </Link>
                   <div className="p-2 text-center">
-                    <p className="text-sm md:text-base font-semibold text-clip overflow-hidden">{product.name}</p>
+                    <p className="text-sm md:text-lg font-semibold text-ellipsis overflow-hidden text-balance h-[4rem]">{product.name}</p>
                     <p className="text-sm text-clip overflow-hidden text-black/40 font-semibold">{product.category.name}</p>
-                    <span className="font-bold">฿ {product.price}</span>
+                    <span className="font-bold">{product.price} บาท</span>
                   </div>
                 </div>
               ))

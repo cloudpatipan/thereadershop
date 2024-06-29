@@ -262,7 +262,13 @@ export default function ProductDetail() {
                         </div>
                     ) : (
                         <div>
-                            <div className="flex flex-col md:flex-row gap-8 justify-between p-4 border rounded-lg">
+                            <Link to={`/`}>
+                                <Button icon={<IoMdArrowDropleft size={20} />} className={`mb-2`}>
+                                    กลับ
+                                </Button>
+                            </Link>
+
+                            <div className="flex flex-col md:flex-row gap-8 justify-between">
 
                                 <div className="w-full md:w-[30%]">
                                     <div className="relative overflow-hidden rounded-lg group">
@@ -288,7 +294,7 @@ export default function ProductDetail() {
 
                                     </div>
 
-                                    <div className="grid grid-cols-4 gap-2 mt-2">
+                                    <div className={`grid grid-container grid-cols-2 md:grid-cols-4 mt-1`}>
                                         {additional_images.length > 0 ? (
                                             additional_images.map((item, index) => (
                                                 <div key={index} className="relative overflow-hidden rounded-lg group">
@@ -310,7 +316,7 @@ export default function ProductDetail() {
                                                 <div className="relative overflow-hidden w-full rounded-lg">
 
                                                     <div className="rounded-lg">
-                                                        <div className="flex justify-between items-center h-full">
+                                                        <div className="flex justify-between items-center">
 
                                                             <div className="cursor-pointer" onClick={() => setCurrentImageIndex((currentImageIndex - 1 + additional_images.length) % additional_images.length)}>
                                                                 <IoIosArrowBack className="text-black text-4xl hover:text-gray-300" />
@@ -372,32 +378,31 @@ export default function ProductDetail() {
                             </div>
 
                             <div>
-                                <h1 className="text-base md:text-2xl font-semibold mt-4">สินค้าที่คุณอาจจะสนใจ</h1>
+                                <h1 className="text-lg md:text-xl font-semibold my-2">สินค้าที่คุณอาจจะสนใจ</h1>
 
-                                <div className="grid grid-cols-3 md:grid-cols-6 gap-2 mt-4 border p-4 rounded-lg">
+                                <div className={`grid grid-container grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4`}>
                                     {product_random.length > 0 ? (
                                         product_random.map((item, index) => (
                                             <div key={index}>
                                                 <Link to={`/product/detail/${item.slug}`}>
-
                                                     <div className="relative overflow-hidden rounded-lg group">
                                                         <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                                            <div className="flex flex-col items-center text-white text-base md:text-xl">
+                                                            <div className="flex flex-col items-center text-white text-xl">
                                                                 รายละเอียด
                                                                 <CgDetailsMore size={28} />
                                                             </div>
                                                         </div>
                                                         {item.image ? (
-                                                            <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/${item.image}`} alt={item.name} />
+                                                            <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/${item.image}`} alt={`รูปภาพสินค้า ${item.name}`} />
                                                         ) : (
-                                                            <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png" alt="No Im`} />
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                         )}
                                                     </div>
                                                 </Link>
                                                 <div className="p-2 text-center">
-                                                    <p className="text-sm md:text-base font-semibold text-clip overflow-hidden">{item.name}</p>
+                                                    <p className="text-sm md:text-lg font-semibold text-ellipsis overflow-hidden text-balance h-[4rem]">{item.name}</p>
                                                     <p className="text-sm text-clip overflow-hidden text-black/40 font-semibold">{item.category.name}</p>
-                                                    <span className="font-bold">฿ {item.price}</span>
+                                                    <span className="font-bold">{item.price} บาท</span>
                                                 </div>
                                             </div>
                                         ))
@@ -410,11 +415,11 @@ export default function ProductDetail() {
                             </div>
 
                             <div className="mt-4">
-                                <h2 className="text-[1.5rem] font-semibold">ความคิดเห็น</h2>
-                                <div className="flex flex-col gap-4 border rounded-lg mt-2 p-4 overflow-scroll">
+                                <h2 className="text-lg md:text-xl font-semibold">ความคิดเห็น</h2>
+                                <div className="flex flex-col gap-4 mt-2 overscroll-auto py-1">
                                     {displayedComments.length > 0 ? (
                                         displayedComments.map((comment, index) => (
-                                            <div key={index} className="p-4 border rounded-lg">
+                                            <div key={index}>
                                                 <div className="flex gap-2">
 
                                                     <div className="w-[3rem] h-[3rem] rounded-lg overflow-hidden cursor-pointer">
@@ -484,7 +489,7 @@ export default function ProductDetail() {
                                             </div>
                                         ))
                                     ) : (
-                                        <div className="border text-2xl font-semibold p-4 flex items-center justify-center rounded-lg">
+                                        <div className="text-base md:text-2xl font-semibold p-4 flex items-center justify-center rounded-lg">
                                             ไม่มีความคิดเห็น
                                         </div>
                                     )}
@@ -496,9 +501,9 @@ export default function ProductDetail() {
                                             value={text}
                                             onChange={(e) => setText(e.target.value)}
                                             placeholder="เขียนความคิดเห็นของคุณที่นี่..."
-                                            className="h-[5rem] p-2 border rounded-lg mt-2 w-full"
+                                            className="p-2 border-b mt-2 w-full"
                                         />
-                                        <div className="flex gap-2 mt-2">
+                                        <div className="flex gap-2">
                                             <Button type="submit" icon={<FaPaperPlane size={20} />}>
                                                 ส่งความคิดเห็น
                                             </Button>

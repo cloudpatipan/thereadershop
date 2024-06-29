@@ -204,7 +204,7 @@ export default function ViewBank() {
                                                         {bank.image ? (
                                                             <img className="w-12 h-18 rounded object-cover" src={`${baseUrl}/images/bank/${bank.image}`} alt="" />
                                                         ) : (
-                                                            <img className="w-12 h-18 rounded object-cover" src="${baseUrl}/images/product/No_image.png" alt="No Image" />
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                         )}
                                                     </td>
                                                     <td className="py-1 border-b">{bank.name}</td>
@@ -264,13 +264,13 @@ export default function ViewBank() {
                                                         {bank.image ? (
                                                             <img className="object-cover" src={`${baseUrl}/images/bank/${bank.image}`} alt="" />
                                                         ) : (
-                                                            <img className="object-cover" src="${baseUrl}/images/bank/no_image.png" alt="No Image" />
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                         )}
                                                         <div className="absolute top-1 left-1">
                                                         {bank.logo ? (
-                                                            <img className="w-24 h-24 rounded-lg object-cover" src={`${baseUrl}/images/bank/${bank.logo}`} alt="" />
+                                                            <img className="w-24 h-24 rounded-lg object-cover" src={`${baseUrl}/images/bank/logo/${bank.logo}`} alt="" />
                                                         ) : (
-                                                            <img className="w-24 h-24 rounded-lg object-cover" src="${baseUrl}/images/bank/no_image.png" alt="No Image" />
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                         )}
                                                         </div>
                                                     </div>
