@@ -18,6 +18,8 @@ export default function Login() {
         setShowPassword(!showPassword);
     };
 
+    const [error, setError] = useState([]);
+
     const SubmitLogin = async (e) => {
         e.preventDefault();
 
@@ -26,15 +28,14 @@ export default function Login() {
         axios.get('/sanctum/csrf-cookie').then(response => {
             axios.post('/api/login', data).then(res => {
                 if (res.data.status === 200) {
-                    if(res.data.role === 'admin')
-                        {
-                            navigate('/admin/product');
-                        } else {
-                            navigate('/');
-                        }
+                    if (res.data.role === 'admin') {
+                        navigate('/admin/product');
+                    } else {
+                        navigate('/');
+                    }
                     Swal.fire({
                         icon: "success",
-                        text: res.data.message,  // Display the message from response
+                        text: res.data.message,
                         confirmButtonText: "ตกลง",
                         confirmButtonColor: "black",
                         focusConfirm: false,
@@ -43,22 +44,20 @@ export default function Login() {
                     localStorage.setItem('user', res.data.user.name);
                     setUser(res.data.user);
                     setToken(res.data.token);
-                    navigate('/');
-                } else {
+                } else if (res.data.status === 400) {
                     Swal.fire({
-                        icon: "error",
-                        text: res.data.message,  // Display the message from response
+                        icon: "warning",
+                        text: res.data.message,
                         confirmButtonText: "ตกลง",
                         confirmButtonColor: "black",
                         focusConfirm: false,
                     });
+                } else if (res.data.status === 422) {
+                    setError(res.data.errors);
                 }
-            }).catch(error => {
-                if (error.response && error.response.data && error.response.data.errors) {
-                    setValidationErrors(error.response.data.errors);
-                }
+
             });
-        });
+        })
     }
 
     return (
@@ -74,9 +73,7 @@ export default function Login() {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="กรุณาใส่อีเมล"
                     />
-                    {validationErrors.email && (
-                        <div className="text-red-500 text-sm mt-2">{validationErrors.email[0]}</div>
-                    )}
+                    <div className="text-red-700 text-sm">{error.email}</div>
                 </div>
 
                 <div className="mt-4">
@@ -91,15 +88,13 @@ export default function Login() {
                             placeholder="กรุณาใส่รหัสผ่าน"
                         />
                         <button type="button" onClick={toggleShowPassword} className="text-black absolute top-0 right-0 mt-2 text-sm">
-                            {showPassword ? <FaEye size={20}/> : <FaEyeSlash size={20}/>}
+                            {showPassword ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
                         </button>
                     </div>
-                    {validationErrors.password && (
-                        <div className="text-red-500 text-sm mt-2">{validationErrors.password[0]}</div>
-                    )}
+                    <div className="text-red-700 text-sm">{error.password}</div>
                 </div>
-                <button 
-                    type="submit" 
+                <button
+                    type="submit"
                     className="mt-8 w-full relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300"
                 >
                     <div>เข้าสู่ระบบ</div>

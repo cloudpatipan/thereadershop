@@ -30,8 +30,11 @@ export default function Navbar() {
   const [carts, setCarts] = useState([]);
   const { cartCount, setCartCount } = useContext(CartContext);
 
+
   useEffect(() => {
+    if(token) {
       fetchCart();
+    }
   }, []);
 
   const fetchCart = async () => {
@@ -163,7 +166,7 @@ export default function Navbar() {
         </div>
 
         <div>
-          {!localStorage.getItem('token') ? (
+          {!token ? (
             <div className="hidden md:flex items-center gap-4">
               <Button className="text-sm md:text-base" icon={<IoIosLogIn size={25} />} onClick={openModalLogin}>
                 เข้าสู่ระบบ

@@ -7,7 +7,6 @@ import axios from 'axios'
 import { FaUserFriends } from "react-icons/fa";
 import { FaBox } from "react-icons/fa";
 import Info from '../../components/Info'
-
 export default function Home() {
 
   document.title = "หน้าหลัก";
@@ -25,8 +24,8 @@ export default function Home() {
 
   const fetchData = async () => {
     
-      const userResponse = await axios.get(`/api/userDashboard`);
-      const productResponse = await axios.get(`/api/productDashboard`);
+      const userResponse = await axios.get(`/api/userCount`);
+      const productResponse = await axios.get(`/api/productCount`);
       const featuredResponse = await axios.get(`/api/products-featured`);
       const popularResponse = await axios.get(`/api/products-popular`);
 

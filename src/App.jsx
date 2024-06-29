@@ -62,7 +62,6 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/category" element={<CategoryAll />} />
         <Route path="/category/:slug" element={<CategoryProduct />} />
-        <Route path="/cart" element={<Cart />} />
         <Route exact path="/product/detail/:slug" element={<ProductDetail />} />
 
         <Route path="/" element={<PrivateRoute />}>
