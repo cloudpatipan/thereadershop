@@ -352,7 +352,7 @@ export default function ProductDetail() {
                                 </div>
 
                                 <div className="w-full md:w-[80%]">
-                                    <h2 className="text-sm md:text-base block text-black/30 md:text-base font-semibold">{product.category.name}</h2>
+                                         <h2 className="text-sm md:text-base block text-black/30 md:text-base font-semibold">{product?.category.name}</h2>
                                     <h1 className="text-base md:text-2xl font-semibold mb-4">{product.name}</h1>
                                     <span className="text-base md:text-lg font-semibold">รายละเอียด</span>
                                     <p className="text-sm md:text-base">{product.description}</p>
@@ -408,7 +408,7 @@ export default function ProductDetail() {
                                                 </Link>
                                                 <div className="p-2 text-center">
                                                     <p className="text-sm md:text-lg font-semibold text-ellipsis overflow-hidden text-balance h-[4rem]">{item.name}</p>
-                                                    <p className="text-sm text-clip overflow-hidden text-black/40 font-semibold">{item.category.name}</p>
+                                                    <p className="text-sm text-clip overflow-hidden text-black/40 font-semibold">{item?.category.name}</p>
                                                     <span className="font-bold">{item.price} บาท</span>
                                                 </div>
                                             </div>
