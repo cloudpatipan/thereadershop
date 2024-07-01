@@ -10,25 +10,5 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <div id="bn-root"></div>
-
-    <script>window.onload = function() { BN.init({ version: '1.0' }) }</script>
-    <script>
-        (function(d, s, id) {
-            var js, bjs = d.getElementsByTagName(s)[0];
-            if(d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = 'https://console.botnoi.ai/customerchat/index.js';
-            bjs.parentNode.insertBefore(js, bjs);
-        } (document, 'script', 'bn-jssdk'));  
-    </script>
-
-    <div class="bn-customerchat"
-        bot_id="667690f98f9af3f18dbc4d09"
-        bot_logo="https://img2.pic.in.th/pic/download_1.png"
-        bot_name="The reader"
-        theme_color="#fc823f"
-        default_open="สวัสดี ผม The reader">
-    </div>
   </body>
 </html>
