@@ -4,11 +4,13 @@ import ProductFeatured from './ProductFeatured'
 import Header from '../../components/Header'
 import ProductPopular from './ProductPupular'
 import axios from 'axios'
-import { FiUsers } from "react-icons/fi"
-import { FaBox } from "react-icons/fa";
+import { PiUsersThin } from "react-icons/pi";
+import { PiArchiveThin } from "react-icons/pi";
 import { FiBox } from "react-icons/fi";
 import Info from '../../components/Info'
 import { Rings } from 'react-loader-spinner'
+import CategoryAll from '../category/Category'
+import CategoryList from '../category/CategoryList'
 export default function Home() {
 
   document.title = "หน้าหลัก";
@@ -72,29 +74,30 @@ export default function Home() {
       ) : (
         <>
           <Header />
-          <div className="grid grid-col-1 md:grid-cols-2 gap-4 mb-4">
+          <div className="grid grid-col-1 md:grid-cols-2 gap-y-2 gap-x-4 mb-1">
             <div className="bg-white rounded-lg border flex items-center justify-between p-4">
-              <div className="flex flex-col">
-                <h2>ผู้ใช้ทั้งหมด</h2>
-                <p className="text-[1.5rem] font-semibold">{userCount}</p>
+              <div className="flex flex-col text-sm">
+                <p>ผู้ใช้ทั้งหมด</p>
+                <p className="text-base">{userCount}</p>
                 <p>คน</p>
               </div>
-              <FiUsers size={80} />
+              <PiUsersThin size={80} />
             </div>
 
             <div className="bg-white rounded-lg border flex items-center justify-between p-4">
-              <div className="flex flex-col">
+            <div className="flex flex-col text-sm">
                 <h2>สินค้าทั้งหมด</h2>
-                <p className="text-lg md:text-2xl font-semibold">{productCount}</p>
+                <p className="text-base">{productCount}</p>
                 <p>ชิ้น</p>
               </div>
-              <FiBox size={80} />
+              <PiArchiveThin size={80} />
             </div>
 
           </div>
           <Info>
             {productLast.name}
           </Info>
+          <CategoryList/>
           <ProductFeatured products={featuredProducts} />
           <ProductPopular products={popularProducts} />
         </>

@@ -9,6 +9,7 @@ import { FaSearch } from "react-icons/fa";
 import Button from '../../components/Button';
 import Layout from '../../components/Layouts/Layout';
 import baseUrl from '../../routes/BaseUrl';
+import { Rings } from 'react-loader-spinner';
 export default function CategoryProduct() {
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
@@ -61,16 +62,21 @@ export default function CategoryProduct() {
     return (
         <Layout>
             {loading ? (
-                <div className="flex items-center justify-center">
-                    <span className="text-3xl font-semibold">กำลังโหลด...</span>
-                </div>
+                (<Rings
+                    visible={true}
+                    height="500"
+                    width="500"
+                    color="black"
+                    ariaLabel="rings-loading"
+                    wrapperClass="flex justify-center"
+                />)
             ) : (
                 <div>
 
                     <div className="flex flex-col md:flex-row justify-between">
 
                         <div>
-                            <h1 className="text-base md:text-2xl font-semibold">ประเภทสินค้า {category.name}</h1>
+                            <h1 className="text-base">ประเภทสินค้า {category.name}</h1>
                         </div>
 
                         <div className="relative">
@@ -83,10 +89,10 @@ export default function CategoryProduct() {
                     </div>
 
                     <Link to={`/category`}>
-                        <Button icon={<IoMdArrowDropleft size={20}/>} className={`mt-2 md:mt-0 mb-2`}>
+                        <Button icon={<IoMdArrowDropleft size={20} />} className={`mt-2 md:mt-0 mb-2`}>
                             กลับ
                         </Button>
-                        </Link>
+                    </Link>
 
                     <div>
                         <div className={`grid grid-container grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4`}>
@@ -99,24 +105,24 @@ export default function CategoryProduct() {
                                     .map((product, index) => (
                                         <div key={index}>
                                             <Link to={`/product/detail/${product.slug}`}>
-                                                <div className="relative overflow-hidden rounded-lg group">
-                                                    <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                                <div className="relative overflow-hidden rounded-lg group h-[16rem]">
+                                                    <div className="absolute w-full h-full bg-black/40 flex items-center justify-center group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                                         <div className="flex flex-col items-center text-white text-xl">
                                                             รายละเอียด
                                                             <CgDetailsMore size={28} />
                                                         </div>
                                                     </div>
                                                     {product.image ? (
-                                                        <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/${product.image}`} alt={`รูปภาพสินค้า ${product.name}`} />
+                                                        <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/${product.image}`} alt={`รูปภาพสินค้า ${product.name}`} />
                                                     ) : (
                                                         <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                     )}
                                                 </div>
                                             </Link>
-                                            <div className="p-2 text-center">
-                                                <p className="text-sm md:text-lg font-semibold text-ellipsis overflow-hidden text-balance h-[4rem]">{product.name}</p>
-                                                <p className="text-sm text-clip overflow-hidden text-black/40 font-semibold">{product.category.name}</p>
-                                                <span className="font-bold">{product.price} บาท</span>
+                                            <div className="mt-1">
+                                                <p className="text-sm text-ellipsis overflow-hidden text-balance h-[4rem]">{product.name}</p>
+                                                <p className="text-xs text-clip overflow-hidden text-black/40 font-semibold">{product.category.name}</p>
+                                                <span className="text-base">{product.price} บาท</span>
                                             </div>
                                         </div>
 
@@ -128,29 +134,26 @@ export default function CategoryProduct() {
                             )}
 
                         </div>
-                        {/* ส่วนของ Pagination */}
-                        <ReactPaginate
-                            previousLabel={
-                                <span className="w-10 h-10 flex items-center justify-center bg-black rounded-full text-white">
-                                    <IoMdArrowDropleft size={20} />
-                                </span>
-                            }
-                            nextLabel={
-                                <span className="w-10 h-10 flex items-center justify-center bg-black rounded-full text-white">
-                                    <IoMdArrowDropright size={20} />
-                                </span>
-                            }
-                            pageCount={pageCount}
-                            breakLabel={
-                                <span className="mr-4">
-                                    ...
-                                </span>
-                            }
-                            onPageChange={handlePageClick}
-                            containerClassName="flex justify-center items-center gap-2 mt-2"
-                            pageClassName="block border- border-solid border-black bg-black w-10 h-10 flex items-center justify-center rounded-full text-white"
-                            activeClassName="bg-black/40"
-                        />
+                        {pageCount > 1 && (
+                            <ReactPaginate
+                                previousLabel={
+                                    <span className="w-10 h-10 flex items-center justify-center border rounded-full">
+                                        <IoMdArrowDropleft size={20} />
+                                    </span>
+                                }
+                                nextLabel={
+                                    <span className="w-10 h-10 flex items-center justify-center border rounded-full">
+                                        <IoMdArrowDropright size={20} />
+                                    </span>
+                                }
+                                pageCount={pageCount}
+                                breakLabel={<span className="mr-4">...</span>}
+                                onPageChange={handlePageClick}
+                                containerClassName="flex justify-center items-center gap-2 mt-2"
+                                pageClassName="block w-10 h-10 flex items-center justify-center border rounded-full"
+                                activeClassName="border-4"
+                            />
+                        )}
                     </div>
                 </div>
             )}

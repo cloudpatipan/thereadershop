@@ -35,7 +35,7 @@ export default function Sidebar({ children }) {
     return (
         <>
             <section className="flex">
-                <div className={`bg-black min-h-screen ${open ? 'w-72' : 'w-16'} duration-500 text-white px-4`}>
+                <div className={`border min-h-screen ${open ? 'w-72' : 'w-16'} duration-500 px-4`}>
                     <div className="py-3 flex justify-end">
                         <HiMenuAlt3 size={26} className="cursor-pointer" onClick={() => setOpen(!open)} />
                     </div>
@@ -59,7 +59,7 @@ export default function Sidebar({ children }) {
                                             style={{
                                                 transitionDelay: `50ms`,
                                             }}
-                                            className={`whitespace-pre text-xs duration-500 bg-white rounded-lg text-black px-2 ${!open && ' opacity-0 transition-x-28 overflow-hidden'}`}>
+                                            className={`whitespace-pre text-xs duration-500 border rounded-lg text-black px-2 ${!open && ' opacity-0 transition-x-28 overflow-hidden'}`}>
                                             {user.role}
                                         </h2>
                                         <h2
@@ -80,7 +80,7 @@ export default function Sidebar({ children }) {
                     <div className="mt-4 flex flex-col gap-4 relative">
                         {
                             menus?.map((menu, i) => (
-                                <Link to={menu?.link} key={i} className={` ${menu.margin && "mt-5"} group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}>
+                                <Link to={menu?.link} key={i} className={` ${menu.margin && "mt-5"} group flex items-center text-sm gap-3.5  p-2 hover:outline outline-1 outline-inherit rounded-md`}>
                                     <div>
                                         {React.createElement(menu?.icon, { size: "20" })}
                                     </div>
@@ -91,7 +91,7 @@ export default function Sidebar({ children }) {
                                         className={`whitespace-pre duration-500 ${!open && ' opacity-0 transition-x-28 overflow-hidden'}`}>
                                         {menu.name}
                                     </h2>
-                                    <h2 className={`${open ? 'hidden' : ''} absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit`}>
+                                    <h2 className={`${open ? 'hidden' : ''} absolute left-48 bg-white  whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit`}>
                                         {menu.name}
                                     </h2>
                                 </Link>

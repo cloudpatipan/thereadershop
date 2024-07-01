@@ -61,10 +61,10 @@ export default function Login() {
 
     return (
         <div>
-            <h1 className="text-2xl font-semibold text-center text-black mb-4">เข้าสู่ระบบ</h1>
+            <h1 className="text-2xl  text-center text-black mb-4">เข้าสู่ระบบ</h1>
             <form onSubmit={SubmitLogin}>
                 <div>
-                    <label className="text-sm md:text-base block font-semibold text-black">อีเมล</label>
+                    <label className="text-sm md:text-base block  text-black">อีเมล</label>
                     <input
                         className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                         type="email"
@@ -76,7 +76,7 @@ export default function Login() {
                 </div>
 
                 <div className="mt-4">
-                    <label className="text-sm md:text-base block text-black font-semibold">รหัสผ่าน</label>
+                    <label className="text-sm md:text-base block text-black ">รหัสผ่าน</label>
                     <div className="relative">
                         <input
                             className="pr-6 block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"

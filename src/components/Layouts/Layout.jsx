@@ -4,9 +4,9 @@ import Footer from '../Footer'
 export default function Layout({ children }) {
   return (
     <>
-    <div className="container mx-auto text-sm md:text-base px-4 md:px-8 flex flex-col justify-between">
+    <div className="container mx-auto text-sm md:text-base px-4 flex flex-col justify-between">
     <Navbar/>
-    <div className="my-8 min-h-screen container mx-auto">
+    <div className="my-8 min-h-screen mx-auto w-full">
     {children}
     </div>
   </div>

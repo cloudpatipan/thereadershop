@@ -8,17 +8,16 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import { IoIosLogIn, IoIosLogOut } from "react-icons/io";
-import { FaUserPlus } from "react-icons/fa";
-import { RiAdminFill } from "react-icons/ri";
+import { PiUserGearThin } from "react-icons/pi";
 import { MdFullscreen } from "react-icons/md";
 import { LiaShoppingBagSolid } from "react-icons/lia";
-import { FaBagShopping } from "react-icons/fa6";
-import { FaUser } from "react-icons/fa";
-import { IoLogOut } from "react-icons/io5";
-import { FiHome } from "react-icons/fi";
-import { BiCategory } from "react-icons/bi";
-import { FiUserPlus } from "react-icons/fi";
+import { PiShoppingBagOpenThin } from "react-icons/pi";
+import { PiUserThin } from "react-icons/pi";
+import { PiArrowLineLeftThin } from "react-icons/pi";
+import { PiArrowLineRightThin } from "react-icons/pi";
+import { CiHome } from "react-icons/ci";
+import { PiSquaresFourThin } from "react-icons/pi";
+import { PiUserPlusThin } from "react-icons/pi";
 import { IoClose } from "react-icons/io5";
 import Button from './Button';
 import { UserContext } from '../context/UserContext';
@@ -29,8 +28,8 @@ import baseUrl from '../routes/BaseUrl';
 export default function Navbar() {
 
   const menus = [
-    { name: "หน้าหลัก", link: "/", icon: FiHome },
-    { name: "ประเภทสินค้า", link: "/category", icon: BiCategory },
+    { name: "หน้าหลัก", link: "/", icon: CiHome },
+    { name: "ประเภทสินค้า", link: "/category", icon: PiSquaresFourThin },
   ]
 
 
@@ -159,18 +158,18 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full mx-auto gap-4 text-black mt-4">
+    <nav className="w-full mx-auto gap-4 text-black mt-1">
       <div className="flex items-center justify-between">
 
         <Link to={'/'}>
-          <h1 className="text-2xl font-semibold text-[#fc823f]">The Reader</h1>
+          <h1 className="text-2xl  text-[#fc823f]">The Reader</h1>
         </Link>
 
         <div className="hidden md:flex gap-4">
           {
             menus?.map((menu, i) => (
               <Link to={menu?.link} key={i}>
-                <Button icon={React.createElement(menu?.icon, { size: "20" })}>
+                <Button icon={React.createElement(menu?.icon, { size: "25" })}>
                   <h2
                     className={``}>
                     {menu.name}
@@ -184,7 +183,7 @@ export default function Navbar() {
         <div>
           {!token ? (
             <div className="hidden md:flex items-center gap-4">
-              <Button className="text-sm md:text-base" icon={<IoIosLogIn size={25} />} onClick={openModalLogin}>
+              <Button className="text-sm md:text-base" icon={<PiArrowLineLeftThin size={25} />} onClick={openModalLogin}>
                 เข้าสู่ระบบ
               </Button>
 
@@ -192,7 +191,7 @@ export default function Navbar() {
                 <Login />
               </Modal>
 
-              <Button className="text-sm md:text-base" icon={<FiUserPlus size={25} />} onClick={openModalRegister}>
+              <Button className="text-sm md:text-base" icon={<PiUserPlusThin size={25} />} onClick={openModalRegister}>
                 สมัครสมาชิก
               </Button>
 
@@ -207,14 +206,14 @@ export default function Navbar() {
                 <div className="flex gap-4">
 
                   <Link to={'/cart'}>
-                    <button className="text-black w-[3rem] h-[3rem] rounded-full overflow-hidden cursor-pointer group shadow-md flex items-center justify-center">
+                    <button className="text-black w-[3rem] h-[3rem] rounded-full overflow-hidden cursor-pointer group flex items-center justify-center">
                       <div className="relative">
                         {cartCount ? (
-                          <div className="absolute top-[-0.2rem] right-[-0.2rem] w-[1rem] h-[1rem] flex items-center justify-center bg-black text-white rounded-full">
+                          <div className="absolute top-[-0.2rem] right-[-0.2rem] w-[1rem] h-[1rem] flex items-center justify-center bg-black text-white text-xs rounded-full">
                             {cartCount}
                           </div>
                         ) : null}
-                        <LiaShoppingBagSolid size={30} />
+                        <PiShoppingBagOpenThin size={30} />
                       </div>
                     </button>
                   </Link>
@@ -255,33 +254,33 @@ export default function Navbar() {
                         </div>
                       </ModalImage>
                       <div className="flex flex-col">
-                        <div className="text-xs text-center relative flex justify-center items-center gap-2 rounded-full bg-black font-medium uppercase text-white">
+                        <div className="text-xs text-center relative flex justify-center items-center gap-2 rounded-full border uppercase">
                           {user.role}
                         </div>
-                        <p className="text-xl font-semibold text-black">{user.name}</p>
+                        <p className="text-xl  text-black">{user.name}</p>
                       </div>
 
                     </div>
 
                     {user.role == 'admin' && ( // เช็คว่ามีผู้ใช้ล็อคอินและเป็น admin หรือไม่
                       <Link to={'/dashboard'}>
-                        <Button icon={<RiAdminFill size={20} />} className="mt-1 w-full">
+                        <Button icon={<PiUserGearThin size={20} />} className="mt-1 w-full">
                           แอดมิน
                         </Button>
                       </Link>
                     )}
                     <Link to={'/order'}>
-                      <Button icon={<FaBagShopping size={20} />} className="mt-1 w-full">
+                      <Button icon={<PiShoppingBagOpenThin size={20} />} className="mt-1 w-full">
                         รายการสังซื้อ
                       </Button>
                     </Link>
                     <Link to={'/profile'}>
-                      <Button icon={<FaUser size={20} />} className="mt-1 w-full">
+                      <Button icon={<PiUserThin size={20} />} className="mt-1 w-full">
                         โปรไฟล์
                       </Button>
                     </Link>
 
-                    <Button icon={<IoLogOut size={25} />} className="mt-1 w-full" onClick={SubmitLogout} >
+                    <Button icon={<PiArrowLineRightThin size={20} />} className="mt-1 w-full" onClick={SubmitLogout} >
                       ออกจการะบบ
                     </Button>
                   </Dropdown>
@@ -294,7 +293,7 @@ export default function Navbar() {
         </div>
 
         <div className="md:hidden">
-          <button className="bg-black text-white p-2 rounded-full" id="menu-toggle" onClick={toggleMenu}>
+          <button className="border p-1 rounded-full" id="menu-toggle" onClick={toggleMenu}>
           {isMenuOpen ? <IoClose size={25} /> : <GiHamburgerMenu size={25} />}
           </button>
         </div>
@@ -308,7 +307,7 @@ export default function Navbar() {
               {
                 menus?.map((menu, i) => (
                   <Link to={menu?.link} key={i}>
-                    <Button className={`w-full mt-1 bg-white`} icon={React.createElement(menu?.icon, { size: "20" })}>
+                    <Button className={`w-full mt-1 bg-white`} icon={React.createElement(menu?.icon, { size: "25" })}>
                       <h2
                         className={``}>
                         {menu.name}
@@ -320,7 +319,7 @@ export default function Navbar() {
               {!token ? (
                 <div>
 
-                  <Button className={`w-full mt-1 text-sm md:text-base bg-white`} icon={<IoIosLogIn size={25} />} onClick={openModalLogin}>
+                  <Button className={`w-full mt-1 text-sm md:text-base bg-white`} icon={<PiArrowLineLeftThin size={25} />} onClick={openModalLogin}>
                     เข้าสู่ระบบ
                   </Button>
 
@@ -328,7 +327,7 @@ export default function Navbar() {
                     <Login />
                   </Modal>
 
-                  <Button className={`w-full mt-1 text-sm md:text-base bg-white`} icon={<FiUserPlus size={25} />} onClick={openModalRegister}>
+                  <Button className={`w-full mt-1 text-sm md:text-base bg-white`} icon={<PiUserPlusThin size={25} />} onClick={openModalRegister}>
                     สมัครสมาชิก
                   </Button>
 

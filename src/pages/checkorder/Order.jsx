@@ -59,6 +59,13 @@ export default function Order() {
                 ) : (
                     <div>
                         <h1 className="mb-4 text-base md:text-2xl font-semibold">รายการสังซื้อ</h1>
+
+                        <Link to={`/`}>
+                            <Button icon={<IoMdArrowDropleft size={20} />} className={`mb-2`}>
+                                กลับ
+                            </Button>
+                        </Link>
+
                         <div className="p-4 border rounded-lg">
 
                             <table className="w-full overflow-x-scroll text-sm md:text-base">

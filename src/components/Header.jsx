@@ -34,7 +34,7 @@ export default function Header() {
   };
 
   return (
-    <header className="mb-4">
+    <header className="mb-1">
       <div className="relative overflow-hidden rounded-lg h-[10rem] md:h-[24rem]">
         {banners.length > 0 ? (
           <>

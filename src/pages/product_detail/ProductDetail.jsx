@@ -6,7 +6,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Layout from '../../components/Layouts/Layout';
 import ModalImage from '../../components/ModalImage';
-import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { PiShoppingBagOpenThin } from "react-icons/pi";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
@@ -15,7 +15,7 @@ import { CartContext } from '../../context/CartContext';
 import { CgDetailsMore } from "react-icons/cg";
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 import { IoCloseCircleOutline } from "react-icons/io5";
-import { FaPaperPlane } from "react-icons/fa6";
+import { PiTelegramLogoThin } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { UserContext } from '../../context/UserContext';
@@ -301,7 +301,7 @@ export default function ProductDetail() {
 
                                     </div>
 
-                                    <div className={`grid grid-container grid-cols-2 md:grid-cols-4 mt-1`}>
+                                    <div className={`grid grid-container grid-cols-4 mt-1`}>
                                         {additional_images.length > 0 ? (
                                             additional_images.map((item, index) => (
                                                 <div key={index} className="relative overflow-hidden rounded-lg group">
@@ -326,21 +326,21 @@ export default function ProductDetail() {
                                                         <div className="flex justify-between items-center">
 
                                                             <div className="cursor-pointer" onClick={() => setCurrentImageIndex((currentImageIndex - 1 + additional_images.length) % additional_images.length)}>
-                                                                <IoIosArrowBack className="text-black text-4xl hover:text-gray-300" />
+                                                                <IoIosArrowBack className="text-gray-300 hover:text-black text-4xl" />
                                                             </div>
 
                                                             <div className="w-[20rem] h-[30rem] overflow-hidden rounded-lg relative">
                                                                 <button
-                                                                    className="absolute top-0 right-0 text-white text-lg bg-transparent border-transparent cursor-pointer font-medium"
+                                                                    className="absolute top-0 right-0 drop-shadow text-white text-lg bg-transparent border-transparent cursor-pointer font-medium"
                                                                     onClick={closeModalAdditionImages}
                                                                 >
-                                                                    <IoCloseCircleOutline className="text-white hover:text-red-800 transition-all duration-300" size={40} />
+                                                                    <IoCloseCircleOutline size={40} />
                                                                 </button>
                                                                 <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/${additional_images[currentImageIndex]?.additional_image}`} alt="" />
                                                             </div>
 
                                                             <div className="cursor-pointer" onClick={() => setCurrentImageIndex((currentImageIndex + 1) % additional_images.length)}>
-                                                                <IoIosArrowForward className="text-black text-4xl hover:text-gray-300" />
+                                                                <IoIosArrowForward className="text-gray-300 hover:text-black text-4xl" />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -352,18 +352,19 @@ export default function ProductDetail() {
                                 </div>
 
                                 <div className="w-full md:w-[80%]">
-                                         <h2 className="text-sm md:text-base block text-black/30 md:text-base font-semibold">{product?.category.name}</h2>
-                                    <h1 className="text-base md:text-2xl font-semibold mb-4">{product.name}</h1>
-                                    <span className="text-base md:text-lg font-semibold">รายละเอียด</span>
-                                    <p className="text-sm md:text-base">{product.description}</p>
-                                    <p className="mt-4 text-base md:text-xl font-semibold">
-                                        <span className="font-semibold text-sm md:text-base block text-black/30">
+                                    <h2 className="text-sm block text-black/30 md:text-base">{product?.category.name}</h2>
+                                    {console.log(product.category.name)}
+                                    <h1 className="text-base md:text-lg mb-4">{product.name}</h1>
+                                    <span className="text-base">รายละเอียด</span>
+                                    <p className="text-sm">{product.description}</p>
+                                    <p className="mt-4 text-base md:text-lg">
+                                        <span className="text-sm md:text-base block text-black/30">
                                             ราคารวม
                                         </span>
                                         {product.price} บาท
                                     </p>
 
-                                    <div className="my-4 flex items-center justify-center gap-4 rounded-full bg-black/10 h-8 w-24 font-medium uppercase">
+                                    <div className="my-2 flex items-center justify-center gap-4 rounded-full border h-8 w-[6rem] uppercase">
                                         <button onClick={handleDecrement}><FaMinus /></button>
                                         <div>
                                             {quantity}
@@ -372,7 +373,7 @@ export default function ProductDetail() {
                                     </div>
 
                                     {product.qty > 0 ? (
-                                        <Button onClick={addToCart} type="submit" icon={<HiOutlineShoppingBag size={26} />}>
+                                        <Button onClick={addToCart} type="submit" icon={<PiShoppingBagOpenThin size={26} />}>
                                             เพิ่มลงตระกร้า
                                         </Button>
                                     ) : (
@@ -385,31 +386,31 @@ export default function ProductDetail() {
                             </div>
 
                             <div>
-                                <h1 className="text-lg md:text-xl font-semibold my-2">สินค้าที่คุณอาจจะสนใจ</h1>
+                                <h1 className="text-sm md:text-base font-semibold my-2">สินค้าที่คุณอาจจะสนใจ</h1>
 
                                 <div className={`grid grid-container grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4`}>
                                     {product_random.length > 0 ? (
                                         product_random.map((item, index) => (
-                                            <div key={index}>
+                                            <div key={index} className="overflow-hidden">
                                                 <Link to={`/product/detail/${item.slug}`}>
-                                                    <div className="relative overflow-hidden rounded-lg group">
-                                                        <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                                    <div className="relative overflow-hidden rounded-lg group h-[16rem]">
+                                                        <div className="absolute w-full h-full bg-black/40 flex items-center justify-center group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                                             <div className="flex flex-col items-center text-white text-xl">
                                                                 รายละเอียด
                                                                 <CgDetailsMore size={28} />
                                                             </div>
                                                         </div>
                                                         {item.image ? (
-                                                            <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/${item.image}`} alt={`รูปภาพสินค้า ${item.name}`} />
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/${item.image}`} alt={`รูปภาพสินค้า ${item.name}`} />
                                                         ) : (
                                                             <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                         )}
                                                     </div>
                                                 </Link>
-                                                <div className="p-2 text-center">
-                                                    <p className="text-sm md:text-lg font-semibold text-ellipsis overflow-hidden text-balance h-[4rem]">{item.name}</p>
-                                                    <p className="text-sm text-clip overflow-hidden text-black/40 font-semibold">{item?.category.name}</p>
-                                                    <span className="font-bold">{item.price} บาท</span>
+                                                <div className="mt-1">
+                                                    <p className="text-sm text-ellipsis overflow-hidden text-balance h-[4rem]">{item.name}</p>
+                                                    <p className="text-xs text-clip overflow-hidden text-black/40 font-semibold">{item.category.name}</p>
+                                                    <span className="text-base">{item.price} บาท</span>
                                                 </div>
                                             </div>
                                         ))
@@ -422,7 +423,7 @@ export default function ProductDetail() {
                             </div>
 
                             <div className="mt-4">
-                                <h2 className="text-lg md:text-xl font-semibold">ความคิดเห็น</h2>
+                                <h2 className="text-base md:text-lg">ความคิดเห็น</h2>
                                 <div className="flex flex-col gap-4 mt-2 overscroll-auto py-1">
                                     {displayedComments.length > 0 ? (
                                         displayedComments.map((comment, index) => (
@@ -441,8 +442,8 @@ export default function ProductDetail() {
                                                     <div className="flex flex-col">
                                                         {comment.user ? (
                                                             <>
-                                                                <p className="bg-black text-white rounded-full px-2 text-center">{comment.user.role}</p>
-                                                                <p>{comment.user.name}</p>
+                                                                <p className="border rounded-full px-2 text-center text-sm">{comment.user.role}</p>
+                                                                <p className="text-base">{comment.user.name}</p>
                                                             </>
                                                         ) : (
                                                             <p>ผู้ใช้ไม่ทราบ</p>
@@ -462,7 +463,7 @@ export default function ProductDetail() {
                                                             className="h-[5rem] p-2 border rounded-lg mt-2 w-full"
                                                         />
                                                         <div className="flex gap-2 mt-2">
-                                                            <Button className="flex justify-end" icon={<FaPaperPlane size={20} />}
+                                                            <Button className="flex justify-end" icon={<PiPaperPlaneTiltThin size={20} />}
                                                                 onClick={(e) => updateComment(comment.id)}
                                                             >
                                                                 อัพเดท
@@ -496,7 +497,7 @@ export default function ProductDetail() {
                                             </div>
                                         ))
                                     ) : (
-                                        <div className="text-base md:text-2xl font-semibold p-4 flex items-center justify-center rounded-lg">
+                                        <div className="text-base md:text-base font-semibold p-4 flex items-center justify-center rounded-lg">
                                             ไม่มีความคิดเห็น
                                         </div>
                                     )}
@@ -511,35 +512,33 @@ export default function ProductDetail() {
                                             className="p-2 border-b mt-2 w-full"
                                         />
                                         <div className="flex gap-2">
-                                            <Button type="submit" icon={<FaPaperPlane size={20} />}>
+                                            <Button type="submit" icon={<PiTelegramLogoThin size={20} />}>
                                                 ส่งความคิดเห็น
                                             </Button>
                                         </div>
                                     </form>
                                 ) : null}
 
-                                <ReactPaginate
-                                    previousLabel={
-                                        <span className="w-10 h-10 flex items-center justify-center bg-black rounded-full text-white">
-                                            <IoMdArrowDropleft size={20} />
-                                        </span>
-                                    }
-                                    nextLabel={
-                                        <span className="w-10 h-10 flex items-center justify-center bg-black rounded-full text-white">
-                                            <IoMdArrowDropright size={20} />
-                                        </span>
-                                    }
-                                    pageCount={pageCount}
-                                    breakLabel={
-                                        <span className="mr-4">
-                                            ...
-                                        </span>
-                                    }
-                                    onPageChange={handlePageClick}
-                                    containerClassName="flex justify-center items-center gap-2 mt-2"
-                                    pageClassName="block border- border-solid border-black bg-black w-10 h-10 flex items-center justify-center rounded-full text-white"
-                                    activeClassName="bg-black/40"
-                                />
+                                {pageCount > 1 && (
+                                    <ReactPaginate
+                                        previousLabel={
+                                            <span className="w-10 h-10 flex items-center justify-center border rounded-full">
+                                                <IoMdArrowDropleft size={20} />
+                                            </span>
+                                        }
+                                        nextLabel={
+                                            <span className="w-10 h-10 flex items-center justify-center border rounded-full">
+                                                <IoMdArrowDropright size={20} />
+                                            </span>
+                                        }
+                                        pageCount={pageCount}
+                                        breakLabel={<span className="mr-4">...</span>}
+                                        onPageChange={handlePageClick}
+                                        containerClassName="flex justify-center items-center gap-2 mt-2"
+                                        pageClassName="block w-10 h-10 flex items-center justify-center border rounded-full"
+                                        activeClassName="border-4"
+                                    />
+                                )}
 
                             </div>
 

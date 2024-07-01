@@ -2,12 +2,15 @@ import React from 'react'
 
 export default function Info({ children }) {
   return (
-    <section className="my-4 border p-4 rounded-lg">
-      <div className="flex items-center gap-4">
-      <span className="font-bold text-base md:text-xl text-[#fc823f]">ข้อมูล</span>
+    <section className="my-1 border p-4 rounded-lg">
+      <div className="flex items-center gap-4 text-sm">
 
-      <div className="flex">
-      <p className="font-bold">
+      <div>
+      <p>ข้อมูล</p>
+      </div>
+
+      <div>
+      <p>
         [ประกาศ] {children}
       </p>
       </div>
