@@ -74,7 +74,7 @@ export default function Home() {
       ) : (
         <>
           <Header />
-          <div className="grid grid-col-1 md:grid-cols-2 gap-y-2 gap-x-4 mb-1">
+          <div className="grid grid-col-1 md:grid-cols-2 gap-y-2 gap-x-2 mb-1">
             <div className="bg-white rounded-lg border flex items-center justify-between p-4">
               <div className="flex flex-col text-sm">
                 <p>ผู้ใช้ทั้งหมด</p>
