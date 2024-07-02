@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Rings } from 'react-loader-spinner'
+import Button from '../../components/Button';
 export default function Order() {
 
     document.title = "รายการสั่งซื้อ";
@@ -66,9 +67,9 @@ export default function Order() {
                             </Button>
                         </Link>
 
-                        <div className="p-4 border rounded-lg">
+                        <div className="p-4 border rounded-lg overflow-x-scroll">
 
-                            <table className="w-full overflow-x-scroll text-sm md:text-base">
+                            <table className="w-full text-sm md:text-base">
                                 <thead>
                                     <tr className="text-left">
                                         <th className="py-1 border-b">เลขที่สั่งซื้อ</th>
