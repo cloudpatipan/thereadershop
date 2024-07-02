@@ -5,6 +5,8 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Rings } from 'react-loader-spinner'
 import Button from '../../components/Button';
+import { IoMdArrowDropright } from "react-icons/io";
+import { IoMdArrowDropleft } from "react-icons/io";
 export default function Order() {
 
     document.title = "รายการสั่งซื้อ";
