@@ -4,47 +4,50 @@ import Swal from 'sweetalert2';
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import Sidebar from '../../components/Layouts/Sidebar';
-import { IoMdTrash } from "react-icons/io";
-import { MdEdit } from "react-icons/md";
-import { IoAddCircleOutline } from "react-icons/io5";
-import { HiListBullet } from "react-icons/hi2";
-import { HiSquares2X2 } from "react-icons/hi2";
-import { CgDetailsMore } from "react-icons/cg";
+import { CiEdit } from "react-icons/ci";
+import { PiEyeThin, PiPlus, PiPlusThin } from "react-icons/pi";
+import { CiSearch } from "react-icons/ci";
+import { PiTrashSimpleThin } from "react-icons/pi";
+import { PiListBulletsThin } from "react-icons/pi";
+import { PiSquaresFourThin } from "react-icons/pi";
+import { PiToggleLeftThin } from "react-icons/pi";
+import { PiToggleRightThin } from "react-icons/pi";
 import { IoMdArrowDropright } from "react-icons/io";
 import { IoMdArrowDropleft } from "react-icons/io";
-import { IoTrashBinOutline } from "react-icons/io5";
+import { PiArticleThin } from "react-icons/pi";
 import baseUrl from '../../routes/BaseUrl';
 import { Rings } from 'react-loader-spinner';
-export default function ViewAdsBanner() {
+import Button from '../../components/Button';
+export default function ViewAdsbanner() {
     const [loading, setLoading] = useState(true);
-    const [AdsBanners, setAdsBanners] = useState([]);
+    const [Adsbanners, setAdsbanners] = useState([]);
     const [deletingId, setDeletingId] = useState(null);
     const [pageNumber, setPageNumber] = useState(0);
-    const AdsBannersPerPage = 10; // จำนวนสินค้าต่อหน้า
+    const AdsbannersPerPage = 10; // จำนวนสินค้าต่อหน้า
 
     const handlePageClick = ({ selected }) => {
         setPageNumber(selected);
     };
 
     useEffect(() => {
-        fetchAdsBanners();
+        fetchAdsbanners();
     }, [pageNumber]);
 
-    const fetchAdsBanners = async () => { // แก้ชื่อฟังก์ชั่นเป็น fetchadsbanner แทน fectadsbanner
+    const fetchAdsbanners = async () => { // แก้ชื่อฟังก์ชั่นเป็น fetchAdsbanner แทน fectAdsbanner
         try {
-            const response = await axios.get(`/api/adsbanners`);
-            setAdsBanners(response.data);
+            const response = await axios.get(`/api/Adsbanners`);
+            setAdsbanners(response.data);
             setLoading(false);
         } catch (error) {
-            console.error('Error fetching adsbanners:', error);
+            console.error('Error fetching Adsbanners:', error);
         }
     }
 
-    const deleteAdsBanner = (e, id) => {
+    const deleteAdsbanner = (e, id) => {
         e.preventDefault();
         setDeletingId(id);
 
-        axios.delete(`/api/adsbanners/${id}`).then(response => {
+        axios.delete(`/api/Adsbanners/${id}`).then(response => {
             if (response.data.status === 200) {
                 Swal.fire({
                     icon: "success",
@@ -55,7 +58,7 @@ export default function ViewAdsBanner() {
                 });
 
                 // อัปเดตรายการที่มีอยู่โดยการกรองออก
-                setAdsBanners(prev => prev.filter(AdsBanner => AdsBanner.id !== id));
+                setAdsbanners(prev => prev.filter(Adsbanner => Adsbanner.id !== id));
                 setDeletingId(null); // เครียทุกอย่างใน ไอดี ตระกร้า
             } else if (response.data.status === 400) {
                 Swal.fire({
@@ -70,8 +73,8 @@ export default function ViewAdsBanner() {
         });
     }
 
-    const pageCount = Math.ceil(AdsBanners.length / AdsBannersPerPage);
-    const displayedAdsBanners = AdsBanners.slice(pageNumber * AdsBannersPerPage, (pageNumber + 1) * AdsBannersPerPage);
+    const pageCount = Math.ceil(Adsbanners.length / AdsbannersPerPage);
+    const displayedAdsbanners = Adsbanners.slice(pageNumber * AdsbannersPerPage, (pageNumber + 1) * AdsbannersPerPage);
 
     const [isTableFormat, setIsTableFormat] = useState(true);
 
@@ -85,20 +88,17 @@ export default function ViewAdsBanner() {
             <Sidebar>
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4  mb-2 rounded-lg">
                     <Link to={"create"}>
-                        <button type="submit" className="w-full relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300">
-                            <div>
-                                <IoAddCircleOutline size={26} />
-                            </div>
+                        <Button icon={<PiPlusThin size={26} />} type="submit">
                             <div>
                                 เพิ่มแบนเนอร์
                             </div>
-                        </button>
+                        </Button>
                     </Link>
 
                     <div className="flex items-center gap-x-4">
 
-                        <button onClick={toggleFormat} className="bg-black text-white rounded-full p-2">
-                            {isTableFormat ? <HiSquares2X2 size={20} /> : <HiListBullet size={20} />}
+                        <button onClick={toggleFormat} className="border  rounded-full p-2">
+                            {isTableFormat ? <PiSquaresFourThin size={20} /> : <PiListBulletsThin size={20} />}
                         </button>
 
                     </div>
@@ -113,7 +113,7 @@ export default function ViewAdsBanner() {
                         color="black"
                         ariaLabel="rings-loading"
                         wrapperClass="flex justify-center"
-                      />)
+                    />)
                 ) : (
                     <div className="border p-4 rounded overflow-x-scroll">
                         {isTableFormat ? (
@@ -127,31 +127,31 @@ export default function ViewAdsBanner() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {displayedAdsBanners.length > 0 ? (
-                                        displayedAdsBanners
-                                            .map((adsbanner, index) => (
+                                    {displayedAdsbanners.length > 0 ? (
+                                        displayedAdsbanners
+                                            .map((Adsbanner, index) => (
                                                 <tr key={index}>
                                                     <td className="py-1 border-b">
-                                                        {adsbanner.id}
+                                                        {Adsbanner.id}
                                                     </td>
 
                                                     <td className="py-1 border-b">
-                                                        {adsbanner.image ? (
-                                                            <img className="w-48 h-10 rounded object-cover" src={`${baseUrl}/images/adsbanner/${adsbanner.image}`} alt="" />
+                                                        {Adsbanner.image ? (
+                                                            <img className="w-48 h-10 rounded object-cover" src={`${baseUrl}/images/Adsbanner/${Adsbanner.image}`} alt="" />
                                                         ) : (
                                                             <img className="w-12 h-18 rounded object-cover" src="${baseUrl}/images/product/No_image.png" alt="No Image" />
                                                         )}
-                                                        {console.log(adsbanner.image)}
+                                                        {console.log(Adsbanner.image)}
                                                     </td>
                                                     <td className="py-1 border-b">
                                                         <div className="flex items-center gap-2">
-                                                            <Link to={`${adsbanner.id}/edit`}>
-                                                                <button className="bg-black p-2 rounded-full text-white">
-                                                                    <MdEdit size={20} />
+                                                            <Link to={`${Adsbanner.id}/edit`}>
+                                                                <button className="border p-2 rounded-full ">
+                                                                    <CiEdit size={20} />
                                                                 </button>
                                                             </Link>
-                                                            <button type="button" onClick={(e) => deleteAdsBanner(e, adsbanner.id)} className="bg-black p-2 rounded-full text-white flex justify-end hover:text-red-700">
-                                                                {deletingId === adsbanner.id ? "กำลังลบ..." : <IoTrashBinOutline size={20} />}
+                                                            <button type="button" onClick={(e) => deleteAdsbanner(e, Adsbanner.id)} className="border p-2 rounded-full  flex justify-end hover:text-red-700">
+                                                                {deletingId === Adsbanner.id ? "กำลังลบ..." : <PiTrashSimpleThin size={20} />}
                                                             </button>
                                                         </div>
                                                     </td>
@@ -170,43 +170,43 @@ export default function ViewAdsBanner() {
                             </table>
                         ) : (
                             <div className="grid grid-cols-3 md:grid-cols-5 gap-8">
-                                {displayedAdsBanners.length > 0 ? (
-                                    displayedAdsBanners
-                                        .map((adsbanner, index) => (
+                                {displayedAdsbanners.length > 0 ? (
+                                    displayedAdsbanners
+                                        .map((Adsbanner, index) => (
                                             <div className="mx-auto" key={index}>
-                                                <Link to={`/adsbanner/${adsbanner.id}`}> {/* ใส่ URL ที่เหมาะสม */}
+                                                <Link to={`/Adsbanner/${Adsbanner.id}`}> {/* ใส่ URL ที่เหมาะสม */}
                                                     <div className="relative overflow-hidden rounded-lg group">
-                                                        <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                                            <div className="flex flex-col items-center text-white text-xl">
+                                                        <div className="absolute w-full h-full border/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                                                            <div className="flex flex-col items-center  text-xl">
                                                                 รายละเอียด
-                                                                <CgDetailsMore size={28} />
+                                                                <PiArticleThin size={28} />
                                                             </div>
                                                         </div>
-                                                        {adsbanner.image ? (
-                                                            <img className="object-cover" src={`${baseUrl}/images/adsbanner/${adsbanner.image}`} alt="" />
+                                                        {Adsbanner.image ? (
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/Adsbanner/${Adsbanner.image}`} alt="" />
                                                         ) : (
-                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} /> 
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                         )}
                                                         <div className="absolute top-1 left-1">
-                                                            {adsbanner.logo ? (
-                                                                <img className="w-24 h-24 rounded-lg object-cover" src={`${baseUrl}/images/adsbanner/${adsbanner.logo}`} alt="" />
+                                                            {Adsbanner.logo ? (
+                                                                <img className="w-24 h-24 rounded-lg object-cover" src={`${baseUrl}/images/Adsbanner/${Adsbanner.logo}`} alt="" />
                                                             ) : (
-                                                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} /> 
+                                                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                             )}
                                                         </div>
                                                     </div>
                                                 </Link>
 
-                                                <h1 className="mt-2 font-bold text-xl h-[3.375rem] text-clip overflow-hidden">{adsbanner.name}</h1>
+                                                <h1 className="mt-2 font-bold text-xl h-[3.375rem] text-clip overflow-hidden">{Adsbanner.name}</h1>
                                                 <div className="mt-1 flex justify-between items-center gap-2">
-                                                    <Link to={`${adsbanner.id}/edit`}>
-                                                        <button className="bg-black p-2 rounded-full text-white">
-                                                            <MdEdit size={20} />
+                                                    <Link to={`${Adsbanner.id}/edit`}>
+                                                        <button className="border p-2 rounded-full ">
+                                                            <CiEdit size={20} />
                                                         </button>
                                                     </Link>
-                                                    <button type="button" className="bg-black p-2 rounded-full text-white"
-                                                        onClick={() => deleteadsbanner(adsbanner.id)}>
-                                                        <IoMdTrash size={20} />
+                                                    <button type="button" className="border p-2 rounded-full "
+                                                        onClick={() => deletedsbanner(Adsbanner.id)}>
+                                                        <PiTrashSimpleThin size={20} />
                                                     </button>
                                                 </div>
                                             </div>
@@ -220,29 +220,27 @@ export default function ViewAdsBanner() {
                         )}
                     </div>
                 )}
-                {/* ส่วนของ Pagination */}
-                <ReactPaginate
-                    previousLabel={
-                        <span className="w-10 h-10 flex items-center justify-center bg-black rounded-full text-white">
-                            <IoMdArrowDropleft size={20} />
-                        </span>
-                    }
-                    nextLabel={
-                        <span className="w-10 h-10 flex items-center justify-center bg-black rounded-full text-white">
-                            <IoMdArrowDropright size={20} />
-                        </span>
-                    }
-                    pageCount={pageCount}
-                    breakLabel={
-                        <span className="mr-4">
-                            ...
-                        </span>
-                    }
-                    onPageChange={handlePageClick}
-                    containerClassName="flex justify-center items-center gap-2 mt-2"
-                    pageClassName="block border- border-solid border-black bg-black w-10 h-10 flex items-center justify-center rounded-full text-white"
-                    activeClassName="bg-black/40"
-                />
+                {pageCount > 1 && (
+                    <ReactPaginate
+                        previousLabel={
+                            <span className="w-10 h-10 flex items-center justify-center border rounded-full">
+                                <IoMdArrowDropleft size={20} />
+                            </span>
+                        }
+                        nextLabel={
+                            <span className="w-10 h-10 flex items-center justify-center border rounded-full">
+                                <IoMdArrowDropright size={20} />
+                            </span>
+                        }
+                        pageCount={pageCount}
+                        breakLabel={<span className="mr-4">...</span>}
+                        onPageChange={handlePageClick}
+                        containerClassName="flex justify-center items-center gap-2 mt-2"
+                        pageClassName="block w-10 h-10 flex items-center justify-center border rounded-full"
+                        activeClassName="border-4"
+                    />
+                )}
+
             </Sidebar>
         </>
     )

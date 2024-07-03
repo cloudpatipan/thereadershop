@@ -4,13 +4,16 @@ import Swal from 'sweetalert2';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Sidebar from '../../components/Layouts/Sidebar';
-import { FaSearch } from 'react-icons/fa';
-import { MdEdit } from 'react-icons/md';
-import { IoMdArrowDropright, IoMdArrowDropleft } from 'react-icons/io';
-import { IoAddCircleOutline } from 'react-icons/io5';
-import { IoTrashBinOutline } from 'react-icons/io5';
-import { FaToggleOn, FaToggleOff } from 'react-icons/fa';
-import { BiShow } from "react-icons/bi";
+import { CiEdit } from "react-icons/ci";
+import { PiEyeThin, PiPlusThin } from "react-icons/pi";
+import { CiSearch } from "react-icons/ci";
+import { PiTrashSimpleThin } from "react-icons/pi";
+import { PiListBulletsThin } from "react-icons/pi";
+import { PiSquaresFourThin } from "react-icons/pi";
+import { PiToggleLeftThin } from "react-icons/pi";
+import { PiToggleRightThin } from "react-icons/pi";
+import { IoMdArrowDropright } from "react-icons/io";
+import { IoMdArrowDropleft } from "react-icons/io";
 import Modal from '../../components/Modal';
 import Button from '../../components/Button';
 import baseUrl from '../../routes/BaseUrl';
@@ -104,9 +107,9 @@ export default function ViewOrder() {
                                 status: newStatus
                             };
                         }
-                        return order;
+                        return product;
                     });
-                    setOrders(updatedOrders);
+                    setProducts(updatedProducts);
                 } else if (response.data.status === 400) {
                     Swal.fire({
                         icon: 'error',
@@ -150,19 +153,19 @@ export default function ViewOrder() {
                         <input type="text" placeholder="ค้นหารายการใบสั่งซื้อ"
                             className="w-[10rem] pl-8 placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                             value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                        <FaSearch className="absolute top-2 left-0" />
+                        <CiSearch className="absolute top-2 left-0" />
                     </div>
                 </div>
 
                 {loading ? (
-                  (<Rings
-                    visible={true}
-                    height="500"
-                    width="500"
-                    color="black"
-                    ariaLabel="rings-loading"
-                    wrapperClass="flex justify-center"
-                  />)
+                    (<Rings
+                        visible={true}
+                        height="500"
+                        width="500"
+                        color="black"
+                        ariaLabel="rings-loading"
+                        wrapperClass="flex justify-center"
+                    />)
                 ) : (
                     <div className="border p-4 rounded overflow-x-scroll">
                         <table className="w-full">
@@ -193,25 +196,25 @@ export default function ViewOrder() {
                                                 <td className="py-1 border-b">
                                                     <button
                                                         type="button"
-                                                        className={`p-2 rounded-full bg-black text-white transition-all duration-300`}
+                                                        className={`p-2 rounded-full border  transition-all duration-300`}
                                                         onClick={() => updateOrderStatus(order.id, order.status)}
                                                     >
-                                                        {order.status === 1 ? <FaToggleOn size={20} /> : <FaToggleOff size={20} />}
+                                                        {order.status === 1 ? <PiToggleRightThin size={25} /> : <PiToggleRightThin size={25} />}
                                                     </button>
                                                 </td>
 
                                                 <td className="py-1 border-b">
-                                                <Link to={`${order.id}`}>
-                                                <button type="button" className="bg-black p-2 rounded-full text-white flex justify-end">
-                                                        <BiShow size={20} />
-                                                    </button>
-                                                </Link>
+                                                    <Link to={`${order.id}`}>
+                                                        <button type="button" className="border p-2 rounded-full  flex justify-end">
+                                                            <PiEyeThin size={20} />
+                                                        </button>
+                                                    </Link>
 
                                                 </td>
                                                 <td className="py-1 border-b">
                                                     <div className="flex items-center gap-2">
-                                                        <button type="button" onClick={(e) => deleteOrder(e, order.id)} className="bg-black p-2 rounded-full text-white flex justify-end hover:text-red-700">
-                                                            {deletingId === order.id ? "กำลังลบ..." : <IoTrashBinOutline size={20} />}
+                                                        <button type="button" onClick={(e) => deleteOrder(e, order.id)} className="border p-2 rounded-full  flex justify-end hover:text-red-700">
+                                                            {deletingId === order.id ? "กำลังลบ..." : <PiTrashSimpleThin size={20} />}
                                                         </button>
                                                     </div>
                                                 </td>
@@ -229,29 +232,27 @@ export default function ViewOrder() {
                     </div >
                 )
                 }
-                {/* ส่วนของ Pagination */}
-                <ReactPaginate
-                    previousLabel={
-                        <span className="w-10 h-10 flex items-center justify-center bg-black rounded-full text-white">
-                            <IoMdArrowDropleft />
-                        </span>
-                    }
-                    nextLabel={
-                        <span className="w-10 h-10 flex items-center justify-center bg-black rounded-full text-white">
-                            <IoMdArrowDropright />
-                        </span>
-                    }
-                    pageCount={pageCount}
-                    breakLabel={
-                        <span className="mr-4">
-                            ...
-                        </span>
-                    }
-                    onPageChange={handlePageClick}
-                    containerClassName="flex justify-center items-center gap-2 mt-2"
-                    pageClassName="block border- border-solid border-black bg-black w-10 h-10 flex items-center justify-center rounded-full text-white"
-                    activeClassName="bg-black/40"
-                />
+                {pageCount > 1 && (
+                    <ReactPaginate
+                        previousLabel={
+                            <span className="w-10 h-10 flex items-center justify-center border rounded-full">
+                                <IoMdArrowDropleft size={20} />
+                            </span>
+                        }
+                        nextLabel={
+                            <span className="w-10 h-10 flex items-center justify-center border rounded-full">
+                                <IoMdArrowDropright size={20} />
+                            </span>
+                        }
+                        pageCount={pageCount}
+                        breakLabel={<span className="mr-4">...</span>}
+                        onPageChange={handlePageClick}
+                        containerClassName="flex justify-center items-center gap-2 mt-2"
+                        pageClassName="block w-10 h-10 flex items-center justify-center border rounded-full"
+                        activeClassName="border-4"
+                    />
+                )}
+
             </Sidebar >
         </>
     )

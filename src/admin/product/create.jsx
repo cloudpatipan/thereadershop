@@ -319,7 +319,7 @@ export default function CreateProduct() {
                     </div>
                 </div>
 
-                <Button icon={<FaSave size={20} />} type="submit" className="mt-1">
+                <Button icon={<FaSave size={20} />} type="submit" className="mt-1 w-full">
                     <div>
                         บันทึก
                     </div>

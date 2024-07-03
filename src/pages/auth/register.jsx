@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { PiUserPlusThin } from "react-icons/pi";
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
-
+import Button from '../../components/Button';
 export default function Register() {
     const navigate = useNavigate();
     const { setUser, setToken } = useContext(UserContext);
@@ -109,12 +110,9 @@ export default function Register() {
                     />
                     <div className="text-red-700 text-sm">{error.password_confirmation}</div>
                 </div>
-                <button
-                    type="submit"
-                    className="mt-8 w-full relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300"
-                >
-                    <div>สมัครสมาชิก</div>
-                </button>
+            <Button icon={<PiUserPlusThin size={20}/>} className={`mt-1 w-full`}>
+            สมัครสมาชิก
+            </Button>
             </form>
         </div>
     );

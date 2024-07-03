@@ -4,14 +4,14 @@ import Swal from 'sweetalert2';
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import Sidebar from '../../components/Layouts/Sidebar';
-import { FaSearch } from "react-icons/fa";
-import { IoMdTrash } from "react-icons/io";
-import { HiListBullet } from "react-icons/hi2";
-import { HiSquares2X2 } from "react-icons/hi2";
+import { CiSearch } from "react-icons/ci";
+import { PiTrashSimpleThin } from "react-icons/pi";
+import { PiListBulletsThin } from "react-icons/pi";
+import { PiSquaresFourThin } from "react-icons/pi";
+import { PiToggleLeftThin } from "react-icons/pi";
+import { PiToggleRightThin } from "react-icons/pi";
 import { IoMdArrowDropright } from "react-icons/io";
 import { IoMdArrowDropleft } from "react-icons/io";
-import { FaToggleOn } from "react-icons/fa";
-import { FaToggleOff } from "react-icons/fa6";
 import baseUrl from '../../routes/BaseUrl';
 import { Rings } from 'react-loader-spinner';
 export default function ViewUser() {
@@ -150,15 +150,15 @@ export default function ViewUser() {
                     ) : (
                         <>
                             <div className="flex justify-end items-center gap-4 mb-2 rounded-lg">
-                                <button onClick={toggleFormat} className="bg-black text-white rounded-full p-2">
-                                    {isTableFormat ? <HiSquares2X2 size={20} /> : <HiListBullet size={20} />}
+                                <button onClick={toggleFormat} className="border rounded-full w-10 h-10 flex items-center justify-center">
+                                    {isTableFormat ? <PiSquaresFourThin size={20} /> : <PiListBulletsThin size={20} />}
                                 </button>
 
                                 <div className="relative">
                                     <input type="text" placeholder="ค้นหาบัญชีผู้ใช้"
                                         className="w-[10rem] pl-8 placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                                         value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-                                    <FaSearch className="absolute top-2 left-0" />
+                                    <CiSearch className="absolute top-2 left-0" />
                                 </div>
                             </div>
 
@@ -190,21 +190,21 @@ export default function ViewUser() {
                                                             </div>
                                                         </td>
                                                         <td className="py-1 border-b">{user.name}</td>
-                                                        <td className="py-1 border-b"><span className="bg-black text-white rounded-lg px-2">{user.role}</span></td>
+                                                        <td className="py-1 border-b"><span className="border rounded-full px-2">{user.role}</span></td>
                                                         <td className="py-1 border-b">
                                                             <button
                                                                 type="button"
-                                                                className={`text-white w-[2rem] h-[2rem] flex items-center justify-center rounded-full bg-black transition-all duration-300`}
+                                                                className={`w-[2rem] h-[2rem] flex items-center justify-center rounded-full border transition-all duration-300`}
                                                                 onClick={() => updateUserRole(user.id, user.role)}
                                                             >
-                                                                {user.role === 'admin' ? <FaToggleOn size={20} /> : <FaToggleOff size={20} />}
+                                                                {user.role === 'admin' ? <PiToggleLeftThin size={25} /> : <PiToggleRightThin size={25} />}
                                                             </button>
                                                         </td>
                                                         <td className="py-1 border-b">
                                                             <div className="flex items-center gap-2">
-                                                                <button type="button" className="bg-black p-2 rounded-full text-white"
+                                                                <button type="button" className="border p-2 rounded-full"
                                                                     onClick={() => deleteUser(user.id)}>
-                                                                    <IoMdTrash size={20} />
+                                                                    <PiTrashSimpleThin size={20} />
                                                                 </button>
                                                             </div>
                                                         </td>
@@ -227,7 +227,7 @@ export default function ViewUser() {
                                             displayedUsers.map((user, index) => (
                                                 <div className="mx-auto w-[10rem]" key={index}>
                                                     <div className="relative overflow-hidden  h-[10rem] rounded-lg group">
-                                                        <div className="absolute w-full h-full bg-black/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+                                                        <div className="absolute w-full h-full flex items-center justify-center"></div>
                                                         {user.avatar ? (
                                                             <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt="" />
                                                         ) : (
@@ -235,22 +235,22 @@ export default function ViewUser() {
                                                         )}
                                                     </div>
 
-                                                    <div className="flex items-center justify-between mt-2">
-                                                        <p className="font-bold text-xl text-clip overflow-hidden">{user.name}</p>
-                                                        <p className="bg-black text-white rounded-lg px-2">{user.role}</p>
+                                                    <div className="flex flex-col justify-center items-center mt-2">
+                                                        <p className="text-clip overflow-hidden">{user.name}</p>
+                                                        <p className="border rounded-full px-2 w-[40%]">{user.role}</p>
                                                     </div>
 
                                                     <div className="mt-1 flex justify-between items-center gap-2">
                                                         <button
                                                             type="button"
-                                                            className={`text-white w-[2rem] h-[2rem] flex items-center justify-center rounded-full bg-black transition-all duration-300`}
+                                                            className={`w-[2rem] h-[2rem] flex items-center justify-center rounded-full border transition-all duration-300`}
                                                             onClick={() => updateUserRole(user.id, user.role)}
                                                         >
-                                                            {user.role === 'admin' ? <FaToggleOn size={20} /> : <FaToggleOff size={20} />}
+                                                            {user.role === 'admin' ? <PiToggleLeftThin size={25} /> : <PiToggleRightThin size={25} />}
                                                         </button>
-                                                        <button type="button" className="bg-black p-2 rounded-full text-white"
+                                                        <button type="button" className="border p-2 rounded-full"
                                                             onClick={() => deleteUser(user.id)}>
-                                                            <IoMdTrash size={20} />
+                                                            <PiTrashSimpleThin size={20} />
                                                         </button>
                                                     </div>
                                                 </div>
@@ -264,27 +264,27 @@ export default function ViewUser() {
                                 )}
                             </div>
 
-                            {/* ส่วนของ Pagination */}
-                            <ReactPaginate
-                                previousLabel={
-                                    <span className="w-10 h-10 flex items-center justify-center bg-black rounded-full text-white">
-                                        <IoMdArrowDropleft />
-                                    </span>
-                                }
-                                nextLabel={
-                                    <span className="w-10 h-10 flex items-center justify-center bg-black rounded-full text-white">
-                                        <IoMdArrowDropright />
-                                    </span>
-                                }
-                                pageCount={pageCount}
-                                breakLabel={
-                                    <span className="mr-4">...</span>
-                                }
-                                onPageChange={handlePageClick}
-                                containerClassName="flex justify-center items-center gap-2 mt-2"
-                                pageClassName="block border- border-solid border-black bg-black w-10 h-10 flex items-center justify-center rounded-full text-white"
-                                activeClassName="bg-black/40"
-                            />
+                            {pageCount > 1 && (
+                                <ReactPaginate
+                                    previousLabel={
+                                        <span className="w-10 h-10 flex items-center justify-center border rounded-full">
+                                            <IoMdArrowDropleft size={20} />
+                                        </span>
+                                    }
+                                    nextLabel={
+                                        <span className="w-10 h-10 flex items-center justify-center border rounded-full">
+                                            <IoMdArrowDropright size={20} />
+                                        </span>
+                                    }
+                                    pageCount={pageCount}
+                                    breakLabel={<span className="mr-4">...</span>}
+                                    onPageChange={handlePageClick}
+                                    containerClassName="flex justify-center items-center gap-2 mt-2"
+                                    pageClassName="block w-10 h-10 flex items-center justify-center border rounded-full"
+                                    activeClassName="border-4"
+                                />
+                            )}
+
                         </>
                     )}
                 </section>

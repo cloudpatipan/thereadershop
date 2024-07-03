@@ -6,6 +6,7 @@ import { UserContext } from '../../context/UserContext';
 import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 import { IoIosLogIn } from "react-icons/io";
+import { PiArrowLineLeftThin } from "react-icons/pi";
 export default function Login() {
     const navigate = useNavigate();
     const { setUser, setToken } = useContext(UserContext);
@@ -92,12 +93,9 @@ export default function Login() {
                     </div>
                     <div className="text-red-700 text-sm">{error.password}</div>
                 </div>
-                <button
-                    type="submit"
-                    className="mt-8 w-full relative flex justify-center items-center gap-2 border-2 rounded-full border-black bg-transparent py-2 px-5 font-medium uppercase text-black hover:text-white hover:bg-black transition-all duration-300"
-                >
-                    <div>เข้าสู่ระบบ</div>
-                </button>
+               <Button icon={<PiArrowLineLeftThin size={20}/>} className={`mt-1 w-full`} type={SubmitLogin}>
+                    เข้าสู่ระบบ
+               </Button>
             </form>
         </div>
     );

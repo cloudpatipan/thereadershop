@@ -7,6 +7,7 @@ import Button from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 import baseUrl from '../../routes/BaseUrl';
 import { Rings } from 'react-loader-spinner';
+import { FaSave } from 'react-icons/fa';
 export default function DetailOrder() {
 
   const navigate = useNavigate();
@@ -53,30 +54,29 @@ export default function DetailOrder() {
     formData.append('tracking_no', tracking_no);
     formData.append('status', status ? 1 : 0);
 
-    axios.post(`/api/orders/${id}`, formData, {
-    }).then(response => {
+    axios.post(`api/orders/${id}`, formData, {
+  }).then(response => {
       if (response.data.status === 200) {
-        Swal.fire({
-          icon: "success",
-          text: response.data.message,
-          confirmButtonText: "ตกลง",
-          confirmButtonColor: "black",
-          focusConfirm: false,
-        });
-        setError([]);
-        navigate("/admin/order");
+          Swal.fire({
+              icon: "success",
+              text: response.data.message,
+              confirmButtonText: "ตกลง",
+              confirmButtonColor: "black",
+              focusConfirm: false,
+          });
+          setError([]);
+          navigate("/admin/order");
       } else if (response.data.status === 422) {
-        setError(response.data.errors);
-        console.log(response.data.errors);
+          setError(response.data.errors);
       }
-    });
-  }
+  });
+}
 
 
   return (
     <Sidebar>
       {loading ? (
-         (<Rings
+        (<Rings
           visible={true}
           height="500"
           width="500"
@@ -138,36 +138,39 @@ export default function DetailOrder() {
               <img className="rounded object-cover" src="${baseUrl}/images/product/no_image.png" alt="No Image" />
             )}
           </div>
+          <form onSubmit={updateOrder}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full h-full mt-2">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full h-full mt-2">
+              <div className="col-span-1 md:col-span-2">
+                <label className="text-lg block text-black font-semibold">เลขที่ EMS/เลขที่การจัดส่งสินค้า</label>
+                <input
+                  className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+                  type="text" placeholder="กรุณาใส่เลขที่ EMS"
+                  value={tracking_no}
+                  onChange={(event) => setTrackingNo(event.target.value)}
+                />
+                <div className="text-red-700 text-sm">{error.tracking_no}</div>
+              </div>
 
-            <div className="col-span-1 md:col-span-2">
-              <label className="text-lg block text-black font-semibold">เลขที่ EMS/เลขที่การจัดส่งสินค้า</label>
-              <input
-                className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
-                type="text" placeholder="กรุณาใส่เลขที่ EMS"
-                value={tracking_no}
-                onChange={(event) => setTrackingNo(event.target.value)}
-              />
-              <div className="text-red-700 text-sm">{error.name}</div>
+              <div>
+                <label className="text-lg block text-black font-semibold">สถานะ</label>
+                <input className="accent-black"
+                  type="checkbox"
+                  checked={status}
+                  onChange={(event) => setStatus(event.target.checked)}
+                />
+                <div className="text-red-700 text-sm">{error.status}</div>
+              </div>
+
             </div>
 
-            <div>
-              <label className="text-lg block text-black font-semibold">สถานะ</label>
-              <input className="accent-black"
-                type="checkbox"
-                checked={status}
-                onChange={(event) => setStatus(event.target.checked)}
-              />
-              <div className="text-red-700 text-sm">{error.status}</div>
-            </div>
+            <Button icon={<FaSave size={20} />} type="submit" className="mt-1 w-full">
+              <div>
+                บันทึก
+              </div>
+            </Button>
 
-          </div>
-
-          <Button className="w-full" onClick={updateOrder}>
-            บันทึก
-          </Button>
-
+          </form>
         </div>
       )}
     </Sidebar>
