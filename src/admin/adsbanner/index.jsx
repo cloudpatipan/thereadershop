@@ -35,7 +35,7 @@ export default function ViewAdsbanner() {
 
     const fetchAdsbanners = async () => { // แก้ชื่อฟังก์ชั่นเป็น fetchAdsbanner แทน fectAdsbanner
         try {
-            const response = await axios.get(`/api/Adsbanners`);
+            const response = await axios.get(`/api/adsbanners`);
             setAdsbanners(response.data);
             setLoading(false);
         } catch (error) {
@@ -47,7 +47,7 @@ export default function ViewAdsbanner() {
         e.preventDefault();
         setDeletingId(id);
 
-        axios.delete(`/api/Adsbanners/${id}`).then(response => {
+        axios.delete(`/api/adsbanners/${id}`).then(response => {
             if (response.data.status === 200) {
                 Swal.fire({
                     icon: "success",
