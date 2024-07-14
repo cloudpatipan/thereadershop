@@ -18,8 +18,6 @@ export default function Home() {
   const [userCount, setUserCount] = useState(0);
   const [productCount, setProductCount] = useState(0);
   const [productLast, setProductLast] = useState(0);
-  const [featuredProducts, setFeaturedProducts] = useState([]);
-  const [popularProducts, setPopularProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -30,8 +28,6 @@ export default function Home() {
 
     const userResponse = await axios.get(`/api/userCount`);
     const productResponse = await axios.get(`/api/productCount`);
-    const featuredResponse = await axios.get(`/api/products-featured`);
-    const popularResponse = await axios.get(`/api/products-popular`);
 
     if (userResponse.data.status === 200) {
       setUserCount(userResponse.data.users)
@@ -54,8 +50,6 @@ export default function Home() {
       }
     }
 
-    setFeaturedProducts(featuredResponse.data);
-    setPopularProducts(popularResponse.data);
     setLoading(false);
   };
 
@@ -98,8 +92,8 @@ export default function Home() {
             {productLast.name}
           </Info>
           <CategoryList/>
-          <ProductFeatured products={featuredProducts} />
-          <ProductPopular products={popularProducts} />
+          <ProductFeatured/>
+          <ProductPopular/>
         </>
       )}
     </Layout>

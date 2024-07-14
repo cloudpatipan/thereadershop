@@ -23,6 +23,7 @@ import { IoTrashBin } from "react-icons/io5";
 import ReactPaginate from 'react-paginate';
 import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
 import baseUrl from '../../routes/BaseUrl';
+import { PiPaperPlaneTiltThin } from "react-icons/pi";
 import { Rings } from 'react-loader-spinner'
 export default function ProductDetail() {
 

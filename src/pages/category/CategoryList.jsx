@@ -34,7 +34,7 @@ export default function CategoryList() {
         <div>
             <h1 className="text-sm mb-1">ประเภทสินค้า</h1>
 
-            <div div className="grid grid-cols-1 md:grid-cols-4 gap-y-1 gap-x-4 mb-1" >
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-y-1 gap-x-4 mb-1" >
                 {
                     categories.length > 0 ? (
                         categories.map((category, index) => (

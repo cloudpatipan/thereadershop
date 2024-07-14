@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import Sidebar from '../../components/Layouts/Sidebar';
 import { CiSearch } from "react-icons/ci";
-import { PiTrashSimpleThin } from "react-icons/pi";
+import { PiToggleRight, PiTrashSimpleThin } from "react-icons/pi";
 import { PiListBulletsThin } from "react-icons/pi";
 import { PiSquaresFourThin } from "react-icons/pi";
 import { PiToggleLeftThin } from "react-icons/pi";
@@ -197,7 +197,7 @@ export default function ViewUser() {
                                                                 className={`w-[2rem] h-[2rem] flex items-center justify-center rounded-full border transition-all duration-300`}
                                                                 onClick={() => updateUserRole(user.id, user.role)}
                                                             >
-                                                                {user.role === 'admin' ? <PiToggleLeftThin size={25} /> : <PiToggleRightThin size={25} />}
+                                                                {user.role === 'admin' ? <PiToggleRightThin size={25} /> : <PiToggleLeftThin size={25} />}
                                                             </button>
                                                         </td>
                                                         <td className="py-1 border-b">
@@ -246,7 +246,7 @@ export default function ViewUser() {
                                                             className={`w-[2rem] h-[2rem] flex items-center justify-center rounded-full border transition-all duration-300`}
                                                             onClick={() => updateUserRole(user.id, user.role)}
                                                         >
-                                                            {user.role === 'admin' ? <PiToggleLeftThin size={25} /> : <PiToggleRightThin size={25} />}
+                                                            {user.role === 'admin' ? <PiToggleRightThin size={25} /> : <PiToggleLeftThin size={25} />}
                                                         </button>
                                                         <button type="button" className="border p-2 rounded-full"
                                                             onClick={() => deleteUser(user.id)}>

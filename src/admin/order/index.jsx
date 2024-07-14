@@ -199,7 +199,7 @@ export default function ViewOrder() {
                                                         className={`p-2 rounded-full border  transition-all duration-300`}
                                                         onClick={() => updateOrderStatus(order.id, order.status)}
                                                     >
-                                                        {order.status === 1 ? <PiToggleRightThin size={25} /> : <PiToggleRightThin size={25} />}
+                                                        {order.status === 1 ? <PiToggleRightThin size={25} /> : <PiToggleLeftThin size={25} />}
                                                     </button>
                                                 </td>
 

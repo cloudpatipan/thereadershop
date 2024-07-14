@@ -110,7 +110,7 @@ export default function Register() {
                     />
                     <div className="text-red-700 text-sm">{error.password_confirmation}</div>
                 </div>
-            <Button icon={<PiUserPlusThin size={20}/>} className={`mt-1 w-full`}>
+            <Button icon={<PiUserPlusThin size={20}/>} className={`mt-1 w-full`} onClick={submitRegister}>
             สมัครสมาชิก
             </Button>
             </form>

@@ -318,7 +318,7 @@ export default function ViewProduct() {
                                                             className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300`}
                                                             onClick={() => updateProductFeatured(product.id, product.featured)}
                                                         >
-                                                            {product.featured === 1 ? <PiToggleLeftThin size={25} /> : <PiToggleRightThin size={25} />}
+                                                            {product.featured === 1 ? <PiToggleRightThin size={25} /> : <PiToggleLeftThin size={25} />}
                                                         </button>
                                                     </td>
                                                     <td className="py-1 border-b">
@@ -327,7 +327,7 @@ export default function ViewProduct() {
                                                             className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300`}
                                                             onClick={() => updateProductPopular(product.id, product.popular)}
                                                         >
-                                                            {product.popular === 1 ? <PiToggleLeftThin size={25} /> : <PiToggleRightThin size={25} />}
+                                                            {product.popular === 1 ? <PiToggleRightThin size={25} /> : <PiToggleLeftThin size={25} />}
                                                         </button>
                                                     </td>
                                                     <td className="py-1 border-b">
@@ -336,7 +336,7 @@ export default function ViewProduct() {
                                                             className={`w-10 h-10 flex items-center justify-center rounded-full border transition-all duration-300`}
                                                             onClick={() => updateProductStatus(product.id, product.status)}
                                                         >
-                                                            {product.status === 1 ? <PiToggleLeftThin size={25} /> : <PiToggleRightThin size={25} />}
+                                                            {product.status === 1 ? <PiToggleRightThin size={25} /> : <PiToggleLeftThin size={25} />}
                                                         </button>
                                                     </td>
                                                     <td className="py-1 border-b">

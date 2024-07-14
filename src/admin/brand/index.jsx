@@ -183,7 +183,7 @@ export default function ViewBrand() {
                                                         className={`p-2 rounded-full border  transition-all duration-300`}
                                                         onClick={() => updateBrandStatus(brand.id, brand.status)}
                                                     >
-                                                        {brand.status === 1 ? <PiToggleLeftThin size={25} /> : <PiToggleRightThin size={25} />}
+                                                        {brand.status === 1 ? <PiToggleRightThin size={25} /> : <PiToggleLeftThin size={25} />}
                                                     </button>
                                                 </td>
                                                 <td className="py-1 border-b">

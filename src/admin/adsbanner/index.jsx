@@ -205,7 +205,7 @@ export default function ViewAdsbanner() {
                                                         </button>
                                                     </Link>
                                                     <button type="button" className="border p-2 rounded-full "
-                                                        onClick={() => deletedsbanner(Adsbanner.id)}>
+                                                        onClick={() => deleteAdsbanner(Adsbanner.id)}>
                                                         <PiTrashSimpleThin size={20} />
                                                     </button>
                                                 </div>

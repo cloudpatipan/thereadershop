@@ -217,7 +217,7 @@ export default function ViewBank() {
                                                             className={`p-2 rounded-full border  transition-all duration-300`}
                                                             onClick={() => updateBankStatus(bank.id, bank.status)}
                                                         >
-                                                            {bank.status === 1 ? <PiToggleLeftThin size={25} /> : <PiToggleRightThin size={25} />}
+                                                            {bank.status === 1 ? <PiToggleRightThin size={25} /> : <PiToggleLeftThin size={25} />}
                                                         </button>
                                                     </td>
                                                     <td className="py-1 border-b">
