@@ -33,11 +33,18 @@ export default function ViewUser() {
     const fetchUsers = async () => {
         try {
             const response = await axios.get(`/api/users`);
-            setUsers(response.data);
-            setLoading(false);
+            if (response.data.status === 200) {
+                setUsers(response.data.users);
+                setLoading(false);        
+            }
         } catch (error) {
-            console.error('Error fetching Users:', error);
-            setLoading(false);
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
         }
     }
 
@@ -59,8 +66,9 @@ export default function ViewUser() {
             return;
         }
 
-        await axios.delete(`/api/users/${id}`)
-            .then((response) => {
+        try {
+            const response = await axios.delete(`/api/users/${id}`);
+            if (response.data.status === 200) {
                 Swal.fire({
                     icon: "success",
                     text: response.data.message,
@@ -69,60 +77,69 @@ export default function ViewUser() {
                     focusConfirm: false,
                 });
                 fetchUsers();
-            })
-            .catch((error) => {
-                Swal.fire({
-                    text: error.response.data.message,
-                    icon: "error"
-                });
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
             });
+        }
     }
 
-    const updateUserRole = (user_id, role) => {
+
+    const updateUserRole = async(user_id, role) => {
         // สลับสถานะ 0 เป็น 1 และ 1 เป็น 0
         const newRole = role === 'admin' ? 'user' : 'admin';
 
-        axios.put(`/api/user-updaterole/${user_id}/${newRole}`)
-            .then(response => {
-                if (response.data.status === 200) {
-                    Swal.fire({
-                        icon: 'success',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                    const updatedUsers = users.map(user => {
-                        if (user.id === user_id) {
-                            return {
-                                ...user,
-                                role: newRole
-                            };
-                        }
-                        return user;
-                    });
-                    setUsers(updatedUsers);
-                } else if (response.data.status === 400) {
-                    Swal.fire({
-                        icon: 'error',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                } else if (response.data.status === 401) {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error updating order status:', error);
+        try {
+            const response = await axios.put(`/api/user-updaterole/${user_id}/${newRole}`);
+            if (response.data.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+                const updatedUsers = users.map(user => {
+                    if (user.id === user_id) {
+                        return {
+                            ...user,
+                            role: newRole
+                        };
+                    }
+                    return user;
+                });
+                setUsers(updatedUsers);
+            } else if (response.data.status === 400) {
+                Swal.fire({
+                    icon: 'error',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+            } else if (response.data.status === 401) {
+                Swal.fire({
+                    icon: 'warning',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+              icon: "warning",
+              text: error,
+              confirmButtonText: "ตกลง",
+              confirmButtonColor: "black",
+              focusConfirm: false,
             });
+          }
     };
 
 
@@ -162,25 +179,25 @@ export default function ViewUser() {
                                 </div>
                             </div>
 
-                            <div className="border p-4 rounded overflow-x-scroll">
+                            <div className="border p-4 rounded overflow-x-scroll no-scrollbar">
                                 {isTableFormat ? (
                                     <table className="w-full">
                                         <thead>
-                                            <tr className="text-left">
-                                                <th className="py-1 border-b">รหัส</th>
-                                                <th className="py-1 border-b">รูปภาพ</th>
-                                                <th className="py-1 border-b">ชื่อ</th>
-                                                <th className="py-1 border-b">ระดับ</th>
-                                                <th className="py-1 border-b">ปรับระดับ</th>
-                                                <th className="py-1 border-b"></th>
+                                            <tr className="text-left py-1 border-b">
+                                                <th>รหัส</th>
+                                                <th>รูปภาพ</th>
+                                                <th>ชื่อ</th>
+                                                <th>ระดับ</th>
+                                                <th>ปรับระดับ</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {displayedUsers.length > 0 ? (
                                                 displayedUsers.map((user, index) => (
-                                                    <tr key={index}>
-                                                        <td className="py-1 border-b">{user.id}</td>
-                                                        <td className="py-1 border-b">
+                                                    <tr key={index} className="border-b py-1">
+                                                        <td>{user.id}</td>
+                                                        <td>
                                                             <div className="w-[3rem] h-[3rem] overflow-hidden rounded-lg">
                                                                 {user.avatar ? (
                                                                     <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
@@ -189,9 +206,9 @@ export default function ViewUser() {
                                                                 )}
                                                             </div>
                                                         </td>
-                                                        <td className="py-1 border-b">{user.name}</td>
-                                                        <td className="py-1 border-b"><span className="border rounded-full px-2">{user.role}</span></td>
-                                                        <td className="py-1 border-b">
+                                                        <td>{user.name}</td>
+                                                        <td><span className="border rounded-full px-2">{user.role}</span></td>
+                                                        <td>
                                                             <button
                                                                 type="button"
                                                                 className={`w-[2rem] h-[2rem] flex items-center justify-center rounded-full border transition-all duration-300`}
@@ -200,7 +217,7 @@ export default function ViewUser() {
                                                                 {user.role === 'admin' ? <PiToggleRightThin size={25} /> : <PiToggleLeftThin size={25} />}
                                                             </button>
                                                         </td>
-                                                        <td className="py-1 border-b">
+                                                        <td>
                                                             <div className="flex items-center gap-2">
                                                                 <button type="button" className="border p-2 rounded-full"
                                                                     onClick={() => deleteUser(user.id)}>
@@ -235,24 +252,29 @@ export default function ViewUser() {
                                                         )}
                                                     </div>
 
-                                                    <div className="flex flex-col justify-center items-center mt-2">
-                                                        <p className="text-clip overflow-hidden">{user.name}</p>
-                                                        <p className="border rounded-full px-2 w-[40%]">{user.role}</p>
+                                                    <div className="flex flex-col gap-4">
+
+                                                        <div className="flex justify-between items-center mt-2">
+                                                            <p className="text-clip overflow-hidden">{user.name}</p>
+                                                            <p className="border rounded-full px-2 w-[40%]">{user.role}</p>
+                                                        </div>
+
+                                                        <div className="flex justify-between items-center border-t py-1">
+                                                            <button
+                                                                type="button"
+                                                                className={`w-[2rem] h-[2rem] flex items-center justify-center rounded-full border transition-all duration-300`}
+                                                                onClick={() => updateUserRole(user.id, user.role)}
+                                                            >
+                                                                {user.role === 'admin' ? <PiToggleRightThin size={25} /> : <PiToggleLeftThin size={25} />}
+                                                            </button>
+                                                            <button type="button" className="border w-[2rem] h-[2rem] rounded-full flex items-center justify-center transition-all duration-300"
+                                                                onClick={() => deleteUser(user.id)}>
+                                                                <PiTrashSimpleThin size={20} />
+                                                            </button>
+                                                        </div>
+
                                                     </div>
 
-                                                    <div className="mt-1 flex justify-between items-center gap-2">
-                                                        <button
-                                                            type="button"
-                                                            className={`w-[2rem] h-[2rem] flex items-center justify-center rounded-full border transition-all duration-300`}
-                                                            onClick={() => updateUserRole(user.id, user.role)}
-                                                        >
-                                                            {user.role === 'admin' ? <PiToggleRightThin size={25} /> : <PiToggleLeftThin size={25} />}
-                                                        </button>
-                                                        <button type="button" className="border p-2 rounded-full"
-                                                            onClick={() => deleteUser(user.id)}>
-                                                            <PiTrashSimpleThin size={20} />
-                                                        </button>
-                                                    </div>
                                                 </div>
                                             ))
                                         ) : (

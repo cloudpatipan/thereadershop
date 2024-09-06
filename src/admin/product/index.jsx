@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import Sidebar from '../../components/Layouts/Sidebar';
 import { CiEdit } from "react-icons/ci";
-import { PiPlusThin } from "react-icons/pi";
+import { PiArrowFatLineLeftThin, PiArrowFatLineRightThin, PiPencilLineThin, PiPlusThin } from "react-icons/pi";
 import { CiSearch } from "react-icons/ci";
 import { PiTrashSimpleThin } from "react-icons/pi";
 import { PiListBulletsThin } from "react-icons/pi";
@@ -35,21 +35,30 @@ export default function ViewProduct() {
         fetchProducts();
     }, [pageNumber]);
 
-    const fetchProducts = async () => { // แก้ชื่อฟังก์ชั่นเป็น fetchProducts แทน fectProducts
+    const fetchProducts = async () => {
         try {
             const response = await axios.get(`/api/products`);
-            setProducts(response.data);
-            setLoading(false);
+            if (response.data.status === 200) {
+                setProducts(response.data.products);
+                setLoading(false);
+            }
         } catch (error) {
-            console.error('Error fetching products:', error);
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
         }
     }
 
-    const deleteProduct = (e, id) => {
+    const deleteProduct = async(e, id) => {
         e.preventDefault();
         setDeletingId(id);
 
-        axios.delete(`/api/products/${id}`).then(response => {
+        try {
+            const response = await axios.delete(`/api/products/${id}`);
             if (response.data.status === 200) {
                 Swal.fire({
                     icon: "success",
@@ -72,8 +81,17 @@ export default function ViewProduct() {
                 });
                 setDeletingId(null);
             }
-        });
+       } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
+        }
     }
+
 
     const filteredProducts = products.filter(product => product.name.toLowerCase().includes(searchTerm.toLowerCase()));
     const pageCount = Math.ceil(filteredProducts.length / productsPerPage);
@@ -86,148 +104,161 @@ export default function ViewProduct() {
     };
 
 
-    const updateProductStatus = (product_id, status) => {
+    const updateProductStatus = async (product_id, status) => {
         // สลับสถานะ 0 เป็น 1 และ 1 เป็น 0
         const newStatus = status === 1 ? 0 : 1;
 
-        axios.put(`/api/product-updatestatus/${product_id}/${newStatus}`)
-            .then(response => {
-                if (response.data.status === 200) {
-                    Swal.fire({
-                        icon: 'success',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                    const updatedProducts = products.map(product => {
-                        if (product.id === product_id) {
-                            return {
-                                ...product,
-                                status: newStatus
-                            };
-                        }
-                        return product;
-                    });
-                    setProducts(updatedProducts);
-                } else if (response.data.status === 400) {
-                    Swal.fire({
-                        icon: 'error',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                } else if (response.data.status === 401) {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error updating order status:', error);
+        try {
+            const response = await axios.put(`/api/product-updatestatus/${product_id}/${newStatus}`);
+            if (response.data.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+                const updatedProducts = products.map(product => {
+                    if (product.id === product_id) {
+                        return {
+                            ...product,
+                            status: newStatus
+                        };
+                    }
+                    return product;
+                });
+                setProducts(updatedProducts);
+            } else if (response.data.status === 400) {
+                Swal.fire({
+                    icon: 'error',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+            } else if (response.data.status === 401) {
+                Swal.fire({
+                    icon: 'warning',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
             });
+        }
     };
 
-    const updateProductFeatured = (product_id, featured) => {
+    const updateProductFeatured = async (product_id, featured) => {
         // สลับสถานะ 0 เป็น 1 และ 1 เป็น 0
         const newFeatured = featured === 1 ? 0 : 1;
-
-        axios.put(`/api/product-updatefeatured/${product_id}/${newFeatured}`)
-            .then(response => {
-                if (response.data.status === 200) {
-                    Swal.fire({
-                        icon: 'success',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                    const updatedProducts = products.map(product => {
-                        if (product.id === product_id) {
-                            return {
-                                ...product,
-                                featured: newFeatured
-                            };
-                        }
-                        return product;
-                    });
-                    setProducts(updatedProducts);
-                } else if (response.data.status === 400) {
-                    Swal.fire({
-                        icon: 'error',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                } else if (response.data.status === 401) {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error updating order status:', error);
+        try {
+            const response = await axios.put(`/api/product-updatefeatured/${product_id}/${newFeatured}`);
+            if (response.data.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+                const updatedProducts = products.map(product => {
+                    if (product.id === product_id) {
+                        return {
+                            ...product,
+                            featured: newFeatured
+                        };
+                    }
+                    return product;
+                });
+                setProducts(updatedProducts);
+            } else if (response.data.status === 400) {
+                Swal.fire({
+                    icon: 'error',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+            } else if (response.data.status === 401) {
+                Swal.fire({
+                    icon: 'warning',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
             });
-    };
+        }
+    }
 
-
-    const updateProductPopular = (product_id, popular) => {
+    const updateProductPopular = async(product_id, popular) => {
         // สลับสถานะ 0 เป็น 1 และ 1 เป็น 0
         const newPopular = popular === 1 ? 0 : 1;
 
-        axios.put(`/api/product-updatepopular/${product_id}/${newPopular}`)
-            .then(response => {
-                if (response.data.status === 200) {
-                    Swal.fire({
-                        icon: 'success',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                    const updatedProducts = products.map(product => {
-                        if (product.id === product_id) {
-                            return {
-                                ...product,
-                                popular: newPopular
-                            };
-                        }
-                        return product;
-                    });
-                    setProducts(updatedProducts);
-                } else if (response.data.status === 400) {
-                    Swal.fire({
-                        icon: 'error',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                } else if (response.data.status === 401) {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error updating order status:', error);
+        try {
+            const response = await axios.put(`/api/product-updatepopular/${product_id}/${newPopular}`);
+            if (response.data.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+                const updatedProducts = products.map(product => {
+                    if (product.id === product_id) {
+                        return {
+                            ...product,
+                            popular: newPopular
+                        };
+                    }
+                    return product;
+                });
+                setProducts(updatedProducts);
+            } else if (response.data.status === 400) {
+                Swal.fire({
+                    icon: 'error',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+            } else if (response.data.status === 401) {
+                Swal.fire({
+                    icon: 'warning',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
             });
-    };
-
+        }
+    }
+  
 
     return (
         <>
@@ -236,9 +267,7 @@ export default function ViewProduct() {
 
                     <div>
                         <Link to={"create"}>
-                            <Button icon={<PiPlusThin size={25} />} type="submit">
-                                เพิ่มสินค้า
-                            </Button>
+                            <Button name={'เพิ่ม'} icon={<PiPlusThin size={25} />} />
                         </Link>
                     </div>
 
@@ -270,7 +299,7 @@ export default function ViewProduct() {
                         wrapperClass="flex justify-center"
                     />)
                 ) : (
-                    <div className="border p-4 rounded overflow-x-scroll">
+                    <div className="border p-4 rounded overflow-x-scroll no-scrollbar">
                         {isTableFormat ? (
                             <table className="w-full">
                                 <thead>
@@ -343,7 +372,7 @@ export default function ViewProduct() {
                                                         <div className="flex items-center gap-2">
                                                             <Link to={`${product.id}/edit`}>
                                                                 <button className="border p-2 rounded-full ">
-                                                                    <CiEdit size={20} />
+                                                                    <PiPencilLineThin size={20} />
                                                                 </button>
                                                             </Link>
                                                             <button type="button" onClick={(e) => deleteProduct(e, product.id)} className="border p-2 rounded-full flex justify-end hover:text-red-700">
@@ -396,7 +425,7 @@ export default function ViewProduct() {
                                                 <div className="mt-1 flex justify-between items-center gap-2">
                                                     <Link to={`${product.id}/edit`}>
                                                         <button className="border p-2 rounded-full ">
-                                                            <CiEdit size={20} />
+                                                            <PiPencilLineThin size={20} />
                                                         </button>
                                                     </Link>
                                                     <button type="button" className="border p-2 rounded-full "
@@ -419,12 +448,12 @@ export default function ViewProduct() {
                     <ReactPaginate
                         previousLabel={
                             <span className="w-10 h-10 flex items-center justify-center border rounded-full">
-                                <IoMdArrowDropleft size={20} />
+                                <PiArrowFatLineLeftThin size={20} />
                             </span>
                         }
                         nextLabel={
                             <span className="w-10 h-10 flex items-center justify-center border rounded-full">
-                                <IoMdArrowDropright size={20} />
+                                <PiArrowFatLineRightThin size={20} />
                             </span>
                         }
                         pageCount={pageCount}
@@ -432,7 +461,7 @@ export default function ViewProduct() {
                         onPageChange={handlePageClick}
                         containerClassName="flex justify-center items-center gap-2 mt-2"
                         pageClassName="block w-10 h-10 flex items-center justify-center border rounded-full"
-                        activeClassName="border-4"
+                        activeClassName="bg-black text-white"
                     />
                 )}
 

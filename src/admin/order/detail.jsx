@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import baseUrl from '../../routes/BaseUrl';
 import { Rings } from 'react-loader-spinner';
 import { FaSave } from 'react-icons/fa';
+import { PiArrowLineLeftThin } from 'react-icons/pi';
 export default function DetailOrder() {
 
   const navigate = useNavigate();
@@ -33,8 +34,11 @@ export default function DetailOrder() {
       calculateTotalPrice(response.data.order_items);
     } catch (error) {
       Swal.fire({
-        text: error.response?.data?.message || 'Error fetching order details',
-        icon: "error"
+        icon: "warning",
+        text: error,
+        confirmButtonText: "ตกลง",
+        confirmButtonColor: "black",
+        focusConfirm: false,
       });
     }
   };
@@ -54,23 +58,31 @@ export default function DetailOrder() {
     formData.append('tracking_no', tracking_no);
     formData.append('status', status ? 1 : 0);
 
-    axios.post(`api/orders/${id}`, formData, {
-  }).then(response => {
+    try {
+      const response = await axios.post(`api/orders/${id}`, formData);
       if (response.data.status === 200) {
-          Swal.fire({
-              icon: "success",
-              text: response.data.message,
-              confirmButtonText: "ตกลง",
-              confirmButtonColor: "black",
-              focusConfirm: false,
-          });
-          setError([]);
-          navigate("/admin/order");
+        Swal.fire({
+          icon: "success",
+          text: response.data.message,
+          confirmButtonText: "ตกลง",
+          confirmButtonColor: "black",
+          focusConfirm: false,
+        });
+        setError([]);
+        navigate("/admin/order");
       } else if (response.data.status === 422) {
-          setError(response.data.errors);
+        setError(response.data.errors);
       }
-  });
-}
+    } catch (error) {
+      Swal.fire({
+        icon: "warning",
+        text: error,
+        confirmButtonText: "ตกลง",
+        confirmButtonColor: "black",
+        focusConfirm: false,
+      });
+    }
+  }
 
 
   return (
@@ -86,33 +98,33 @@ export default function DetailOrder() {
         />)
       ) : (
         <div className="border p-4 rounded">
-          <h1 className="text-2xl font-semibold mb-8">รายการใบสั่งซื้อ</h1>
-          <h2 className="text-xl font-semibold">เลขที่ใบสั่งซื้อ {order.order_id}</h2>
-          <h3 className="text-lg font-semibold">
-            ผู้สั่งซื้อ: {order.user.firstname} {order.user.lastname}
+          <h1 className="text-2xl">รายการใบสั่งซื้อ</h1>
+          <h2 className="text-xl">เลขที่ใบสั่งซื้อ {order.order_id}</h2>
+          <h3 className="text-lg">
+            ผู้สั่งซื้อ: {order?.user?.firstname} {order?.user?.lastname}
           </h3>
           <table className="w-full overflow-x-scroll">
             <thead>
-              <tr className="text-left">
-                <th className="py-1 border-b">รหัสสินค้า</th>
-                <th className="py-1 border-b">ชื่อสินค้า</th>
-                <th className="py-1 border-b">จำนวน</th>
-                <th className="py-1 border-b">ราคา</th>
+              <tr className="text-left border-b py-1">
+                <th>รหัสสินค้า</th>
+                <th>ชื่อสินค้า</th>
+                <th>จำนวน</th>
+                <th>ราคา</th>
               </tr>
             </thead>
             <tbody>
               {order.order_items.length > 0 ? (
                 order.order_items.map((item, index) => (
-                  <tr key={index}>
-                    <td className="py-1 border-b">{item.product.id}</td>
-                    <td className="py-1 border-b">{item.product.name}</td>
-                    <td className="py-1 border-b">{item.qty}</td>
-                    <td className="py-1 border-b">{item.price}</td>
+                  <tr key={index} className="py-1 border-b">
+                    <td>{item.product.id}</td>
+                    <td>{item.product.name}</td>
+                    <td>{item.qty}</td>
+                    <td>{item.price}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td className="py-1 border-b text-[1.5rem] font-semibold text-center" colSpan={4}>
+                  <td className="py-1 border-b text-[1.5rem] text-center" colSpan={4}>
                     ไม่พบข้อมูลรายการใบสั่งซื้อ
                   </td>
                 </tr>
@@ -123,7 +135,7 @@ export default function DetailOrder() {
           <div className="flex items-center justify-between gap-4 my-4">
 
             <div>
-              <p className="text-black/40 font-semibold text-lg">ราคารวม <span className="text-black">{totalOrderPrice} บาท</span></p>
+              <p>ราคารวม <span className="text-black">{totalOrderPrice} บาท</span></p>
             </div>
 
             <div>
@@ -138,11 +150,12 @@ export default function DetailOrder() {
               <img className="rounded object-cover" src="${baseUrl}/images/product/no_image.png" alt="No Image" />
             )}
           </div>
+          
           <form onSubmit={updateOrder}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full h-full mt-2">
 
               <div className="col-span-1 md:col-span-2">
-                <label className="text-lg block text-black font-semibold">เลขที่ EMS/เลขที่การจัดส่งสินค้า</label>
+                <label className="text-lg block text-black">เลขที่ EMS/เลขที่การจัดส่งสินค้า</label>
                 <input
                   className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                   type="text" placeholder="กรุณาใส่เลขที่ EMS"
@@ -153,7 +166,7 @@ export default function DetailOrder() {
               </div>
 
               <div>
-                <label className="text-lg block text-black font-semibold">สถานะ</label>
+                <label className="text-lg block text-black">สถานะ</label>
                 <input className="accent-black"
                   type="checkbox"
                   checked={status}
@@ -164,11 +177,9 @@ export default function DetailOrder() {
 
             </div>
 
-            <Button icon={<FaSave size={20} />} type="submit" className="mt-1 w-full">
-              <div>
-                บันทึก
-              </div>
-            </Button>
+            <div className="flex justify-end">
+              <Button type={'submit'} name={'บันทึก'} icon={<PiArrowLineLeftThin size={20} />} />
+            </div>
 
           </form>
         </div>

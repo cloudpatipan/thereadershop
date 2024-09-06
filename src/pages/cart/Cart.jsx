@@ -11,6 +11,7 @@ import { CartContext } from '../../context/CartContext';
 import baseUrl from '../../routes/BaseUrl';
 import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
 import { Rings } from 'react-loader-spinner'
+import { PiTrashSimpleThin } from 'react-icons/pi';
 export default function ViewProduct() {
 
     document.title = "ตระกร้าสินค้า";
@@ -31,7 +32,8 @@ export default function ViewProduct() {
     }, [carts]);
 
     const fetchCart = async () => {
-        axios.get(`/api/cart`).then(response => {
+        try {
+            const response = await axios.get(`/api/cart`);
             if (response.data.status === 200) {
                 setCarts(response.data.carts);
                 setLoading(false);
@@ -53,7 +55,15 @@ export default function ViewProduct() {
                 });
                 navigate('/');
             }
-        });
+        } catch (error) {
+            await Swal.fire({
+                icon: "error",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
+        }
     }
 
     const calculateTotalPrice = () => {
@@ -79,8 +89,9 @@ export default function ViewProduct() {
         updateCartQuantity(cart_id, "increment");
     }
 
-    const updateCartQuantity = (cart_id, scope) => {
-        axios.put(`/api/cart-updatequantity/${cart_id}/${scope}`).then(response => {
+    const updateCartQuantity = async (cart_id, scope) => {
+        try {
+            const response = await axios.put(`/api/cart-updatequantity/${cart_id}/${scope}`);
             if (response.data.status === 400) {
                 Swal.fire({
                     icon: "error",
@@ -98,14 +109,23 @@ export default function ViewProduct() {
                     focusConfirm: false,
                 });
             }
-        });
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
+        }
     }
 
-    const deleteCartItem = (e, cart_id) => {
+    const deleteCartItem = async (e, cart_id) => {
         e.preventDefault();
         setDeletingCartId(cart_id);
 
-        axios.delete(`/api/delete-cartitem/${cart_id}`).then(response => {
+        try {
+            const response = await axios.delete(`/api/delete-cartitem/${cart_id}`);
             if (response.data.status === 200) {
                 setCartCount((prevCount) => prevCount - 1);
                 Swal.fire({
@@ -115,7 +135,6 @@ export default function ViewProduct() {
                     confirmButtonColor: "black",
                     focusConfirm: false,
                 });
-
                 setCarts(prevCarts => prevCarts.filter(cart => cart.id !== cart_id));
                 setDeletingCartId(null);
             } else if (response.data.status === 400) {
@@ -128,11 +147,19 @@ export default function ViewProduct() {
                 });
                 setDeletingCartId(null);
             }
-        });
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
+        }
     }
 
     return (
-        <Layout>
+        <>
             {loading ? (
                 (<Rings
                     visible={true}
@@ -144,16 +171,14 @@ export default function ViewProduct() {
                     wrapperClass="flex justify-center"
                 />)
             ) : (
-                <div>
-                    <div className="mb-2">
-                        <h1 className="text-base md:text-2xl font-semibold">ตระกร้าสินค้า</h1>
+                <Layout>
+                    <div className="mb-4">
+                        <h1 className="text-base md:text-2xl">ตระกร้าสินค้า</h1>
                     </div>
                     <div>
 
                         <Link to={`/`}>
-                            <Button icon={<IoMdArrowDropleft size={20} />} className={`mb-2`}>
-                                กลับ
-                            </Button>
+                            <Button name={'กลับ'} icon={<IoMdArrowDropleft size={20} />} className={`mb-4`} />
                         </Link>
 
                     </div>
@@ -173,18 +198,18 @@ export default function ViewProduct() {
                                             <div className="flex justify-between w-full">
                                                 <div className="flex flex-col justify-between">
                                                     <div>
-                                                        <h1 className="text-base md:text-2xl font-semibold">{cart.product.name}</h1>
-                                                        <h2 className="text-black/40">{cart.product.category.name}</h2>
+                                                        <h1>{cart.product.name}</h1>
+                                                        <h2 className="text-xs">{cart.product.category.name}</h2>
                                                     </div>
                                                     <div>
-                                                        <span className="text-base md:text-2xl font-semibold">{cart.product.price * cart.product_qty} บาท</span>
+                                                        <span>{cart.product.price * cart.product_qty} บาท</span>
                                                     </div>
                                                 </div>
                                                 <div className="flex flex-col justify-between">
                                                     <button type="button" onClick={(e) => deleteCartItem(e, cart.id)} className="flex justify-end hover:text-red-700 transition-all duration-300">
-                                                        {deletingCartId === cart.id ? "กำลังลบ..." : <IoTrashBinOutline size={30} />}
+                                                        {deletingCartId === cart.id ? "กำลังลบ..." : <PiTrashSimpleThin size={25} />}
                                                     </button>
-                                                    <div className="flex items-center justify-center gap-4 rounded-full bg-black/10 h-8 w-24 font-medium uppercase">
+                                                    <div className="flex items-center justify-center gap-4 rounded-full border h-8 w-24 uppercase">
                                                         <button type="button" onClick={() => handleDecrement(cart.id)}><FaMinus /></button>
                                                         <div>{cart.product_qty}</div>
                                                         <button type="button" onClick={() => handleIncrement(cart.id)}><FaPlus /></button>
@@ -200,20 +225,20 @@ export default function ViewProduct() {
                                 <div className="border rounded-lg p-4">
                                     <div className="border-b py-2">
                                         <div className="flex items-center justify-between">
-                                            <div className="text-sm md:text-base font-semibold">
+                                            <div className="text-sm md:text-base">
                                                 ราคาโดยประมาณ:
                                             </div>
-                                            <div className="text-base md:text-xl font-semibold">
+                                            <div>
                                                 {totalCartPrice} บาท
                                             </div>
                                         </div>
                                     </div>
                                     <div className="border-b py-2">
                                         <div className="flex items-center justify-between">
-                                            <div className="text-sm md:text-base font-semibold">
+                                            <div>
                                                 ราคารวม:
                                             </div>
-                                            <div className="text-base md:text-xl font-semibold">
+                                            <div>
                                                 {totalCartPrice} บาท
                                             </div>
                                         </div>
@@ -222,20 +247,18 @@ export default function ViewProduct() {
 
                                 <Link to={`/checkout`}>
                                     <div className="mt-2 w-full flex items-center md:justify-end">
-                                        <Button icon={<IoBagCheckOutline size={20} />} className="w-full">
-                                            ดำเนินการต่อ
-                                        </Button>
+                                        <Button name={'ดำเนินการต่อ'} icon={<IoBagCheckOutline size={20} />} className="w-full" />
                                     </div>
                                 </Link>
                             </div>
                         </div>
                     ) : (
                         <div className="flex items-center justify-center border p-4 rounded-lg">
-                            <span className="text-3xl font-semibold">ไม่มีสินค้าในตระกร้า</span>
+                            <span className="text-3xl ">ไม่มีสินค้าในตระกร้า</span>
                         </div>
                     )}
-                </div>
+                </Layout>
             )}
-        </Layout>
+        </>
     );
 }

@@ -8,17 +8,17 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
-import { PiUserGearThin } from "react-icons/pi";
+import { PiShoppingCartSimpleThin, PiUserGearThin } from "react-icons/pi";
 import { MdFullscreen } from "react-icons/md";
-import { LiaShoppingBagSolid } from "react-icons/lia";
-import { PiShoppingBagOpenThin } from "react-icons/pi";
 import { PiUserThin } from "react-icons/pi";
 import { PiArrowLineLeftThin } from "react-icons/pi";
 import { PiArrowLineRightThin } from "react-icons/pi";
 import { CiHome } from "react-icons/ci";
-import { PiSquaresFourThin } from "react-icons/pi";
 import { PiUserPlusThin } from "react-icons/pi";
 import { IoClose } from "react-icons/io5";
+import { PiBooksThin } from "react-icons/pi";
+import { PiTagSimpleThin } from "react-icons/pi";
+import { PiStarFourThin } from "react-icons/pi";
 import Button from './Button';
 import { UserContext } from '../context/UserContext';
 import { CartContext } from '../context/CartContext';
@@ -29,7 +29,9 @@ export default function Navbar() {
 
   const menus = [
     { name: "หน้าหลัก", link: "/", icon: CiHome },
-    { name: "ประเภทสินค้า", link: "/category", icon: PiSquaresFourThin },
+    { name: "หนังสือ", link: "/product", icon: PiBooksThin },
+    { name: "ประเภทหนังสือ", link: "/category", icon: PiTagSimpleThin },
+    { name: "แบรนด์หนังสือ", link: "/brand", icon: PiStarFourThin },
   ]
 
 
@@ -47,7 +49,8 @@ export default function Navbar() {
   }, []);
 
   const fetchCart = async () => {
-    axios.get(`/api/cart`).then(response => {
+    try {
+      const response = await axios.get(`/api/cart`);
       if (response.data.status === 200) {
         setCarts(response.data.carts);
         setCartCount(response.data.carts.length);
@@ -70,14 +73,17 @@ export default function Navbar() {
         });
         navigate('/')
       }
-    });
+    } catch (error) {
+      Swal.fire({
+        icon: "warning",
+        text: error,
+        confirmButtonText: "ตกลง",
+        confirmButtonColor: "black",
+        focusConfirm: false,
+      });
+    }
   }
-
-  const handleResponseError = (data) => {
-    // จัดการข้อผิดพลาดที่ได้รับจากเซิร์ฟเวอร์
-    console.error('Response error:', data);
-  };
-
+ 
   const SubmitLogout = async (e) => {
     e.preventDefault();
     try {
@@ -86,6 +92,10 @@ export default function Navbar() {
       setIsModalOpenLogin(false);
       setIsModalOpenRegister(false);
       setIsDropdownOpen(false);
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      setToken(null);
+      setUser(null);
       // แสดงข้อความสำเร็จ
       Swal.fire({
         icon: "success",
@@ -95,12 +105,8 @@ export default function Navbar() {
         focusConfirm: false,
       });
       // ล้างข้อมูลใน localStorage
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      setToken(null);
-      setUser(null);
     } catch (error) {
-      await Swal.fire({
+      Swal.fire({
         icon: "error",
         text: response.data.message,
         confirmButtonText: "ตกลง",
@@ -109,6 +115,8 @@ export default function Navbar() {
       });
     }
   };
+
+  
 
   const [isModalOpenLogin, setIsModalOpenLogin] = useState(false);
 
@@ -158,7 +166,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full mx-auto gap-4 text-black mt-1">
+    <nav className="w-full py-4">
       <div className="flex items-center justify-between">
 
         <Link to={'/'}>
@@ -167,14 +175,9 @@ export default function Navbar() {
 
         <div className="hidden md:flex gap-4">
           {
-            menus?.map((menu, i) => (
-              <Link to={menu?.link} key={i}>
-                <Button icon={React.createElement(menu?.icon, { size: "25" })}>
-                  <h2
-                    className={``}>
-                    {menu.name}
-                  </h2>
-                </Button>
+            menus?.map((menu, index) => (
+              <Link to={menu?.link} key={index}>
+                <Button name={ menu?.name } icon={React.createElement(menu?.icon, { size: "25" })} />
               </Link>
             ))
           }
@@ -183,17 +186,13 @@ export default function Navbar() {
         <div>
           {!token ? (
             <div className="hidden md:flex items-center gap-4">
-              <Button className="text-sm md:text-base" icon={<PiArrowLineLeftThin size={25} />} onClick={openModalLogin}>
-                เข้าสู่ระบบ
-              </Button>
+              <Button name={'เข้าสู่ระบบ'} icon={<PiArrowLineLeftThin size={25} />} onClick={openModalLogin} />
 
               <Modal isOpen={isModalOpenLogin} onClose={closeModalLogin}>
                 <Login />
               </Modal>
 
-              <Button className="text-sm md:text-base" icon={<PiUserPlusThin size={25} />} onClick={openModalRegister}>
-                สมัครสมาชิก
-              </Button>
+              <Button name={'สมัครสมาชิก'} icon={<PiUserPlusThin size={25} />} onClick={openModalRegister} />
 
               <Modal isOpen={isModalOpenRegister} onClose={closeModalRegister}>
                 <Register />
@@ -203,7 +202,7 @@ export default function Navbar() {
             <div>
 
               {user && token ? (
-                <div className="flex gap-4">
+                <div className="flex items-center gap-4">
 
                   <Link to={'/cart'}>
                     <button className="text-black w-[3rem] h-[3rem] rounded-full overflow-hidden cursor-pointer group flex items-center justify-center">
@@ -213,14 +212,14 @@ export default function Navbar() {
                             {cartCount}
                           </div>
                         ) : null}
-                        <PiShoppingBagOpenThin size={30} />
+                        <PiShoppingCartSimpleThin size={30} />
                       </div>
                     </button>
                   </Link>
 
                   <Dropdown
                     header={
-                      <div className="w-[3rem] h-[3rem] rounded-full overflow-hidden cursor-pointer" onClick={handleToggleDropdown}>
+                      <div className="w-[2.5rem] h-[2.5rem] rounded-full overflow-hidden cursor-pointer" onClick={handleToggleDropdown}>
                         {user.avatar ? (
                           <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
                         ) : (
@@ -264,25 +263,17 @@ export default function Navbar() {
 
                     {user.role == 'admin' && ( // เช็คว่ามีผู้ใช้ล็อคอินและเป็น admin หรือไม่
                       <Link to={'/dashboard'}>
-                        <Button icon={<PiUserGearThin size={20} />} className="mt-1 w-full">
-                          แอดมิน
-                        </Button>
+                        <Button name={'แอดมิน'} icon={<PiUserGearThin size={20} />} className="mt-1 w-full"/>
                       </Link>
                     )}
                     <Link to={'/order'}>
-                      <Button icon={<PiShoppingBagOpenThin size={20} />} className="mt-1 w-full">
-                        รายการสังซื้อ
-                      </Button>
+                      <Button name={'รายการสั่งซื้อ'} icon={<PiShoppingCartSimpleThin size={20} />} className="mt-1 w-full"/>
                     </Link>
                     <Link to={'/profile'}>
-                      <Button icon={<PiUserThin size={20} />} className="mt-1 w-full">
-                        โปรไฟล์
-                      </Button>
+                      <Button name={'โปรไฟล์'} icon={<PiUserThin size={20} />} className="mt-1 w-full"/>
                     </Link>
 
-                    <Button icon={<PiArrowLineRightThin size={20} />} className="mt-1 w-full" onClick={SubmitLogout} >
-                      ออกจการะบบ
-                    </Button>
+                    <Button name={'ออกจากระบบ'} icon={<PiArrowLineRightThin size={20} />} className="mt-1 w-full" onClick={SubmitLogout} />
                   </Dropdown>
                 </div>
               ) : null}
@@ -294,7 +285,7 @@ export default function Navbar() {
 
         <div className="md:hidden">
           <button className="border p-1 rounded-full" id="menu-toggle" onClick={toggleMenu}>
-          {isMenuOpen ? <IoClose size={25} /> : <GiHamburgerMenu size={25} />}
+            {isMenuOpen ? <IoClose size={25} /> : <GiHamburgerMenu size={25} />}
           </button>
         </div>
 
@@ -303,33 +294,24 @@ export default function Navbar() {
 
         {isMenuOpen ? (
           <div className="relative">
-            <div className="absolute bg-white py-1 z-10 w-full flex flex-col md:hidden font-medium uppercase">
+            <div className="absolute bg-white py-1 z-10 w-full flex flex-col gap-2 px-4 md:hidden uppercase">
               {
                 menus?.map((menu, i) => (
                   <Link to={menu?.link} key={i}>
-                    <Button className={`w-full mt-1 bg-white`} icon={React.createElement(menu?.icon, { size: "25" })}>
-                      <h2
-                        className={``}>
-                        {menu.name}
-                      </h2>
-                    </Button>
+                    <Button name={menu?.name} icon={React.createElement(menu?.icon, { size: "25" })} className={`w-full`}/>
                   </Link>
                 ))
               }
               {!token ? (
                 <div>
 
-                  <Button className={`w-full mt-1 text-sm md:text-base bg-white`} icon={<PiArrowLineLeftThin size={25} />} onClick={openModalLogin}>
-                    เข้าสู่ระบบ
-                  </Button>
+                  <Button name={'เข้าสู่ระบบ'} icon={<PiArrowLineLeftThin size={25} />}  className={`w-full`} onClick={openModalLogin} />
 
                   <Modal isOpen={isModalOpenLogin} onClose={closeModalLogin}>
                     <Login />
                   </Modal>
 
-                  <Button className={`w-full mt-1 text-sm md:text-base bg-white`} icon={<PiUserPlusThin size={25} />} onClick={openModalRegister}>
-                    สมัครสมาชิก
-                  </Button>
+                  <Button name={'สมัครสมาชิก'} icon={<PiUserPlusThin size={25} />}  className={`w-full`} onClick={openModalRegister} />
 
                   <Modal isOpen={isModalOpenRegister} onClose={closeModalRegister}>
                     <Register />

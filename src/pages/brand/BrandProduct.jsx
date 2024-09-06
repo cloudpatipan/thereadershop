@@ -12,11 +12,11 @@ import baseUrl from '../../routes/BaseUrl';
 import { Rings } from 'react-loader-spinner';
 import Swal from 'sweetalert2';
 import { PiArrowFatLineLeftThin, PiArrowFatLineRightThin } from 'react-icons/pi';
-export default function CategoryProduct() {
+export default function BrandProduct() {
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
-    const [category, setCategory] = useState([]);
+    const [brand, setBrand] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
     const { slug } = useParams();
     const productsPerPage = 12; // จำนวนสินค้าต่อหน้า
@@ -31,11 +31,11 @@ export default function CategoryProduct() {
 
     const fetchProducts = async () => {
         try {
-            const response = await axios.get(`/api/product/category/${slug}`);
+            const response = await axios.get(`/api/product/brand/${slug}`);
             if (response.data.status === 200) {
                 setProducts(response.data.product_data.product);
-                setCategory(response.data.product_data.category);
-                document.title = response.data.product_data.category.name
+                setBrand(response.data.product_data.brand);
+                document.title = response.data.product_data.brand.name
                 setLoading(false);
             } else if (response.data.status === 400) {
                 Swal.fire({
@@ -87,11 +87,11 @@ export default function CategoryProduct() {
                     <div className="flex flex-col md:flex-row justify-between">
 
                         <div>
-                            <h1 className="text-base">ประเภทหนังสือ {category.name}</h1>
+                            <h1 className="text-base">แบรนด์หนังสือ {brand.name}</h1>
                         </div>
 
                         <div className="relative">
-                            <input type="text" placeholder={`ค้นหาหนังสือ ${category.name}`}
+                            <input type="text" placeholder={`ค้นหาหนังสือ ${brand.name}`}
                                 className="w-full md:w-[10rem] pl-8 placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
                                 value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                             <FaSearch className="absolute top-2 left-0" />
@@ -99,8 +99,8 @@ export default function CategoryProduct() {
 
                     </div>
 
-                    <Link to={`/category`}>
-                    <Button icon={<PiArrowFatLineLeftThin size={20} />} className={`mb-4`}>
+                    <Link to={`/brand`}>
+                        <Button icon={<PiArrowFatLineLeftThin size={20} />} className={`mb-4`}>
                             กลับ
                         </Button>
                     </Link>
@@ -132,7 +132,7 @@ export default function CategoryProduct() {
                                             </Link>
                                             <div className="mt-1">
                                                 <p className="text-sm text-ellipsis overflow-hidden text-balance h-[4rem]">{product.name}</p>
-                                                <p className="text-xs text-clip overflow-hidden text-black/40 font-semibold">{product.category.name}</p>
+                                                <p className="text-xs text-clip overflow-hidden text-black/40 font-semibold">{product.brand.name}</p>
                                                 <span className="text-base">{product.price} บาท</span>
                                             </div>
                                         </div>
@@ -146,25 +146,25 @@ export default function CategoryProduct() {
 
                         </div>
                         {pageCount > 1 && (
-                            <ReactPaginate
-                                previousLabel={
-                                    <span className="w-10 h-10 flex items-center justify-center border rounded-full">
-                                        <PiArrowFatLineLeftThin size={20} />
-                                    </span>
-                                }
-                                nextLabel={
-                                    <span className="w-10 h-10 flex items-center justify-center border rounded-full">
-                                        <PiArrowFatLineRightThin size={20} />
-                                    </span>
-                                }
-                                pageCount={pageCount}
-                                breakLabel={<span className="mr-4">...</span>}
-                                onPageChange={handlePageClick}
-                                containerClassName="flex justify-center items-center gap-2 mt-2"
-                                pageClassName="block w-10 h-10 flex items-center justify-center border rounded-full"
-                                activeClassName="bg-black text-white"
-                            />
-                        )}
+                        <ReactPaginate
+                            previousLabel={
+                                <span className="w-10 h-10 flex items-center justify-center border rounded-full">
+                                    <PiArrowFatLineLeftThin size={20} />
+                                </span>
+                            }
+                            nextLabel={
+                                <span className="w-10 h-10 flex items-center justify-center border rounded-full">
+                                    <PiArrowFatLineRightThin size={20} />
+                                </span>
+                            }
+                            pageCount={pageCount}
+                            breakLabel={<span className="mr-4">...</span>}
+                            onPageChange={handlePageClick}
+                            containerClassName="flex justify-center items-center gap-2 mt-2"
+                            pageClassName="block w-10 h-10 flex items-center justify-center border rounded-full"
+                            activeClassName="bg-black text-white"
+                        />
+                    )}
                     </div>
                 </div>
             )}

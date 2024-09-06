@@ -6,38 +6,45 @@ import { LuShoppingBag } from "react-icons/lu";
 import { AiOutlineProduct } from "react-icons/ai";
 import { MdOutlineBrandingWatermark } from "react-icons/md";
 import { MdOutlineReceipt } from "react-icons/md";
-import { BsBank } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../Footer';
 import { UserContext } from '../../context/UserContext';
-import { PiFlagBannerFoldBold } from "react-icons/pi";
-import { AiOutlineHome } from "react-icons/ai";
+import { PiArrowFatLeftThin, PiArrowFatLineLeftThin, PiArrowFatLinesRightThin, PiHouseLineThin } from "react-icons/pi";
+import { PiBankThin } from "react-icons/pi";
+import { PiChartBarThin } from "react-icons/pi";
+import { PiSignpostThin } from "react-icons/pi";
+import { PiUserThin } from "react-icons/pi";
+import { PiShoppingCartSimpleThin } from "react-icons/pi";
+import { PiTagSimpleThin } from "react-icons/pi";
+import { PiStarFourThin } from "react-icons/pi";
+import { PiScrollThin } from "react-icons/pi";
+import { RxHamburgerMenu } from "react-icons/rx";
 import baseUrl from '../../routes/BaseUrl';
 export default function Sidebar({ children }) {
     const { user, token, setUser, setToken } = useContext(UserContext);
     const navigate = useNavigate();
 
     const menus = [
-        { name: "หน้าหลัก", link: "/", icon: AiOutlineHome },
-        { name: "แดชบอร์ด", link: "/dashboard", icon: MdOutlineDashboard },
-        { name: "แบนเนอร์", link: "/admin/adsbanner", icon: PiFlagBannerFoldBold },
-        { name: "ผู้ใช้", link: "/admin/user", icon: FaRegUser },
-        { name: "สินค้า", link: "/admin/product", icon: LuShoppingBag },
-        { name: "ประเภทสินค้า", link: "/admin/category", icon: AiOutlineProduct },
-        { name: "แบรนด์สินค้า", link: "/admin/brand", icon: MdOutlineBrandingWatermark },
-        { name: "รายการสั่งซื้อ", link: "/admin/order", icon: MdOutlineReceipt },
-        { name: "ธนาคาร", link: "/admin/bank", icon: BsBank, margin: true },
+        { name: "หน้าหลัก", link: "/", icon: PiHouseLineThin },
+        { name: "แดชบอร์ด", link: "/dashboard", icon: PiChartBarThin },
+        { name: "แบนเนอร์", link: "/admin/adsbanner", icon: PiSignpostThin },
+        { name: "ผู้ใช้", link: "/admin/user", icon: PiUserThin },
+        { name: "สินค้า", link: "/admin/product", icon: PiShoppingCartSimpleThin },
+        { name: "ประเภทสินค้า", link: "/admin/category", icon: PiTagSimpleThin },
+        { name: "แบรนด์สินค้า", link: "/admin/brand", icon: PiStarFourThin },
+        { name: "รายการสั่งซื้อ", link: "/admin/order", icon: PiScrollThin },
+        { name: "ธนาคาร", link: "/admin/bank", icon: PiBankThin, margin: true },
     ]
 
     const [open, setOpen] = useState(true);
 
     return (
         <>
-            <section className="flex">
+            <section className="flex font-extralight">
                 <div className={`border min-h-screen ${open ? 'w-72' : 'w-16'} duration-500 px-4`}>
                     <div className="py-3 flex justify-end">
-                        <HiMenuAlt3 size={26} className="cursor-pointer" onClick={() => setOpen(!open)} />
+                       {open ? <PiArrowFatLineLeftThin size={28} className="cursor-pointer" onClick={() => setOpen(!open)}/> : <PiArrowFatLinesRightThin size={28} className="cursor-pointer" onClick={() => setOpen(!open)}/>}
                     </div>
                     <div>
 

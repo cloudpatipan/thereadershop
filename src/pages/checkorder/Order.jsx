@@ -20,7 +20,8 @@ export default function Order() {
     }, []);
 
     const fetchOrder = async () => {
-        axios.get(`/api/order-list`).then(response => {
+        try {
+            const response = await axios.get(`/api/order-list`);
             if (response.data.status === 200) {
                 setOrders(response.data.orders);
                 setLoading(false);
@@ -43,73 +44,77 @@ export default function Order() {
                 });
                 navigate('/');
             }
-        });
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
+        }
     }
 
     return (
-        <Layout>
-            <section>
-                {loading ? (
-                    (<Rings
-                        visible={true}
-                        height="500"
-                        width="500"
-                        color="black"
-                        ariaLabel="rings-loading"
-                        wrapperStyle={{}}
-                        wrapperClass="flex justify-center"
-                    />)
-                ) : (
-                    <div>
-                        <h1 className="mb-4 text-base md:text-2xl font-semibold">รายการสังซื้อ</h1>
+        <>
+            {loading ? (
+                (<Rings
+                    visible={true}
+                    height="500"
+                    width="500"
+                    color="black"
+                    ariaLabel="rings-loading"
+                    wrapperStyle={{}}
+                    wrapperClass="flex justify-center"
+                />)
+            ) : (
+                <Layout>
+                    <h1 className="mb-4 text-xl">รายการสังซื้อ</h1>
 
-                        <Link to={`/`}>
-                            <Button icon={<IoMdArrowDropleft size={20} />} className={`mb-2`}>
-                                กลับ
-                            </Button>
-                        </Link>
+                    <Link to={`/`}>
+                        <Button name={'กลับ'} icon={<IoMdArrowDropleft size={20} />} className={`mb-4`}/>
+                    </Link>
 
-                        <div className="p-4 border rounded-lg overflow-x-scroll">
+                    <div className="p-4 border rounded-lg overflow-x-scroll no-scrollbar">
 
-                            <table className="w-full text-sm md:text-base">
-                                <thead>
-                                    <tr className="text-left">
-                                        <th className="py-1 border-b">เลขที่สั่งซื้อ</th>
-                                        <th className="py-1 border-b">ชื่อ</th>
-                                        <th className="py-1 border-b">นามสกุล</th>
-                                        <th className="py-1 border-b">ชำระเงินโดย</th>
-                                        <th className="py-1 border-b">เลข EMS</th>
-                                        <th className="py-1 border-b">สถานะ</th>
-                                        <th className="py-1 border-b"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {orders.length > 0 ? (
-                                        orders.map((order, index) => (
-                                            <tr key={index}>
-                                                <td className="py-1 border-b">{order.id}</td>
-                                                <td className="py-1 border-b">{order.firstname}</td>
-                                                <td className="py-1 border-b">{order.lastname}</td>
-                                                <td className="py-1 border-b">{order.payment_mode}</td>
-                                                <td className="py-1 border-b">{order.tracking_no}</td>
-                                                <td className="py-1 border-b">{order.status === 1 ? "จัดส่งสินค้าเรียบร้อย" : "รอตรวจสอบ"}</td>
-                                            </tr>
-                                        ))
-                                    ) : (
-                                        <tr>
-                                            <td colSpan="8" className="py-1 border-b">
-                                                <div className="text-2xl font-semibold flex justify-center items-center h-20">
-                                                    ไม่พบรายการสั่งซื้อ
-                                                </div>
-                                            </td>
+                        <table className="w-full">
+                            <thead>
+                                <tr className="text-left py-1 border-b">
+                                    <th>เลขที่สั่งซื้อ</th>
+                                    <th>ชื่อ</th>
+                                    <th>นามสกุล</th>
+                                    <th>ชำระเงินโดย</th>
+                                    <th>เลข EMS</th>
+                                    <th>สถานะ</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {orders.length > 0 ? (
+                                    orders.map((order, index) => (
+                                        <tr className="py-1 border-b" key={index}>
+                                            <td>{order.id}</td>
+                                            <td>{order.firstname}</td>
+                                            <td>{order.lastname}</td>
+                                            <td>{order.payment_mode}</td>
+                                            <td>{order.tracking_no}</td>
+                                            <td>{order.status === 1 ? "จัดส่งสินค้าเรียบร้อย" : "รอตรวจสอบ"}</td>
                                         </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="8">
+                                            <div className="text-2xl font-semibold flex justify-center items-center h-20">
+                                                ไม่พบรายการสั่งซื้อ
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
                     </div>
-                )}
-            </section>
-        </Layout>
+                </Layout>
+            )}
+        </>
     )
 }

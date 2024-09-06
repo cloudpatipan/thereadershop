@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const UserContext = createContext();
 
@@ -8,11 +9,21 @@ export const UserProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
 
   useEffect(() => {
-    fetchUser();
+    if (token) {
+      fetchUser();
+    }
   }, [token]);
 
   const fetchUser = async () => {
-    axios.get('/api/user').then(response => {
+    try {
+      await axios.get(`/sanctum/csrf-cookie`, { credentials: 'include' });
+      const response = await axios.get(`/api/user`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      });
       if (response.data.status === 200) {
         setUser(response.data.user);
       } else if (response.data.status === 400) {
@@ -22,9 +33,8 @@ export const UserProvider = ({ children }) => {
           confirmButtonText: "ตกลง",
           confirmButtonColor: "black",
           focusConfirm: false,
-        }).then(() => {
-          navigate('/');
         });
+        navigate('/');
       } else if (response.data.status === 401) {
         Swal.fire({
           icon: "warning",
@@ -32,12 +42,19 @@ export const UserProvider = ({ children }) => {
           confirmButtonText: "ตกลง",
           confirmButtonColor: "black",
           focusConfirm: false,
-        }).then(() => {
-          navigate('/');
         });
+        navigate('/');
       }
-    });
-  };
+    } catch (error) {
+      Swal.fire({
+        icon: "warning",
+        text: error,
+        confirmButtonText: "ตกลง",
+        confirmButtonColor: "black",
+        focusConfirm: false,
+      });
+    }
+  }
 
   return (
     <UserContext.Provider value={{ user, setUser, token, setToken }}>

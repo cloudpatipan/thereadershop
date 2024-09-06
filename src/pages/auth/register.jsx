@@ -11,108 +11,135 @@ export default function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    const [password_confirmation, setPasswordConfirmation] = useState('');
 
     const [error, setError] = useState([]);
 
     const submitRegister = async (e) => {
         e.preventDefault();
 
-        if (password !== passwordConfirmation) {
+        // const data = { name, email, password, password_confirmation: passwordConfirmation };
+
+        const formData = new FormData();
+
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('password_confirmation', password_confirmation);
+
+        try {
+            await axios.get('/sanctum/csrf-cookie');
+            const response = await axios.post('/api/register', formData);
+            if (response.data.status === 200) {
+                Swal.fire({
+                    icon: "success",
+                    text: response.data.message,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+                localStorage.setItem('token', response.data.token);
+                localStorage.setItem('user', response.data.user.name);
+                setUser(response.data.user);
+                setToken(response.data.token);
+            } else if (response.data.status === 400) {
+                Swal.fire({
+                    icon: "warning",
+                    text: response.data.message,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+            } else if (response.data.status === 422) {
+                setError(response.data.errors);
+            }
+        } catch (error) {
             Swal.fire({
-                icon: "error",
-                text: "รหัสผ่านและการยืนยันรหัสผ่านไม่ตรงกัน",
+                icon: "warning",
+                text: error,
                 confirmButtonText: "ตกลง",
                 confirmButtonColor: "black",
                 focusConfirm: false,
             });
-            return;
         }
-
-        const data = { name, email, password, password_confirmation: passwordConfirmation };
-
-        axios.get('/sanctum/csrf-cookie').then(response => {
-            axios.post('/api/register', data).then(res => {
-                if (res.data.status === 200) {
-                    Swal.fire({
-                        icon: "success",
-                        text: res.data.message,
-                        confirmButtonText: "ตกลง",
-                        confirmButtonColor: "black",
-                        focusConfirm: false,
-                    });
-                    localStorage.setItem('token', res.data.token);
-                    localStorage.setItem('user', res.data.user.name);
-                    setUser(res.data.user);
-                    setToken(res.data.token);
-                } else if (res.data.status === 400) {
-                    Swal.fire({
-                        icon: "warning",
-                        text: res.data.message,
-                        confirmButtonText: "ตกลง",
-                        confirmButtonColor: "black",
-                        focusConfirm: false,
-                    });
-                } else if (res.data.status === 422) {
-                    setError(res.data.errors);
-                }
-
-            });
-        })
     }
+
 
     return (
         <div>
-            <h1 className="text-2xl  text-center text-black mb-4">สมัครสมาชิก</h1>
+            <h1 className="text-2xl mb-4">สมัครสมาชิก</h1>
             <form onSubmit={submitRegister}>
-                <div>
-                    <label className="text-sm md:text-base block ">ชื่อ</label>
-                    <input
-                        className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="กรุณาใส่ชื่อ"
-                    />
-                    <div className="text-red-700 text-sm">{error.name}</div>
-                </div>
-                <div className="mt-2">
-                    <label className="text-sm md:text-base block  text-black">อีเมล</label>
-                    <input
-                        className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="กรุณาใส่อีเมล"
-                    />
-                    <div className="text-red-700 text-sm">{error.email}</div>
+
+                <div className="flex flex-col gap-4">
+
+                    <div>
+                        <label>ชื่อ</label>
+                        <input
+                            className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            placeholder="ชื่อ"
+                        />
+                        {error && error.name && (
+                            <div className={`my-2 text-sm text-[#d70000]`}>
+                                {error.name}
+                            </div>
+                        )}
+                    </div>
+                    <div className="mt-2">
+                        <label className="text-sm md:text-base block  text-black">อีเมล</label>
+                        <input
+                            className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="อีเมล"
+                        />
+                        {error && error.email && (
+                            <div className={`my-2 text-sm text-[#d70000]`}>
+                                {error.email}
+                            </div>
+                        )}
+
+                    </div>
+                    <div>
+                        <label>รหัสผ่าน</label>
+                        <input
+                            className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="รหัสผ่าน"
+                        />
+                        {error && error.password && (
+                            <div className={`my-2 text-sm text-[#d70000]`}>
+                                {error.password}
+                            </div>
+                        )}
+                    </div>
+                    <div className="mt-2">
+                        <label className="text-sm md:text-base block  text-black">ยืนยันรหัสผ่าน</label>
+                        <input
+                            className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+                            type="password"
+                            value={password_confirmation}
+                            onChange={(e) => setPasswordConfirmation(e.target.value)}
+                            placeholder="ยืนยันรหัสผ่าน"
+                        />
+                        {error && error.password_confirmation && (
+                            <div className={`my-2 text-sm text-[#d70000]`}>
+                                {error.password_confirmation}
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="flex justify-end">
+                        <Button name={'สมัครสมาชิก'} icon={<PiUserPlusThin size={20} />} onClick={submitRegister} />
+                    </div>
 
                 </div>
-                <div className="mt-2">
-                    <label className="text-sm md:text-base block  text-black">รหัสผ่าน</label>
-                    <input
-                        className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="กรุณาใส่รหัสผ่าน"
-                    />
-                      <div className="text-red-700 text-sm">{error.password}</div>
-                </div>
-                <div className="mt-2">
-                    <label className="text-sm md:text-base block  text-black">ยืนยันรหัสผ่าน</label>
-                    <input
-                        className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
-                        type="password"
-                        value={passwordConfirmation}
-                        onChange={(e) => setPasswordConfirmation(e.target.value)}
-                        placeholder="กรุณาใส่รหัสผ่านอีกครั้ง"
-                    />
-                    <div className="text-red-700 text-sm">{error.password_confirmation}</div>
-                </div>
-            <Button icon={<PiUserPlusThin size={20}/>} className={`mt-1 w-full`} onClick={submitRegister}>
-            สมัครสมาชิก
-            </Button>
+
             </form>
         </div>
     );

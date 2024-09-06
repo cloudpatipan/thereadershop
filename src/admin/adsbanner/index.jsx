@@ -5,13 +5,9 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import Sidebar from '../../components/Layouts/Sidebar';
 import { CiEdit } from "react-icons/ci";
-import { PiEyeThin, PiPlus, PiPlusThin } from "react-icons/pi";
-import { CiSearch } from "react-icons/ci";
-import { PiTrashSimpleThin } from "react-icons/pi";
+import { PiPencilLineThin, PiPlusThin, PiTrashSimpleThin } from "react-icons/pi";
 import { PiListBulletsThin } from "react-icons/pi";
 import { PiSquaresFourThin } from "react-icons/pi";
-import { PiToggleLeftThin } from "react-icons/pi";
-import { PiToggleRightThin } from "react-icons/pi";
 import { IoMdArrowDropright } from "react-icons/io";
 import { IoMdArrowDropleft } from "react-icons/io";
 import { PiArticleThin } from "react-icons/pi";
@@ -20,7 +16,7 @@ import { Rings } from 'react-loader-spinner';
 import Button from '../../components/Button';
 export default function ViewAdsbanner() {
     const [loading, setLoading] = useState(true);
-    const [Adsbanners, setAdsbanners] = useState([]);
+    const [adsbanners, setAdsbanners] = useState([]);
     const [deletingId, setDeletingId] = useState(null);
     const [pageNumber, setPageNumber] = useState(0);
     const AdsbannersPerPage = 10; // จำนวนสินค้าต่อหน้า
@@ -33,21 +29,30 @@ export default function ViewAdsbanner() {
         fetchAdsbanners();
     }, [pageNumber]);
 
-    const fetchAdsbanners = async () => { // แก้ชื่อฟังก์ชั่นเป็น fetchAdsbanner แทน fectAdsbanner
+    const fetchAdsbanners = async () => {
         try {
             const response = await axios.get(`/api/adsbanners`);
-            setAdsbanners(response.data);
-            setLoading(false);
+            if (response.data.status === 200) {
+                setAdsbanners(response.data.adsbanners);
+                setLoading(false);
+            }
         } catch (error) {
-            console.error('Error fetching Adsbanners:', error);
+            Swal.fire({
+                icon: "success",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
         }
     }
 
-    const deleteAdsbanner = (e, id) => {
+    const deleteAdsbanner = async(e, id) => {
         e.preventDefault();
         setDeletingId(id);
 
-        axios.delete(`/api/adsbanners/${id}`).then(response => {
+        try {
+            const response = await axios.delete(`/api/adsbanners/${id}`);
             if (response.data.status === 200) {
                 Swal.fire({
                     icon: "success",
@@ -56,7 +61,6 @@ export default function ViewAdsbanner() {
                     confirmButtonColor: "black",
                     focusConfirm: false,
                 });
-
                 // อัปเดตรายการที่มีอยู่โดยการกรองออก
                 setAdsbanners(prev => prev.filter(Adsbanner => Adsbanner.id !== id));
                 setDeletingId(null); // เครียทุกอย่างใน ไอดี ตระกร้า
@@ -70,11 +74,20 @@ export default function ViewAdsbanner() {
                 });
                 setDeletingId(null);
             }
-        });
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
+        }
     }
+     
 
-    const pageCount = Math.ceil(Adsbanners.length / AdsbannersPerPage);
-    const displayedAdsbanners = Adsbanners.slice(pageNumber * AdsbannersPerPage, (pageNumber + 1) * AdsbannersPerPage);
+    const pageCount = Math.ceil(adsbanners.length / AdsbannersPerPage);
+    const displayedAdsbanners = adsbanners.slice(pageNumber * AdsbannersPerPage, (pageNumber + 1) * AdsbannersPerPage);
 
     const [isTableFormat, setIsTableFormat] = useState(true);
 
@@ -88,11 +101,7 @@ export default function ViewAdsbanner() {
             <Sidebar>
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4  mb-2 rounded-lg">
                     <Link to={"create"}>
-                        <Button icon={<PiPlusThin size={26} />} type="submit">
-                            <div>
-                                เพิ่มแบนเนอร์
-                            </div>
-                        </Button>
+                        <Button name={'เพิ่ม'} icon={<PiPlusThin size={25} />}/>
                     </Link>
 
                     <div className="flex items-center gap-x-4">
@@ -115,43 +124,43 @@ export default function ViewAdsbanner() {
                         wrapperClass="flex justify-center"
                     />)
                 ) : (
-                    <div className="border p-4 rounded overflow-x-scroll">
+                    <div className="border p-4 rounded overflow-x-scroll no-scrollbar">
                         {isTableFormat ? (
                             <table className="w-full">
                                 <thead>
-                                    <tr className="text-left">
-                                        <th className="py-1 border-b">รหัสแบนเนอร์</th>
-                                        <th className="py-1 border-b">รูปภาพ</th>
-                                        <th className="py-1 border-b">สถานะ</th>
-                                        <th className="py-1 border-b"></th>
+                                    <tr className="text-left py-1 border-b">
+                                        <th>รหัสแบนเนอร์</th>
+                                        <th>รูปภาพ</th>
+                                        <th>สถานะ</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {displayedAdsbanners.length > 0 ? (
                                         displayedAdsbanners
-                                            .map((Adsbanner, index) => (
+                                            .map((adsbanner, index) => (
                                                 <tr key={index}>
-                                                    <td className="py-1 border-b">
-                                                        {Adsbanner.id}
+                                                    <td>
+                                                        {adsbanner.id}
                                                     </td>
 
-                                                    <td className="py-1 border-b">
-                                                        {Adsbanner.image ? (
-                                                            <img className="w-48 h-10 rounded object-cover" src={`${baseUrl}/images/Adsbanner/${Adsbanner.image}`} alt="" />
+                                                    <td>
+                                                        {adsbanner.image ? (
+                                                            <img className="w-48 h-10 rounded object-cover" src={`${baseUrl}/images/Adsbanner/${adsbanner.image}`} alt="" />
                                                         ) : (
                                                             <img className="w-12 h-18 rounded object-cover" src="${baseUrl}/images/product/No_image.png" alt="No Image" />
                                                         )}
-                                                        {console.log(Adsbanner.image)}
+                                                        {console.log(adsbanner.image)}
                                                     </td>
-                                                    <td className="py-1 border-b">
+                                                    <td>
                                                         <div className="flex items-center gap-2">
-                                                            <Link to={`${Adsbanner.id}/edit`}>
+                                                            <Link to={`${adsbanner.id}/edit`}>
                                                                 <button className="border p-2 rounded-full ">
-                                                                    <CiEdit size={20} />
+                                                                    <PiPencilLineThin size={20} />
                                                                 </button>
                                                             </Link>
-                                                            <button type="button" onClick={(e) => deleteAdsbanner(e, Adsbanner.id)} className="border p-2 rounded-full  flex justify-end hover:text-red-700">
-                                                                {deletingId === Adsbanner.id ? "กำลังลบ..." : <PiTrashSimpleThin size={20} />}
+                                                            <button type="button" onClick={(e) => deleteAdsbanner(e, adsbanner.id)} className="border p-2 rounded-full  flex justify-end hover:text-red-700">
+                                                                {deletingId === adsbanner.id ? "กำลังลบ..." : <PiTrashSimpleThin size={20} />}
                                                             </button>
                                                         </div>
                                                     </td>
@@ -159,7 +168,7 @@ export default function ViewAdsbanner() {
                                             ))
                                     ) : (
                                         <tr>
-                                            <td colSpan="8" className="py-1 border-b">
+                                            <td colSpan="8">
                                                 <div className="text-2xl font-semibold flex justify-center items-center h-20">
                                                     ไม่พบข้อมูลแบนเนอร์
                                                 </div>
@@ -169,44 +178,37 @@ export default function ViewAdsbanner() {
                                 </tbody>
                             </table>
                         ) : (
-                            <div className="grid grid-cols-3 md:grid-cols-5 gap-8">
+                            <div className="grid grid-cols-3 gap-4">
                                 {displayedAdsbanners.length > 0 ? (
                                     displayedAdsbanners
-                                        .map((Adsbanner, index) => (
-                                            <div className="mx-auto" key={index}>
-                                                <Link to={`/Adsbanner/${Adsbanner.id}`}> {/* ใส่ URL ที่เหมาะสม */}
-                                                    <div className="relative overflow-hidden rounded-lg group">
+                                        .map((adsbanner, index) => (
+                                            <div key={index}>
+                                                <Link to={`/adsbanner/${adsbanner.id}`}> {/* ใส่ URL ที่เหมาะสม */}
+                                                    <div className="h-[6rem] relative overflow-hidden rounded-lg group">
                                                         <div className="absolute w-full h-full border/40 flex items-center justify-center -bottom-20 group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                                                            <div className="flex flex-col items-center  text-xl">
+                                                            <div className="flex flex-col items-center text-white text-xl">
                                                                 รายละเอียด
                                                                 <PiArticleThin size={28} />
                                                             </div>
                                                         </div>
-                                                        {Adsbanner.image ? (
-                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/Adsbanner/${Adsbanner.image}`} alt="" />
+                                                        {adsbanner.image ? (
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/Adsbanner/${adsbanner.image}`} alt="" />
                                                         ) : (
                                                             <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                         )}
-                                                        <div className="absolute top-1 left-1">
-                                                            {Adsbanner.logo ? (
-                                                                <img className="w-24 h-24 rounded-lg object-cover" src={`${baseUrl}/images/Adsbanner/${Adsbanner.logo}`} alt="" />
-                                                            ) : (
-                                                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ`} />
-                                                            )}
-                                                        </div>
                                                     </div>
                                                 </Link>
 
-                                                <h1 className="mt-2 font-bold text-xl h-[3.375rem] text-clip overflow-hidden">{Adsbanner.name}</h1>
+                                                <h1 className="mt-2 font-bold text-xl h-[3.375rem] text-clip overflow-hidden">{adsbanner.name}</h1>
                                                 <div className="mt-1 flex justify-between items-center gap-2">
-                                                    <Link to={`${Adsbanner.id}/edit`}>
+                                                    <Link to={`${adsbanner.id}/edit`}>
                                                         <button className="border p-2 rounded-full ">
                                                             <CiEdit size={20} />
                                                         </button>
                                                     </Link>
                                                     <button type="button" className="border p-2 rounded-full "
-                                                        onClick={() => deleteAdsbanner(Adsbanner.id)}>
-                                                        <PiTrashSimpleThin size={20} />
+                                                        onClick={() => deleteAdsbanner(adsbanner.id)}>
+                                                        <PiPencilLineThin size={20} />
                                                     </button>
                                                 </div>
                                             </div>

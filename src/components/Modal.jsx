@@ -1,29 +1,23 @@
 import React from 'react'
-import { IoCloseCircleOutline } from "react-icons/io5";
+import { IoCloseOutline } from "react-icons/io5";
 
 export default function Modal({ children, isOpen, onClose }) {
-    if (!isOpen) return null;
 
-    const handleOutSide = (event) => {
-        if (event.target === event.currentTarget) {
+    const handleOutSide = (e) => {
+        if (e.target === e.currentTarget) {
             onClose();
         }
     };
 
     return (
-        <div className="fixed z-10 flex justify-center overflow-hidden items-center top-0 left-0 right-0 bottom-0 w-full h-full bg-black/40 bg-transaperent"
+       <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/60 bg-opacity-50 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
             onClick={handleOutSide}>
-            <div className="relative overflow-hidder w-full h-full md:h-auto md:w-[35%] rounded-lg">
-                <button
-                    className="absolute top-2 right-2 text-white text-lg bg-transparent cursor-pointer font-medium"
-                    onClick={onClose}
-                >
-                    <IoCloseCircleOutline className="text-black transition-all duration-300" size={40} />
-                </button>
-                <div className="p-10 h-full w-full md:rounded-lg bg-white border">
-                {children}
+            <div className={`relative overflow-hidden p-8 bg-white w-full h-full md:h-auto md:w-[35%] rounded-lg transition-transform duration-300 ${isOpen ? 'scale-100' : 'scale-90'}`}>
+                    <div className="flex justify-end">
+                        <IoCloseOutline size={40} onClick={onClose} />
+                    </div>
+                    {children}
                 </div>
-            </div>
         </div>
     )
 }

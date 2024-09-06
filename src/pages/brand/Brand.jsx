@@ -1,14 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Layout from '../../components/Layouts/Layout';
-import CategoryList from './CategoryList';
-export default function CategoryAll() {
+import BrandList from './BrandList';
 
-    document.title = "ประเภทหนังสือ";
+export default function BrandAll() {
+
+    document.title = "แบรนด์หนังสือ";
 
     return (
         <Layout>
-            <CategoryList/>
+            <BrandList/>
         </Layout>
     )
 }

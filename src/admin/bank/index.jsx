@@ -34,21 +34,30 @@ export default function ViewBank() {
         fetchBanks();
     }, [pageNumber]);
 
-    const fetchBanks = async () => { // แก้ชื่อฟังก์ชั่นเป็น fetchbank แทน fectbank
+    const fetchBanks = async () => {
         try {
             const response = await axios.get(`/api/banks`);
-            setBanks(response.data);
-            setLoading(false);
+            if (response.data.status === 200) {
+                setBanks(response.data.banks);
+                setLoading(false);
+            }
         } catch (error) {
-            console.error('Error fetching Banks:', error);
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
         }
     }
 
-    const deleteBank = (e, id) => {
+    const deleteBank = async (e, id) => {
         e.preventDefault();
         setDeletingId(id);
 
-        axios.delete(`/api/banks/${id}`).then(response => {
+        try {
+            const response = await axios.delete(`/api/banks/${id}`);
             if (response.data.status === 200) {
                 Swal.fire({
                     icon: "success",
@@ -71,7 +80,15 @@ export default function ViewBank() {
                 });
                 setDeletingId(null);
             }
-        });
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
+        }
     }
 
     const filteredBanks = banks.filter(bank => bank.name.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -85,63 +102,64 @@ export default function ViewBank() {
     };
 
 
-    const updateBankStatus = (bank_id, status) => {
+    const updateBankStatus = async (bank_id, status) => {
         // สลับสถานะ 0 เป็น 1 และ 1 เป็น 0
         const newStatus = status === 1 ? 0 : 1;
 
-        axios.put(`/api/bank-updatestatus/${bank_id}/${newStatus}`)
-            .then(response => {
-                if (response.data.status === 200) {
-                    Swal.fire({
-                        icon: 'success',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                    const updatedBanks = banks.map(bank => {
-                        if (bank.id === bank_id) {
-                            return {
-                                ...bank,
-                                status: newStatus
-                            };
-                        }
-                        return bank;
-                    });
-                    setBanks(updatedBanks);
-                } else if (response.data.status === 400) {
-                    Swal.fire({
-                        icon: 'error',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                } else if (response.data.status === 401) {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error updating order status:', error);
+        try {
+            const response = await axios.put(`/api/bank-updatestatus/${bank_id}/${newStatus}`);
+            if (response.data.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+                const updatedBanks = banks.map(bank => {
+                    if (bank.id === bank_id) {
+                        return {
+                            ...bank,
+                            status: newStatus
+                        };
+                    }
+                    return bank;
+                });
+                setBanks(updatedBanks);
+            } else if (response.data.status === 400) {
+                Swal.fire({
+                    icon: 'error',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+            } else if (response.data.status === 401) {
+                Swal.fire({
+                    icon: 'warning',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
             });
-    };
+        }
+    }
 
     return (
         <>
             <Sidebar>
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4  mb-2 rounded-lg">
                     <Link to={"create"}>
-                        <Button icon={<PiPlusThin size={26}/>} type="submit">
-                            <div>
-                                เพิ่มธนาคาร
-                            </div>
-                        </Button>
+                        <Button name={'เพิ่ม'} icon={<PiPlusThin size={25} />} />
                     </Link>
 
                     <div className="flex items-center gap-x-4">
@@ -171,7 +189,7 @@ export default function ViewBank() {
                         wrapperClass="flex justify-center"
                     />)
                 ) : (
-                    <div className="border p-4 rounded overflow-x-scroll">
+                    <div className="border p-4 rounded overflow-x-scroll no-scrollbar">
                         {isTableFormat ? (
                             <table className="w-full">
                                 <thead>
@@ -257,7 +275,7 @@ export default function ViewBank() {
                                             <div className="mx-auto" key={index}>
                                                 <Link to={`/bank/${bank.id}`}> {/* ใส่ URL ที่เหมาะสม */}
                                                     <div className="relative overflow-hidden rounded-lg group">
-                                
+
                                                         {bank.image ? (
                                                             <img className="object-cover" src={`${baseUrl}/images/bank/${bank.image}`} alt="" />
                                                         ) : (

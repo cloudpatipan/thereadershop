@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/home/Home'
-import ProductDetail from './pages/product_detail/ProductDetail';
 
 import ViewProduct from './admin/product';
 import CreateProduct from './admin/product/create';
@@ -43,6 +42,10 @@ import Dashboard from './admin/dashboard';
 import CategoryAll from './pages/category/Category';
 import CategoryProduct from './pages/category/CategoryProduct';
 import baseUrl from './routes/BaseUrl';
+import ProductAll from './pages/product/ProductAll';
+import BrandAll from './pages/brand/Brand';
+import BrandProduct from './pages/brand/BrandProduct';
+import ProductDetail from './pages/product/ProductDetail';
 export default function App() {
 
   axios.defaults.withCredentials = true;
@@ -60,8 +63,11 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/product" element={<ProductAll />} />
         <Route path="/category" element={<CategoryAll />} />
         <Route path="/category/:slug" element={<CategoryProduct />} />
+        <Route path="/brand" element={<BrandAll />} />
+        <Route path="/brand/:slug" element={<BrandProduct />} />
         <Route exact path="/product/detail/:slug" element={<ProductDetail />} />
 
         <Route path="/" element={<PrivateRoute />}>

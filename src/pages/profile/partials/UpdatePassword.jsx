@@ -4,124 +4,128 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 
 import { FaRegSave } from "react-icons/fa";
-export default function UpdatePassword() {
-    
+import { PiArrowRightThin } from 'react-icons/pi';
+import Button from '../../../components/Button';
+
+export function UpdatePassword() {
+
   const { user, token } = useContext(UserContext);
 
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [newPasswordConfirmation, setNewPasswordConfirmation] = useState("");
-  const [validationError, setValidationError] = useState(null);
-  
-  const formData = new FormData();
-
-  formData.append('currentPassword', currentPassword);
-  formData.append('newPassword', newPassword);
-  formData.append('newPasswordConfirmation', newPasswordConfirmation);
-  
+  const [current_password, setCurrentPassword] = useState('');
+  const [new_password, setNewPassword] = useState('');
+  const [new_password_confirmation, setNewPasswordConfirmation] = useState('');
+  const [error, setError] = useState([]);
 
   const updatePassword = async (e) => {
     e.preventDefault();
-  
-      axios.post(`/api/profile/update-password`, {
-        current_password: currentPassword,
-        new_password: newPassword,
-        new_password_confirmation: newPasswordConfirmation
-      }).then(response => {
-        if(response.data.status === 200)
-            {
-              Swal.fire({
-                icon: "success",
-                text: response.data.message,
-                confirmButtonText: "ตกลง",
-                confirmButtonColor: "black",
-                focusConfirm: false,
-              }).then(() => {
-                window.location.reload();
-              })
-            } else if(response.data.status === 400)
-            {
-                Swal.fire({
-                    icon: "error",
-                    text: response.data.message,
-                    confirmButtonText: "ตกลง",
-                    confirmButtonColor: "black",
-                    focusConfirm: false,
-                  }).then(() => {
-                    // เคีรย์ข้อมูลในฟิลดิ์ทั้งหมด
-                    setCurrentPassword("");
-                    setNewPassword("");
-                    setNewPasswordConfirmation("");
-                  });
-            } else if(response.data.status === 401)
-              {
-                  navigate('/');
-                  Swal.fire({
-                      icon: "warning",
-                      text: response.data.message,
-                      confirmButtonText: "ตกลง",
-                      confirmButtonColor: "black",
-                      focusConfirm: false,
-                  });
-              }
-    });
-  }
 
+    const formData = new FormData();
+
+    formData.append('current_password', current_password);
+    formData.append('new_password', new_password);
+    formData.append('new_password_confirmation', new_password_confirmation);
+
+    try {
+      const response = await axios.post(`/api/profile/update-password`, formData);
+      if (response.data.status === 200) {
+        Swal.fire({
+          icon: "success",
+          text: response.data.message,
+          confirmButtonText: "ตกลง",
+          confirmButtonColor: "black",
+          focusConfirm: false,
+        });
+        // เคีรย์ข้อมูลในฟิลดิ์ทั้งหมด
+        setCurrentPassword('');
+        setNewPassword('');
+        setNewPasswordConfirmation('');
+      } else if (response.data.status === 400) {
+        Swal.fire({
+          icon: "error",
+          text: response.data.message,
+          confirmButtonText: "ตกลง",
+          confirmButtonColor: "black",
+          focusConfirm: false,
+        }).
+          // เคีรย์ข้อมูลในฟิลดิ์ทั้งหมด
+          setCurrentPassword('');
+        setNewPassword('');
+        setNewPasswordConfirmation('');
+      } else if (response.data.status === 401) {
+        navigate('/');
+        Swal.fire({
+          icon: "warning",
+          text: response.data.message,
+          confirmButtonText: "ตกลง",
+          confirmButtonColor: "black",
+          focusConfirm: false,
+        });
+      } else if (response.data.status === 422) {
+        setError(response.data.errors);
+        console.log(error)
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "warning",
+        text: error,
+        confirmButtonText: "ตกลง",
+        confirmButtonColor: "black",
+        focusConfirm: false,
+      });
+    }
+  }
 
   return (
     <form onSubmit={updatePassword}>
-      
-    <div className="col-span-1 md:col-span-2 mb-2">
-                          <label className="block">รหัสผ่านปัจจุบัน</label>
-                          <input 
-                           className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1" 
-                          type="password" 
-                          value={currentPassword} 
-                          onChange={(event) => setCurrentPassword(event.target.value)} 
-                          placeholder="กรุณาใส่รหัสผ่านปัจจุบัน"
-                        />
-      {validationError && validationError.currentPassword && (
-        <div className="text-red-500 text-sm mt-2">{validationError.currentPassword[0]}</div>
-      )}
-    </div>
 
-    <div className="col-span-1 md:col-span-2 mb-2">
-                          <label className="block mb-2">รหัสผ่านใหม่</label>
-                          <input 
-                             className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
-                            type="password" 
-                            value={newPassword} 
-                            onChange={(event) => setNewPassword(event.target.value)} 
-                            placeholder="กรุณาใส่รหัสผ่านใหม่"
-                          />
-      {validationError && validationError.newPassword && (
-      <div className="text-red-500 text-sm mt-2">{validationError.newPassword[0]}</div>
-      )}
-    </div>
+      <div className="flex flex-col gap-2">
+        <div className="col-span-1 md:col-span-2 mb-2">
+          <label className="block">รหัสผ่านปัจจุบัน</label>
+          <input
+            className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+            type="password"
+            value={current_password}
+            onChange={(event) => setCurrentPassword(event.target.value)}
+            placeholder="กรุณาใส่รหัสผ่านปัจจุบัน"
+          />
+          {error && error.current_password && (
+            <div className="text-red-500 text-sm mt-2">{error.current_password}</div>
+          )}
+        </div>
 
-    <div className="col-span-1 md:col-span-2 mb-2">
-                          <label className="block">ยืนยันรหัสผ่านใหม่</label>
-                          <input 
-                          className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
-                          type="password" 
-                          value={newPasswordConfirmation} 
-                          onChange={(event) => setNewPasswordConfirmation(event.target.value)} 
-                          placeholder="กรุณาใส่รหัสผ่านใหม่อีกครั้ง"
-                        />
-      {validationError && validationError.newPasswordConfirmation && (
-        <div className="text-red-500 text-sm mt-2">{validationError.newPasswordConfirmation[0]}</div>
-      )}
-    </div>
+        <div className="col-span-1 md:col-span-2 mb-2">
+          <label className="block mb-2">รหัสผ่านใหม่</label>
+          <input
+            className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+            type="password"
+            value={new_password}
+            onChange={(event) => setNewPassword(event.target.value)}
+            placeholder="กรุณาใส่รหัสผ่านใหม่"
+          />
+          {error && error.new_password && (
+            <div className="text-red-500 text-sm mt-2">{error.new_password[0]}</div>
+          )}
+        </div>
 
-    <button type="submit" className="mt-2 relative flex justify-center w-full items-center gap-2 border-2 rounded-lg border-black bg-transparent py-2 px-5 font-medium uppercase text-black transition-colors before:absolute before:left-0 before:top-0 before:-z-10 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:bg-black before:transition-transform before:duration-300 before:content-[''] hover:text-white before:hover:scale-x-100">
-              <div>
-              <FaRegSave size={20}/>
-              </div>
-              <div>
-                  บันทึก
-              </div>
-    </button>
+        <div className="col-span-1 md:col-span-2 mb-2">
+          <label className="block">ยืนยันรหัสผ่านใหม่</label>
+          <input
+            className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+            type="password"
+            value={new_password_confirmation}
+            onChange={(event) => setNewPasswordConfirmation(event.target.value)}
+            placeholder="กรุณาใส่รหัสผ่านใหม่อีกครั้ง"
+          />
+          {error && error.new_password_confirmation && (
+            <div className="text-red-500 text-sm mt-2">{error.new_password_confirmation[0]}</div>
+          )}
+        </div>
 
+      </div>
+
+      <div className="flex items-center justify-end">
+        <Button name={'บันทึก'} icon={<PiArrowRightThin size={25} />} className={'mt-4'} type="submit" />
+      </div>
     </form>
   )
 }

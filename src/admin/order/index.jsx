@@ -146,7 +146,6 @@ export default function ViewOrder() {
     return (
         <>
             <Sidebar>
-
                 <div className="flex justify-end items-center gap-4  mb-2 rounded-lg">
 
                     <div className="relative">
@@ -167,17 +166,17 @@ export default function ViewOrder() {
                         wrapperClass="flex justify-center"
                     />)
                 ) : (
-                    <div className="border p-4 rounded overflow-x-scroll">
+                    <div className="border p-4 rounded overflow-x-scroll no-scrollbar">
                         <table className="w-full">
                             <thead>
-                                <tr className="text-left">
-                                    <th className="py-1 border-b">รหัส</th>
-                                    <th className="py-1 border-b">ชื่อ</th>
-                                    <th className="py-1 border-b">นามสกุล</th>
-                                    <th className="py-1 border-b">เลขที่ EMS</th>
-                                    <th className="py-1 border-b">สถานะ</th>
-                                    <th className="py-1 border-b">ดู</th>
-                                    <th className="py-1 border-b"></th>
+                                <tr className="text-left py-1 border-b">
+                                    <th>รหัส</th>
+                                    <th>ชื่อ</th>
+                                    <th>นามสกุล</th>
+                                    <th>เลขที่ EMS</th>
+                                    <th>สถานะ</th>
+                                    <th>ดู</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -189,11 +188,11 @@ export default function ViewOrder() {
                                         })
                                         .map((order, index) => (
                                             <tr key={index}>
-                                                <td className="py-1 border-b">{order.id}</td>
-                                                <td className="py-1 border-b">{order.firstname}</td>
-                                                <td className="py-1 border-b">{order.lastname}</td>
-                                                <td className="py-1 border-b">{order.tracking_no}</td>
-                                                <td className="py-1 border-b">
+                                                <td>{order.id}</td>
+                                                <td>{order.firstname}</td>
+                                                <td>{order.lastname}</td>
+                                                <td>{order.tracking_no}</td>
+                                                <td>
                                                     <button
                                                         type="button"
                                                         className={`p-2 rounded-full border  transition-all duration-300`}
@@ -203,7 +202,7 @@ export default function ViewOrder() {
                                                     </button>
                                                 </td>
 
-                                                <td className="py-1 border-b">
+                                                <td>
                                                     <Link to={`${order.id}`}>
                                                         <button type="button" className="border p-2 rounded-full  flex justify-end">
                                                             <PiEyeThin size={20} />
@@ -211,7 +210,7 @@ export default function ViewOrder() {
                                                     </Link>
 
                                                 </td>
-                                                <td className="py-1 border-b">
+                                                <td>
                                                     <div className="flex items-center gap-2">
                                                         <button type="button" onClick={(e) => deleteOrder(e, order.id)} className="border p-2 rounded-full  flex justify-end hover:text-red-700">
                                                             {deletingId === order.id ? "กำลังลบ..." : <PiTrashSimpleThin size={20} />}
@@ -222,7 +221,7 @@ export default function ViewOrder() {
                                         ))
                                 ) : (
                                     <tr>
-                                        <td className="py-1 border-b text-[1.5rem] font-semibold text-center" colSpan={8}>
+                                        <td className="py-1 border-b text-[1.5rem] text-center" colSpan={8}>
                                             ไม่พบข้อมูลรายการใบสั่งซื้อ
                                         </td>
                                     </tr>

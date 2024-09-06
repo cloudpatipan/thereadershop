@@ -15,9 +15,17 @@ export default function Header() {
   const fetchBanners = async () => {
     try {
       const response = await axios.get('/api/adsbanners');
-      setBanners(response.data);
+      if (response.status === 200) {
+        setBanners(response.data.adsbanners);
+      } 
     } catch (error) {
-      console.error('Error fetching banners:', error);
+      Swal.fire({
+        icon: "warning",
+        text: error,
+        confirmButtonText: "ตกลง",
+        confirmButtonColor: "black",
+        focusConfirm: false,
+      });
     }
   };
 
@@ -42,19 +50,19 @@ export default function Header() {
               {banners.map((banner, index) => (
                 <div key={index} className={`absolute w-full h-full ${index === currentIndex ? 'block' : 'hidden'}`}>
                   <Link to={`/product/detail/${banner.product.slug}`}>
-                  {banner ? (
-                     <img
-                     src={`${baseUrl}/images/adsbanner/${banner.image}`}
-                     className="w-full h-full object-cover object-center"
-                     alt="banner"
-                   />
-                  ) : (
-                    <img
-                    src={`${baseUrl}/images/product/No_image.png`}
-                    className="w-full h-full object-cover object-center"
-                    alt={`ไม่มีรูปภาพ`}
-                  /> 
-                  )}
+                    {banner ? (
+                      <img
+                        src={`${baseUrl}/images/adsbanner/${banner.image}`}
+                        className="w-full h-full object-cover object-center"
+                        alt="banner"
+                      />
+                    ) : (
+                      <img
+                        src={`${baseUrl}/images/product/No_image.png`}
+                        className="w-full h-full object-cover object-center"
+                        alt={`ไม่มีรูปภาพ`}
+                      />
+                    )}
                   </Link>
                 </div>
               ))}
@@ -75,7 +83,7 @@ export default function Header() {
                   className="cursor-pointer"
                 >
                   <GoDotFill
-                    className={ currentIndex === slideIndex ? "text-black" : "text-white/40"}
+                    className={currentIndex === slideIndex ? "text-black" : "text-white/40"}
                     size={20}
                   />
                 </div>
@@ -84,10 +92,10 @@ export default function Header() {
           </>
         ) : (
           <img
-          src={`${baseUrl}/images/product/No_image.png`}
-          className="w-full h-full object-cover object-center"
-          alt={`ไม่มีรูปภาพ`}
-        /> 
+            src={`${baseUrl}/images/product/No_image.png`}
+            className="w-full h-full object-cover object-center"
+            alt={`ไม่มีรูปภาพ`}
+          />
         )}
       </div>
     </header>

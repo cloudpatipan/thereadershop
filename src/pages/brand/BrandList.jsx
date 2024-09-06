@@ -3,19 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { Rings } from 'react-loader-spinner';
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-export default function CategoryList() {
-    const [categories, setCategoires] = useState([]);
+export default function BrandList() {
+    const [brands, setBrands] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetchCategories();
+        fetchBrands();
     }, []);
 
-    const fetchCategories = async () => {
+    const fetchBrands = async () => {
         try {
-            const response = await axios.get(`/api/category-all`);
+            const response = await axios.get(`/api/brand-all`);
             if (response.data.status === 200) {
-                setCategoires(response.data.categories);
+                setBrands(response.data.brands);
                 setLoading(false);
             }
         } catch (error) {
@@ -46,16 +46,16 @@ export default function CategoryList() {
 
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-4" >
                         {
-                            categories.length > 0 ? (
-                                categories.map((category, index) => (
+                            brands.length > 0 ? (
+                                brands.map((brand, index) => (
                                     <div key={index}>
-                                        <Link to={`/category/${category.slug}`}>
+                                        <Link to={`/brand/${brand.slug}`}>
                                             <div className="text-sm py-2 px-4 relative flex justify-between items-center gap-4 border rounded-lg transition-all duration-300">
                                                 <div className="flex flex-col">
-                                                    <p>{category.name}</p>
+                                                    <p>{brand.name}</p>
                                                 </div>
                                                 <div>
-                                                    {category.product_count} เล่ม
+                                                    {brand.product_count} เล่ม
                                                 </div>
                                             </div>
                                         </Link>

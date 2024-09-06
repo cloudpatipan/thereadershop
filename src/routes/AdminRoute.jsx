@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Rings } from 'react-loader-spinner'
+
 export default function AdminRoute() {
     const [authenticated, setAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -13,7 +14,8 @@ export default function AdminRoute() {
     }, []);
 
     const checkingAuthenticated = async () => {
-        axios.get('/api/checkingAuthenticatedAdmin').then(response => {
+        try {
+            const response = await axios.get('/api/checkingAuthenticatedAdmin');
             if (response.data.status === 200) {
                 setAuthenticated(true)
                 setLoading(false);
@@ -36,21 +38,29 @@ export default function AdminRoute() {
                 });
                 navigate('/');
             }
-        });
+        } catch (error) {
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
+        }
     }
 
-    if (loading) {
-        return <>
-        (<Rings
-           visible={true}
-           height="500"
-           width="500"
-           color="black"
-           ariaLabel="rings-loading"
-           wrapperClass="flex justify-center"
-         />)
-       </>
-    }
+        if (loading) {
+            return <>
+                (<Rings
+                    visible={true}
+                    height="500"
+                    width="500"
+                    color="black"
+                    ariaLabel="rings-loading"
+                    wrapperClass="flex justify-center"
+                />)
+            </>
+        }
 
-    return authenticated ? <Outlet /> : null;
-}
+        return authenticated ? <Outlet /> : null;
+    }
