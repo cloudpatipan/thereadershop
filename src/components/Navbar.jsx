@@ -34,7 +34,6 @@ export default function Navbar() {
     { name: "แบรนด์หนังสือ", link: "/brand", icon: PiStarFourThin },
   ]
 
-
   const navigate = useNavigate();
   const { user, token, setUser, setToken } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
@@ -83,7 +82,7 @@ export default function Navbar() {
       });
     }
   }
- 
+
   const SubmitLogout = async (e) => {
     e.preventDefault();
     try {
@@ -115,8 +114,6 @@ export default function Navbar() {
       });
     }
   };
-
-  
 
   const [isModalOpenLogin, setIsModalOpenLogin] = useState(false);
 
@@ -177,7 +174,7 @@ export default function Navbar() {
           {
             menus?.map((menu, index) => (
               <Link to={menu?.link} key={index}>
-                <Button name={ menu?.name } icon={React.createElement(menu?.icon, { size: "25" })} />
+                <Button name={menu?.name} icon={React.createElement(menu?.icon, { size: "25" })} />
               </Link>
             ))
           }
@@ -263,14 +260,14 @@ export default function Navbar() {
 
                     {user.role == 'admin' && ( // เช็คว่ามีผู้ใช้ล็อคอินและเป็น admin หรือไม่
                       <Link to={'/dashboard'}>
-                        <Button name={'แอดมิน'} icon={<PiUserGearThin size={20} />} className="mt-1 w-full"/>
+                        <Button name={'แอดมิน'} icon={<PiUserGearThin size={20} />} className="mt-1 w-full" />
                       </Link>
                     )}
                     <Link to={'/order'}>
-                      <Button name={'รายการสั่งซื้อ'} icon={<PiShoppingCartSimpleThin size={20} />} className="mt-1 w-full"/>
+                      <Button name={'รายการสั่งซื้อ'} icon={<PiShoppingCartSimpleThin size={20} />} className="mt-1 w-full" />
                     </Link>
                     <Link to={'/profile'}>
-                      <Button name={'โปรไฟล์'} icon={<PiUserThin size={20} />} className="mt-1 w-full"/>
+                      <Button name={'โปรไฟล์'} icon={<PiUserThin size={20} />} className="mt-1 w-full" />
                     </Link>
 
                     <Button name={'ออกจากระบบ'} icon={<PiArrowLineRightThin size={20} />} className="mt-1 w-full" onClick={SubmitLogout} />
@@ -298,20 +295,20 @@ export default function Navbar() {
               {
                 menus?.map((menu, i) => (
                   <Link to={menu?.link} key={i}>
-                    <Button name={menu?.name} icon={React.createElement(menu?.icon, { size: "25" })} className={`w-full`}/>
+                    <Button name={menu?.name} icon={React.createElement(menu?.icon, { size: "25" })} className={`w-full`} />
                   </Link>
                 ))
               }
               {!token ? (
                 <div className="flex flex-col gap-2">
 
-                  <Button name={'เข้าสู่ระบบ'} icon={<PiArrowLineLeftThin size={25} />}  className={`w-full`} onClick={openModalLogin} />
+                  <Button name={'เข้าสู่ระบบ'} icon={<PiArrowLineLeftThin size={25} />} className={`w-full`} onClick={openModalLogin} />
 
                   <Modal isOpen={isModalOpenLogin} onClose={closeModalLogin}>
                     <Login />
                   </Modal>
 
-                  <Button name={'สมัครสมาชิก'} icon={<PiUserPlusThin size={25} />}  className={`w-full`} onClick={openModalRegister} />
+                  <Button name={'สมัครสมาชิก'} icon={<PiUserPlusThin size={25} />} className={`w-full`} onClick={openModalRegister} />
 
                   <Modal isOpen={isModalOpenRegister} onClose={closeModalRegister}>
                     <Register />

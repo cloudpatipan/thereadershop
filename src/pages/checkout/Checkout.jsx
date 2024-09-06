@@ -5,13 +5,11 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
-import { CiImageOn } from "react-icons/ci";
-import { MdInsertPhoto } from "react-icons/md";
 import { MdPayment } from "react-icons/md";
 import baseUrl from '../../routes/BaseUrl';
 import { Rings } from 'react-loader-spinner'
 import { IoMdArrowDropleft } from 'react-icons/io';
-import { PiImageThin } from 'react-icons/pi';
+import { PiArrowFatLineLeftThin, PiCreditCardThin, PiImageThin } from 'react-icons/pi';
 export default function Checkout() {
 
     const [carts, setCarts] = useState([]);
@@ -111,7 +109,7 @@ export default function Checkout() {
 
         if (!payment_image) {
             Swal.fire({
-                icon: "error",
+                icon: "warning",
                 text: "กรุณาแนบรูปภาพหลักฐาน",
                 confirmButtonText: "ตกลง",
                 confirmButtonColor: "black",
@@ -169,7 +167,7 @@ export default function Checkout() {
     const fetchBanks = async () => {
         try {
             const response = await axios.get(`/api/banks-list`);
-            if (response.data.stauts === 200) {
+            if (response.data.status === 200) {
                 setBanks(response.data.banks);
                 setLoading(false);
             }
@@ -183,6 +181,7 @@ export default function Checkout() {
             });
         }
     }
+
     return (
         <>
             {loading ? (
@@ -202,7 +201,7 @@ export default function Checkout() {
                     </div>
 
                     <Link to={`/cart`}>
-                        <Button name={'กลับ'} icon={<IoMdArrowDropleft size={20} />} className={`mb-4`} />
+                        <Button name={'กลับ'} icon={<PiArrowFatLineLeftThin size={20} />} className={`mb-4`} />
                     </Link>
 
                     <div className="flex flex-col md:flex-row justify-between gap-4">
@@ -273,7 +272,7 @@ export default function Checkout() {
                             <Button name={'แนบหลักฐาน'} icon={<PiImageThin size={25} />} className="mt-4 w-full" onClick={openModalEvidence} />
 
                             <Modal isOpen={isModalEvidence} onClose={closeModalEvidence}>
-                                <div className="h-[25rem] overflow-y-scroll">
+                                <div className="h-[25rem] overflow-y-scroll no-scrollbar">
                                     <h1 className="text-2xl  text-center text-black mb-4">QR Payment</h1>
                                     <p className="text-sm text-center mb-4">ส่งหลักฐานเป็นรูปภาพ</p>
                                     <div>
@@ -307,114 +306,113 @@ export default function Checkout() {
 
                         </div>
 
-                            <div className="border rounded-lg flex flex-col gap-4 p-4 w-full md:w-1/2">
+                        <div className="border rounded-lg flex flex-col gap-4 p-4 w-full md:w-1/2">
 
-                                <div>
-                                    {carts.length > 0 ? (
-                                        carts.map((cart, index) => (
+                            <div>
+                                {carts.length > 0 ? (
+                                    carts.map((cart, index) => (
 
-                                            <div id="cartItem" key={index} className="border-b w-full pb-1">
-                                                <div className="flex gap-4">
-                                                    <div className="overflow-hidden rounded w-[10rem]">
-                                                        {cart.product.image ? (
-                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/${cart.product.image}`} alt={`รูปภาพสินค้า ${cart.product.name}`} />
-                                                        ) : (
-                                                            <img className="w-full h-full object-cover" src="${baseUrl}/images/product/No_image.png" alt="ไม่มีรูปภาพ" />
-                                                        )}
-                                                    </div>
-                                                    <div className="flex justify-between w-full">
-                                                        <div className="flex flex-col justify-between">
-                                                            <div>
-                                                                <h1>{cart.product.name}</h1>
-                                                                <h2 className="text-xs">{cart.product.category.name}</h2>
-                                                            </div>
-                                                            <div>
-                                                                <span>{cart.product.price * cart.product_qty} บาท</span>
-                                                            </div>
-                                                        </div>
-
+                                        <div id="cartItem" key={index} className="border-b w-full pb-1">
+                                            <div className="flex gap-4">
+                                                <div className="overflow-hidden rounded w-[10rem]">
+                                                    {cart.product.image ? (
+                                                        <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/${cart.product.image}`} alt={`รูปภาพสินค้า ${cart.product.name}`} />
+                                                    ) : (
+                                                        <img className="w-full h-full object-cover" src="${baseUrl}/images/product/No_image.png" alt="ไม่มีรูปภาพ" />
+                                                    )}
+                                                </div>
+                                                <div className="flex justify-between w-full">
+                                                    <div className="flex flex-col justify-between">
                                                         <div>
-                                                            {cart.product_qty}
+                                                            <h1>{cart.product.name}</h1>
+                                                            <h2 className="text-xs">{cart.product.category.name}</h2>
                                                         </div>
+                                                        <div>
+                                                            <span>{cart.product.price * cart.product_qty} บาท</span>
+                                                        </div>
+                                                    </div>
 
+                                                    <div>
+                                                        {cart.product_qty}
                                                     </div>
 
                                                 </div>
 
                                             </div>
-                                        ))
 
-                                    ) : (
-                                        <div className="flex items-center justify-center border p-4 rounded-lg">
-                                            <span className="text-3xl ">ไม่มีสินค้าในตระกร้า</span>
                                         </div>
-                                    )}
-                                </div>
+                                    ))
 
-                                <div className="border rounded-lg p-4">
+                                ) : (
+                                    <div className="flex items-center justify-center border p-4 rounded-lg">
+                                        <span className="text-3xl ">ไม่มีสินค้าในตระกร้า</span>
+                                    </div>
+                                )}
+                            </div>
 
-                                    <div className="border-b">
-                                        <div className="flex items-center justify-between">
-                                            <div>
-                                                ราคารวม:
-                                            </div>
+                            <div className="border rounded-lg p-4">
 
-                                            <div>
-                                                {totalCartPrice} บาท
-                                            </div>
+                                <div className="border-b">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            ราคารวม:
+                                        </div>
+
+                                        <div>
+                                            {totalCartPrice} บาท
                                         </div>
                                     </div>
-
-                                </div>
-
-                                <div className="w-full">
-
-                                    {banks.length > 0 ? (
-                                        banks.map((bank, index) => (
-                                            <div key={index}>
-
-                                                <Button
-                                                    name={bank?.name}
-                                                    image={<img className="w-6 h-6 rounded object-cover" src={`${baseUrl}/images/bank/logo/${bank.logo}`} alt={`รูปภาพสินค้า ${bank.name}`} />}
-                                                    onClick={() => openModalBank(bank.id)} className="w-full"/>
-
-                                                <Modal isOpen={isModalBank[bank.id]} onClose={() => closeModalBank(bank.id)} title={`บัญชีธนาคาร ${bank.name}`}>
-                                                    <div className="h-[25rem] overflow-y-scroll no-scrollbar flex flex-col gap-4">
-                                                        <h1 className="text-xl text-center">ธนาคาร {bank.name}</h1>
-                                                        <p className="text-sm text-center">ส่งหลักฐานเป็นรูปภาพ</p>
-                                                        <div>
-                                                            <div className="mx-auto cursor-pointer relative overflow-hidden group rounded-lg">
-                                                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/bank/${bank.image}`} alt={`รูปภาพสินค้า ${bank.name}`} />
-                                                                <div className="flex flex-col items-center justify-center">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="flex items-center justify-between">
-                                                            <p className="text-black/40 ">ราคารวม</p>
-                                                            <span className="text-sm md:text-lg ">{totalCartPrice} บาท</span>
-                                                        </div>
-                                                        <div className="block">รายละเอียดบัญชีธนาคาร:
-                                                            <p className="text-sm">
-                                                                {bank.description}
-                                                            </p>
-                                                        </div>
-                                                        <Button name={'ชำระเงิน'} icon={<MdPayment size={20} />} className="w-full" onClick={(e) => submitOrder(e, bank.name)}/>
-                                                    </div>
-
-                                                </Modal>
-
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <div className="mt-1 flex items-center justify-center col-span-2 md:col-span-6 border p-4 rounded-lg">
-                                            <span className="text-3xl ">ไม่มีธนาคาร</span>
-                                        </div>
-                                    )}
-
                                 </div>
 
                             </div>
+
+                            <div className="w-full">
+
+                                {banks.length > 0 ? (
+                                    banks.map((bank, index) => (
+                                        <div key={index}>
+                                            <Button
+                                                name={bank?.name}
+                                                image={<img className="w-6 h-6 rounded object-cover" src={`${baseUrl}/images/bank/logo/${bank.logo}`} alt={`รูปภาพสินค้า ${bank.name}`} />}
+                                                onClick={() => openModalBank(bank.id)} className="w-full" />
+
+                                            <Modal isOpen={isModalBank[bank.id]} onClose={() => closeModalBank(bank.id)} title={`บัญชีธนาคาร ${bank.name}`}>
+                                                <div className="h-[25rem] overflow-y-scroll no-scrollbar flex flex-col gap-4">
+                                                    <h1 className="text-xl text-center">ธนาคาร {bank.name}</h1>
+                                                    <p className="text-sm text-center">ส่งหลักฐานเป็นรูปภาพ</p>
+                                                    <div>
+                                                        <div className="mx-auto cursor-pointer relative overflow-hidden group rounded-lg">
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/bank/${bank.image}`} alt={`รูปภาพสินค้า ${bank.name}`} />
+                                                            <div className="flex flex-col items-center justify-center">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="flex items-center justify-between">
+                                                        <p className="text-black/40 ">ราคารวม</p>
+                                                        <span className="text-sm md:text-lg ">{totalCartPrice} บาท</span>
+                                                    </div>
+                                                    <div className="block">รายละเอียดบัญชีธนาคาร:
+                                                        <p className="text-sm">
+                                                            {bank.description}
+                                                        </p>
+                                                    </div>
+                                                    <Button name={'ชำระเงิน'} icon={<PiCreditCardThin size={20} />} className="w-full" onClick={(e) => submitOrder(e, bank.name)} />
+                                                </div>
+
+                                            </Modal>
+
+                                        </div>
+                                    ))
+                                ) : (
+                                    <div className="mt-1 flex items-center justify-center col-span-2 md:col-span-6 border p-4 rounded-lg">
+                                        <span className="text-2xl">ไม่มีธนาคาร</span>
+                                    </div>
+                                )}
+
+                            </div>
+
+                        </div>
                     </div>
                 </Layout>
             )

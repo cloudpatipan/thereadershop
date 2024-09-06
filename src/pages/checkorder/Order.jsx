@@ -5,8 +5,8 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Rings } from 'react-loader-spinner'
 import Button from '../../components/Button';
-import { IoMdArrowDropright } from "react-icons/io";
 import { IoMdArrowDropleft } from "react-icons/io";
+import { PiArrowFatLineLeftThin } from 'react-icons/pi';
 export default function Order() {
 
     document.title = "รายการสั่งซื้อ";
@@ -71,8 +71,8 @@ export default function Order() {
                 <Layout>
                     <h1 className="mb-4 text-xl">รายการสังซื้อ</h1>
 
-                    <Link to={`/`}>
-                        <Button name={'กลับ'} icon={<IoMdArrowDropleft size={20} />} className={`mb-4`}/>
+                    <Link to={`/cart`}>
+                        <Button name={'กลับ'} icon={<PiArrowFatLineLeftThin size={20} />} className={`mb-4`} />
                     </Link>
 
                     <div className="p-4 border rounded-lg overflow-x-scroll no-scrollbar">
@@ -103,8 +103,8 @@ export default function Order() {
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan="8">
-                                            <div className="text-2xl font-semibold flex justify-center items-center h-20">
+                                        <td className="border text-center" colSpan={8}>
+                                            <div className="text-2xl">
                                                 ไม่พบรายการสั่งซื้อ
                                             </div>
                                         </td>

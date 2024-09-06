@@ -2,20 +2,22 @@ import React, { useContext, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { FaRegSave } from 'react-icons/fa';
 import { UserContext } from '../../../context/UserContext';
 import baseUrl from '../../../routes/BaseUrl';
 import { PiArrowRightThin, PiCameraThin } from 'react-icons/pi';
 import Button from '../../../components/Button';
 
 export function UpdateProfileInformation() {
-  const { user, setUser } = useContext(UserContext);
+  const { token, user, setUser } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState('');
   const [newAvatar, setNewAvatar] = useState(null);
   const [error, setError] = useState([]);
   const navigate = useNavigate();
+
+
+  console.log(token)
 
   useEffect(() => {
     if (user) {

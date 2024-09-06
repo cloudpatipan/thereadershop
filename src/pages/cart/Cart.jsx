@@ -9,12 +9,14 @@ import Button from '../../components/Button';
 import { IoBagCheckOutline } from "react-icons/io5";
 import { CartContext } from '../../context/CartContext';
 import baseUrl from '../../routes/BaseUrl';
-import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
+import { IoMdArrowDropleft } from "react-icons/io";
 import { Rings } from 'react-loader-spinner'
-import { PiTrashSimpleThin } from 'react-icons/pi';
+import { PiArrowFatLineLeftThin, PiTrashSimpleThin } from 'react-icons/pi';
+import { UserContext } from '../../context/UserContext';
 export default function ViewProduct() {
 
     document.title = "ตระกร้าสินค้า";
+
 
     const navigate = useNavigate();
     const { setCartCount } = useContext(CartContext);
@@ -22,6 +24,21 @@ export default function ViewProduct() {
     const [carts, setCarts] = useState([]);
     const [totalCartPrice, setTotalCartPrice] = useState(0);
     const [deletingCartId, setDeletingCartId] = useState(null);
+
+    const { token } = useContext(UserContext);
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/');
+            Swal.fire({
+                icon: 'warning',
+                text: "คุณไม่มีสิทธิ์เข้าใช้งาน",
+                confirmButtonText: 'ตกลง',
+                confirmButtonColor: 'black',
+                focusConfirm: false,
+            });
+        }
+    });
 
     useEffect(() => {
         fetchCart();
@@ -56,7 +73,7 @@ export default function ViewProduct() {
                 navigate('/');
             }
         } catch (error) {
-            await Swal.fire({
+            Swal.fire({
                 icon: "error",
                 text: error,
                 confirmButtonText: "ตกลง",
@@ -146,6 +163,15 @@ export default function ViewProduct() {
                     focusConfirm: false,
                 });
                 setDeletingCartId(null);
+            } else if (response.data.status === 401) {
+                Swal.fire({
+                    icon: "error",
+                    text: response.data.message,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+                navigate('/');
             }
         } catch (error) {
             Swal.fire({
@@ -178,7 +204,7 @@ export default function ViewProduct() {
                     <div>
 
                         <Link to={`/`}>
-                            <Button name={'กลับ'} icon={<IoMdArrowDropleft size={20} />} className={`mb-4`} />
+                            <Button name={'กลับ'} icon={<PiArrowFatLineLeftThin size={20} />} className={`mb-4`} />
                         </Link>
 
                     </div>

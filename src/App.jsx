@@ -34,7 +34,6 @@ import EditProfile from './pages/profile/EditProfile';
 
 import axios from 'axios';
 
-import PrivateRoute from './routes/PrivateRoute';
 import AdminRoute from './routes/AdminRoute';
 import Checkout from './pages/checkout/Checkout';
 import Order from './pages/checkorder/Order';
@@ -46,6 +45,7 @@ import ProductAll from './pages/product/ProductAll';
 import BrandAll from './pages/brand/Brand';
 import BrandProduct from './pages/brand/BrandProduct';
 import ProductDetail from './pages/product/ProductDetail';
+import PrivateRoute from './routes/PrivateRoute';
 export default function App() {
 
   axios.defaults.withCredentials = true;
@@ -70,12 +70,13 @@ export default function App() {
         <Route path="/brand/:slug" element={<BrandProduct />} />
         <Route exact path="/product/detail/:slug" element={<ProductDetail />} />
 
-        <Route path="/" element={<PrivateRoute />}>
-        </Route>
+        <Route element={<PrivateRoute />}>
           <Route path="/profile" element={<EditProfile />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/order" element={<Order />} />
+        </Route>
+
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order" element={<Order />} />
 
 
         {/* Route สำหรับแอดมิน */}

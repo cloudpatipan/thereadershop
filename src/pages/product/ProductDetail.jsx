@@ -6,7 +6,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Layout from '../../components/Layouts/Layout';
 import ModalImage from '../../components/ModalImage';
-import { PiPenThin, PiShoppingBagOpenThin, PiShoppingCartSimpleThin, PiTrashSimpleThin } from "react-icons/pi";
+import { PiArrowFatLineLeftThin, PiPenThin, PiShoppingBagOpenThin, PiShoppingCartSimpleThin, PiTrashSimpleThin } from "react-icons/pi";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
@@ -202,48 +202,48 @@ export default function ProductDetail() {
     const addToCartRecommender = async (product_id) => {
 
         const data = {
-          product_id: product_id,
-          product_qty: quantity,
+            product_id: product_id,
+            product_qty: quantity,
         };
-    
+
         try {
-          const response = await axios.post('/api/add-to-cart', data);
-          if (response.data.status === 200) {
-            setCartCount((prevCount) => prevCount + 1);
-            Swal.fire({
-              icon: "success",
-              text: response.data.message,
-              confirmButtonText: "ตกลง",
-              confirmButtonColor: "black",
-              focusConfirm: false,
-            });
-          } else if (response.data.status === 400) {
-            Swal.fire({
-              icon: "error",
-              text: response.data.message,
-              confirmButtonText: "ตกลง",
-              confirmButtonColor: "black",
-              focusConfirm: false,
-            });
-          } else if (response.data.status === 401) {
-            Swal.fire({
-              icon: "warning",
-              text: response.data.message,
-              confirmButtonText: "ตกลง",
-              confirmButtonColor: "black",
-              focusConfirm: false,
-            });
-          }
+            const response = await axios.post('/api/add-to-cart', data);
+            if (response.data.status === 200) {
+                setCartCount((prevCount) => prevCount + 1);
+                Swal.fire({
+                    icon: "success",
+                    text: response.data.message,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+            } else if (response.data.status === 400) {
+                Swal.fire({
+                    icon: "error",
+                    text: response.data.message,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+            } else if (response.data.status === 401) {
+                Swal.fire({
+                    icon: "warning",
+                    text: response.data.message,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+            }
         } catch (error) {
-          Swal.fire({
-            icon: "warning",
-            text: error,
-            confirmButtonText: "ตกลง",
-            confirmButtonColor: "black",
-            focusConfirm: false,
-          });
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
         }
-      }
+    }
 
     const [text, setText] = useState("");
 
@@ -370,7 +370,7 @@ export default function ProductDetail() {
             ) : (
                 <Layout>
                     <Link to={`/`}>
-                        <Button name={'กลับ'} icon={<IoMdArrowDropleft size={20} />} className={`mb-4`} />
+                        <Button name={'กลับ'} icon={<PiArrowFatLineLeftThin size={20} />} className={`mb-4`} />
                     </Link>
 
                     <div className="flex flex-col gap-4">
