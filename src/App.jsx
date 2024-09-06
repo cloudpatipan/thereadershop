@@ -71,11 +71,12 @@ export default function App() {
         <Route exact path="/product/detail/:slug" element={<ProductDetail />} />
 
         <Route path="/" element={<PrivateRoute />}>
+        </Route>
           <Route path="/profile" element={<EditProfile />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order" element={<Order />} />
-        </Route>
+
 
         {/* Route สำหรับแอดมิน */}
         <Route element={<AdminRoute />}>
