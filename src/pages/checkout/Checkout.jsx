@@ -169,13 +169,20 @@ export default function Checkout() {
     const fetchBanks = async () => {
         try {
             const response = await axios.get(`/api/banks-list`);
-            setBanks(response.data);
-            setLoading(false);
+            if (response.data.stauts === 200) {
+                setBanks(response.data.banks);
+                setLoading(false);
+            }
         } catch (error) {
-            console.error('Error fetching products:', error);
+            Swal.fire({
+                icon: "warning",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
         }
     }
-
     return (
         <>
             {loading ? (
