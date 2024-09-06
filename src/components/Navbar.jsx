@@ -303,7 +303,7 @@ export default function Navbar() {
                 ))
               }
               {!token ? (
-                <div>
+                <div className="flex flex-col gap-4">
 
                   <Button name={'เข้าสู่ระบบ'} icon={<PiArrowLineLeftThin size={25} />}  className={`w-full`} onClick={openModalLogin} />
 
