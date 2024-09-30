@@ -155,7 +155,6 @@ export default function ViewAdsbanner() {
                                     <tr className="text-left py-1 border-b">
                                         <th>รหัสแบนเนอร์</th>
                                         <th>รูปภาพ</th>
-                                        <th>สถานะ</th>
                                         <th></th>
                                     </tr>
                                 </thead>
