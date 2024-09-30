@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+  
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token') || '');
 
@@ -27,7 +28,6 @@ export const UserProvider = ({ children }) => {
           'Content-Type': 'application/json',
         }
       });
-
       if (response.data.status === 200) {
         setUser(response.data.user);
       } else if (response.data.status === 400) {
