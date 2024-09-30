@@ -6,7 +6,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Layout from '../../components/Layouts/Layout';
 import ModalImage from '../../components/ModalImage';
-import { PiArrowFatLineLeftThin, PiPenThin, PiShoppingBagOpenThin, PiShoppingCartSimpleThin, PiTrashSimpleThin } from "react-icons/pi";
+import { PiArrowFatLineLeftThin, PiPenThin, PiShoppingCartSimpleThin, PiTrashSimpleThin } from "react-icons/pi";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
@@ -14,14 +14,10 @@ import Button from '../../components/Button';
 import { CartContext } from '../../context/CartContext';
 import { CgDetailsMore } from "react-icons/cg";
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
-import { IoCloseCircleOutline, IoCloseOutline } from "react-icons/io5";
+import { IoCloseOutline } from "react-icons/io5";
 import { PiTelegramLogoThin } from "react-icons/pi";
-import { MdCancel } from "react-icons/md";
-import { MdEdit } from "react-icons/md";
 import { UserContext } from '../../context/UserContext';
-import { IoTrashBin } from "react-icons/io5";
 import ReactPaginate from 'react-paginate';
-import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
 import baseUrl from '../../routes/BaseUrl';
 import { PiPaperPlaneTiltThin } from "react-icons/pi";
 import { Rings } from 'react-loader-spinner'
@@ -153,7 +149,6 @@ export default function ProductDetail() {
         }
     }
 
-
     const addToCart = async () => {
         const data = {
             product_id: product.id,
@@ -179,23 +174,17 @@ export default function ProductDetail() {
                     confirmButtonColor: "black",
                     focusConfirm: false,
                 });
-            } else if (response.data.status === 401) {
+            }
+        } catch (error) {
+            if (error.response.status === 401) {
                 Swal.fire({
                     icon: "warning",
-                    text: response.data.message,
+                    text: "กรุณาเข้าสู่ระบบ",
                     confirmButtonText: "ตกลง",
                     confirmButtonColor: "black",
                     focusConfirm: false,
                 });
             }
-        } catch (error) {
-            Swal.fire({
-                icon: "warning",
-                text: error,
-                confirmButtonText: "ตกลง",
-                confirmButtonColor: "black",
-                focusConfirm: false,
-            });
         }
     }
 
@@ -235,13 +224,15 @@ export default function ProductDetail() {
                 });
             }
         } catch (error) {
-            Swal.fire({
-                icon: "warning",
-                text: error,
-                confirmButtonText: "ตกลง",
-                confirmButtonColor: "black",
-                focusConfirm: false,
-            });
+            if (error.response.status === 401) {
+                Swal.fire({
+                    icon: "warning",
+                    text: "กรุณาเข้าสู่ระบบ",
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+            }
         }
     }
 
@@ -566,7 +557,7 @@ export default function ProductDetail() {
                                                 <>
 
                                                     <p>{comment.text}</p>
-                                                    {user && user.id === comment.user_id && (
+                                                    {user?.id === comment.user_id && (
                                                         <div className="flex gap-2">
                                                             <Button className="flex justify-end" name={'แก้ไข'} icon={<PiPenThin size={20} />}
                                                                 onClick={() => startEditing(comment)}
@@ -599,6 +590,7 @@ export default function ProductDetail() {
                                     </div>
                                 </form>
                             ) : null}
+
                             {pageCount > 1 && (
                                 <ReactPaginate
                                     previousLabel={

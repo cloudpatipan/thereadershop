@@ -48,7 +48,7 @@ export default function Sidebar({ children }) {
                     </div>
                     <div>
 
-                        {user && token ? (
+                        {token ? (
                             <div className="flex gap-4">
 
                                 <div className="w-[3rem] h-[3rem] rounded-lg overflow-hidden cursor-pointer group">

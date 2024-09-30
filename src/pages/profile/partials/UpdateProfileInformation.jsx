@@ -62,26 +62,20 @@ export function UpdateProfileInformation() {
           confirmButtonColor: 'black',
           focusConfirm: false,
         });
-      } else if (response.data.status === 401) {
-        navigate('/');
-        Swal.fire({
-          icon: 'warning',
-          text: response.data.message,
-          confirmButtonText: 'ตกลง',
-          confirmButtonColor: 'black',
-          focusConfirm: false,
-        });
       } else if (response.data.status === 422) {
         setError(response.data.errors)
       }
     } catch (error) {
-      Swal.fire({
-        icon: "warning",
-        text: error,
-        confirmButtonText: "ตกลง",
-        confirmButtonColor: "black",
-        focusConfirm: false,
-      });
+      if (error.response.status === 401) {
+        Swal.fire({
+          icon: "warning",
+          text: "กรุณาเข้าสู่ระบบ",
+          confirmButtonText: "ตกลง",
+          confirmButtonColor: "black",
+          focusConfirm: false,
+        });
+        navigate('/');
+      }
     }
   }
 

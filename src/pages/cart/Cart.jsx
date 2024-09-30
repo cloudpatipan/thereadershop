@@ -9,7 +9,6 @@ import Button from '../../components/Button';
 import { IoBagCheckOutline } from "react-icons/io5";
 import { CartContext } from '../../context/CartContext';
 import baseUrl from '../../routes/BaseUrl';
-import { IoMdArrowDropleft } from "react-icons/io";
 import { Rings } from 'react-loader-spinner'
 import { PiArrowFatLineLeftThin, PiTrashSimpleThin } from 'react-icons/pi';
 import { UserContext } from '../../context/UserContext';
@@ -41,12 +40,12 @@ export default function ViewProduct() {
     });
 
     useEffect(() => {
-        fetchCart();
-    }, []);
-
-    useEffect(() => {
+        if (token) {
+            fetchCart();
+        }
         calculateTotalPrice();
-    }, [carts]);
+    }, [carts, token]);
+
 
     const fetchCart = async () => {
         try {

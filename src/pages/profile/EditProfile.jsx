@@ -8,6 +8,7 @@ import { PiPasswordThin, PiUserThin } from 'react-icons/pi';
 import { UserContext } from '../../context/UserContext';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+
 export default function EditProfile() {
 
   const navigate = useNavigate('');

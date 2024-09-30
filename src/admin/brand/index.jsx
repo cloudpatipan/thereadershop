@@ -2,14 +2,12 @@ import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import Swal from 'sweetalert2';
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Layouts/Sidebar';
 import { CiEdit } from "react-icons/ci";
-import { PiEyeThin, PiPlusThin } from "react-icons/pi";
+import { PiPlusThin } from "react-icons/pi";
 import { CiSearch } from "react-icons/ci";
 import { PiTrashSimpleThin } from "react-icons/pi";
-import { PiListBulletsThin } from "react-icons/pi";
-import { PiSquaresFourThin } from "react-icons/pi";
 import { PiToggleLeftThin } from "react-icons/pi";
 import { PiToggleRightThin } from "react-icons/pi";
 import { IoMdArrowDropright } from "react-icons/io";
@@ -25,6 +23,7 @@ export default function ViewBrand() {
     const [pageNumber, setPageNumber] = useState(0);
     const [deletingId, setDeletingId] = useState(null);
     const brandPerPage = 10; // จำนวนสินค้าต่อหน้า
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchBrand();
@@ -38,13 +37,24 @@ export default function ViewBrand() {
                 setLoading(false);
             }
         } catch (error) {
-            Swal.fire({
-                icon: "warning",
-                text: error,
-                confirmButtonText: "ตกลง",
-                confirmButtonColor: "black",
-                focusConfirm: false,
-            });
+            if (error.response.status === 401) {
+                Swal.fire({
+                    icon: "warning",
+                    text: "กรุณาเข้าสู่ระบบ",
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+              navigate('/');
+            } else if (error.response.status === 403) {
+                Swal.fire({
+                    icon: "warning",
+                    text: "กรุณาเข้าสู่ระบบที่มีระดับถึงแอดมิน",
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+            }
         }
     }
 
@@ -53,7 +63,6 @@ export default function ViewBrand() {
     const handlePageClick = ({ selected }) => {
         setPageNumber(selected);
     };
-
 
     const deleteBrand = async(e, id) => {
         e.preventDefault();
@@ -84,13 +93,24 @@ export default function ViewBrand() {
                 setDeletingId(null);
             }
         } catch (error) {
-            Swal.fire({
-                icon: "warning",
-                text: error,
-                confirmButtonText: "ตกลง",
-                confirmButtonColor: "black",
-                focusConfirm: false,
-            });
+            if (error.response.status === 401) {
+                Swal.fire({
+                    icon: "warning",
+                    text: "กรุณาเข้าสู่ระบบ",
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+              navigate('/');
+            } else if (error.response.status === 403) {
+                Swal.fire({
+                    icon: "warning",
+                    text: "กรุณาเข้าสู่ระบบที่มีระดับถึงแอดมิน",
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+            }
         }
     }
 

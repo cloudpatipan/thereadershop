@@ -36,9 +36,9 @@ export default function Navbar() {
 
   const navigate = useNavigate();
   const { user, token, setUser, setToken } = useContext(UserContext);
-  const [loading, setLoading] = useState(true);
-  const [carts, setCarts] = useState([]);
   const { cartCount, setCartCount } = useContext(CartContext);
+  const [carts, setCarts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function Navbar() {
         setCarts(response.data.carts);
         setCartCount(response.data.carts.length);
         setLoading(false);
-      } else if (response.data.status === 400) {
+      } else if (response.status === 400) {
         Swal.fire({
           icon: "error",
           text: response.data.message,
@@ -62,7 +62,7 @@ export default function Navbar() {
           confirmButtonColor: "black",
           focusConfirm: false,
         });
-      } else if (response.data.status === 401) {
+      } else if (response.status === 401) {
         Swal.fire({
           icon: "warning",
           text: response.data.message,
@@ -86,32 +86,43 @@ export default function Navbar() {
   const SubmitLogout = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/logout', null,);
-      navigate('/');
-      setIsModalOpenLogin(false);
-      setIsModalOpenRegister(false);
-      setIsDropdownOpen(false);
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-      setToken(null);
-      setUser(null);
-      // แสดงข้อความสำเร็จ
-      Swal.fire({
-        icon: "success",
-        text: response.data.message,
-        confirmButtonText: "ตกลง",
-        confirmButtonColor: "black",
-        focusConfirm: false,
-      });
-      // ล้างข้อมูลใน localStorage
+      const response = await axios.post('/api/logout');
+      if (response.ok) {
+        navigate('/');
+        setIsModalOpenLogin(false);
+        setIsModalOpenRegister(false);
+        setIsDropdownOpen(false);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setToken(null);
+        setUser(null);
+        // แสดงข้อความสำเร็จ
+        Swal.fire({
+          icon: "success",
+          text: response.data.message,
+          confirmButtonText: "ตกลง",
+          confirmButtonColor: "black",
+          focusConfirm: false,
+        });
+      }
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        text: response.data.message,
-        confirmButtonText: "ตกลง",
-        confirmButtonColor: "black",
-        focusConfirm: false,
-      });
+      if (error.response.status === 401) {
+        Swal.fire({
+          icon: "warning",
+          text: "กรุณาเข้าสู่ระบบ",
+          confirmButtonText: "ตกลง",
+          confirmButtonColor: "black",
+          focusConfirm: false,
+        });
+      } if (error.response.status === 403) {
+        Swal.fire({
+          icon: "warning",
+          text: "กรุณาเข้าสู่ระบบ",
+          confirmButtonText: "ตกลง",
+          confirmButtonColor: "black",
+          focusConfirm: false,
+        });
+      }
     }
   };
 
@@ -198,7 +209,7 @@ export default function Navbar() {
           ) : (
             <div>
 
-              {user && token ? (
+              {token ? (
                 <div className="flex items-center gap-4">
 
                   <Link to={'/cart'}>
@@ -217,8 +228,8 @@ export default function Navbar() {
                   <Dropdown
                     header={
                       <div className="w-[2.5rem] h-[2.5rem] rounded-full overflow-hidden cursor-pointer" onClick={handleToggleDropdown}>
-                        {user.avatar ? (
-                          <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                        {user?.avatar ? (
+                          <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user?.avatar}`} alt={`รูปภาพของ ${user?.name}`} />
                         ) : (
                           <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ Avatar`} />
                         )}
@@ -234,16 +245,16 @@ export default function Navbar() {
                           </div>
                         </div>
 
-                        {user.avatar ? (
-                          <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                        {user?.avatar ? (
+                          <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user?.avatar}`} alt={`รูปภาพของ ${user?.name}`} />
                         ) : (
                           <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ Avatar`} />
                         )}
                       </div>
                       <ModalImage isOpen={isModalOpenAvatar} onClose={closeModalAvatar}>
                         <div className="w-[24rem] h-[34rem] overflow-hidden">
-                          {user.avatar ? (
-                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                          {user?.avatar ? (
+                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user?.avatar}`} alt={`รูปภาพของ ${user?.name}`} />
                           ) : (
                             <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ Avatar`} />
                           )}
@@ -251,14 +262,14 @@ export default function Navbar() {
                       </ModalImage>
                       <div className="flex flex-col">
                         <div className="text-xs text-center relative flex justify-center items-center gap-2 rounded-full border uppercase">
-                          {user.role}
+                          {user?.role}
                         </div>
-                        <p className="text-xl  text-black">{user.name}</p>
+                        <p className="text-xl  text-black">{user?.name}</p>
                       </div>
 
                     </div>
 
-                    {user.role == 'admin' && ( // เช็คว่ามีผู้ใช้ล็อคอินและเป็น admin หรือไม่
+                    {user?.role == 'admin' && ( // เช็คว่ามีผู้ใช้ล็อคอินและเป็น admin หรือไม่
                       <Link to={'/dashboard'}>
                         <Button name={'แอดมิน'} icon={<PiUserGearThin size={20} />} className="mt-1 w-full" />
                       </Link>

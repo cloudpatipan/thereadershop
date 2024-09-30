@@ -14,14 +14,13 @@ import { PiToggleLeftThin } from "react-icons/pi";
 import { PiToggleRightThin } from "react-icons/pi";
 import { IoMdArrowDropright } from "react-icons/io";
 import { IoMdArrowDropleft } from "react-icons/io";
-import Modal from '../../components/Modal';
-import Button from '../../components/Button';
-import baseUrl from '../../routes/BaseUrl';
 import { Rings } from 'react-loader-spinner';
 export default function ViewOrder() {
+
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
     const [orders, setOrders] = useState([]);
+    const [orderItems, setOrderItems] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
     const [deletingId, setDeletingId] = useState(null);
     const [updateStatus, setUpdateStatus] = useState(null);
@@ -29,6 +28,7 @@ export default function ViewOrder() {
 
     useEffect(() => {
         fetchOrder();
+        fetchOrderItems();
     }, [pageNumber, updateStatus]);
 
     const fetchOrder = async () => {
@@ -61,7 +61,7 @@ export default function ViewOrder() {
         setDeletingId(id);
 
         axios.delete(`/api/orders/${id}`).then(response => {
-            if (response.data.status === 200) {
+            if (response.status === 200) {
                 Swal.fire({
                     icon: 'success',
                     text: response.data.message,
@@ -73,7 +73,7 @@ export default function ViewOrder() {
                 // อัปเดตรายการที่มีอยู่โดยการโหลดข้อมูลใหม่
                 fetchOrder();
                 setDeletingId(null); // เครียทุกอย่างใน ไอดี ตระกร้า
-            } else if (response.data.status === 400) {
+            } else if (response.status === 400) {
                 Swal.fire({
                     icon: 'error',
                     text: response.data.message,
@@ -92,7 +92,7 @@ export default function ViewOrder() {
 
         axios.put(`/api/order-updatestatus/${order_id}/${newStatus}`)
             .then(response => {
-                if (response.data.status === 200) {
+                if (response.status === 200) {
                     Swal.fire({
                         icon: 'success',
                         text: response.data.message,
@@ -110,7 +110,7 @@ export default function ViewOrder() {
                         return product;
                     });
                     setProducts(updatedProducts);
-                } else if (response.data.status === 400) {
+                } else if (response.status === 400) {
                     Swal.fire({
                         icon: 'error',
                         text: response.data.message,
@@ -118,7 +118,7 @@ export default function ViewOrder() {
                         confirmButtonColor: 'black',
                         focusConfirm: false,
                     });
-                } else if (response.data.status === 401) {
+                } else if (response.status === 401) {
                     Swal.fire({
                         icon: 'warning',
                         text: response.data.message,

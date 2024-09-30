@@ -37,7 +37,7 @@ export default function ProductPopular() {
     } catch (error) {
       Swal.fire({
         icon: "warning",
-        text: error,
+        text: "กรุณาเข้าสู่ระบบ",
         confirmButtonText: "ตกลง",
         confirmButtonColor: "black",
         focusConfirm: false,
@@ -84,7 +84,7 @@ export default function ProductPopular() {
     } catch (error) {
       Swal.fire({
         icon: "warning",
-        text: error,
+        text: "กรุณาเข้าสู่ระบบ",
         confirmButtonText: "ตกลง",
         confirmButtonColor: "black",
         focusConfirm: false,

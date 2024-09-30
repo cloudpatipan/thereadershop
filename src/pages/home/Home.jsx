@@ -19,37 +19,38 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchData = async () => {
+
+      const userResponse = await axios.get(`/api/userCount`);
+      const productResponse = await axios.get(`/api/productCount`);
+
+      if (userResponse.status === 200) {
+        setUserCount(userResponse.users)
+      }
+
+      if (productResponse.status === 200) {
+        const { products, lastProduct } = productResponse.data;
+
+        // เซ็ตจำนวนผลิตภัณฑ์
+        setProductCount(products);
+
+        // ตรวจสอบว่ามีข้อมูลผลิตภัณฑ์ที่รับมาหรือไม่
+        if (lastProduct) {
+          const { id, name } = lastProduct;
+          const formattedLastProduct = {
+            id,
+            name,
+          };
+          setProductLast(formattedLastProduct);
+        }
+      }
+
+      setLoading(false);
+    };
     fetchData();
   }, []);
 
-  const fetchData = async () => {
 
-    const userResponse = await axios.get(`/api/userCount`);
-    const productResponse = await axios.get(`/api/productCount`);
-
-    if (userResponse.data.status === 200) {
-      setUserCount(userResponse.data.users)
-    }
-
-    if (productResponse.data.status === 200) {
-      const { products, lastProduct } = productResponse.data;
-
-      // เซ็ตจำนวนผลิตภัณฑ์
-      setProductCount(products);
-
-      // ตรวจสอบว่ามีข้อมูลผลิตภัณฑ์ที่รับมาหรือไม่
-      if (lastProduct) {
-        const { id, name } = lastProduct;
-        const formattedLastProduct = {
-          id,
-          name,
-        };
-        setProductLast(formattedLastProduct);
-      }
-    }
-
-    setLoading(false);
-  };
 
   return (
     <>

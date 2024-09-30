@@ -38,11 +38,11 @@ export default function ProductAll() {
         } catch (error) {
             Swal.fire({
                 icon: "warning",
-                text: error,
+                text: "กรุณาเข้าสู่ระบบ",
                 confirmButtonText: "ตกลง",
                 confirmButtonColor: "black",
                 focusConfirm: false,
-            });
+              });
         }
     }
 

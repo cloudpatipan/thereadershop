@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Layout from '../../components/Layouts/Layout';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import Button from '../../components/Button';
 import Modal from '../../components/Modal';
-import { MdPayment } from "react-icons/md";
 import baseUrl from '../../routes/BaseUrl';
 import { Rings } from 'react-loader-spinner'
-import { IoMdArrowDropleft } from 'react-icons/io';
 import { PiArrowFatLineLeftThin, PiCreditCardThin, PiImageThin } from 'react-icons/pi';
+import { UserContext } from '../../context/UserContext';
+
 export default function Checkout() {
 
+    const { token } = useContext(UserContext);
     const [carts, setCarts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [totalCartPrice, setTotalCartPrice] = useState(0);
@@ -46,12 +47,12 @@ export default function Checkout() {
     };
 
     useEffect(() => {
-        fetchCart();
-    }, []);
-
-    useEffect(() => {
+        if (token) {
+            fetchCart();
+        }
         calculateTotalPrice();
-    }, [carts]);
+        fetchBanks();
+    }, [token, carts]);
 
     const calculateTotalPrice = () => {
         const total = carts.reduce((sum, cart) => sum + (cart.product.price * cart.product_qty), 0);
@@ -83,13 +84,25 @@ export default function Checkout() {
                 navigate('/')
             }
         } catch (error) {
-            Swal.fire({
-                icon: "warning",
-                text: error,
-                confirmButtonText: "ตกลง",
-                confirmButtonColor: "black",
-                focusConfirm: false,
-            });
+            if (error.data.status === 401) {
+                Swal.fire({
+                    icon: "warning",
+                    text: error,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+                navigate('/');
+            } else {
+                Swal.fire({
+                    icon: "warning",
+                    text: error,
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+                navigate('/');
+            }
         }
     }
 
@@ -159,10 +172,6 @@ export default function Checkout() {
     }
 
     const [banks, setBanks] = useState([]);
-
-    useEffect(() => {
-        fetchBanks();
-    }, []);
 
     const fetchBanks = async () => {
         try {

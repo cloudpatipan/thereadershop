@@ -5,7 +5,6 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { Rings } from 'react-loader-spinner'
 import Button from '../../components/Button';
-import { IoMdArrowDropleft } from "react-icons/io";
 import { PiArrowFatLineLeftThin } from 'react-icons/pi';
 export default function Order() {
 
@@ -25,7 +24,6 @@ export default function Order() {
             if (response.data.status === 200) {
                 setOrders(response.data.orders);
                 setLoading(false);
-                console.log(response.data.orders)
             } else if (response.data.status === 400) {
                 Swal.fire({
                     icon: "error",
@@ -52,6 +50,7 @@ export default function Order() {
                 confirmButtonColor: "black",
                 focusConfirm: false,
             });
+            navigate('/');
         }
     }
 

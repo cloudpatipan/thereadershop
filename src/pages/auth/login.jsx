@@ -33,7 +33,7 @@ export default function Login() {
             const response = await axios.post('/api/login', formData);
             if (response.data.status === 200) {
                 if (response.data.role === 'admin') {
-                    navigate('/admin/product');
+                    navigate('/admin/dashboard');
                 } else {
                     navigate('/');
                 }
@@ -79,8 +79,8 @@ export default function Login() {
                     <div>
                         <label>อีเมล</label>
                         <input
-                            className="block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
-                            type="email"
+                            className="pr-6 block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
+                            type={'email'}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="อีเมล"
@@ -115,7 +115,7 @@ export default function Login() {
                     </div>
 
                     <div className="flex justify-end">
-                        <Button name={'เข้าสู่ระบบ'} icon={<PiArrowLineLeftThin size={20} />} type={SubmitLogin}/>
+                        <Button name={'เข้าสู่ระบบ'} icon={<PiArrowLineLeftThin size={20} />} type={SubmitLogin} />
                     </div>
 
                 </div>

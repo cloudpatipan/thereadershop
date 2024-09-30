@@ -18,8 +18,6 @@ export default function Register() {
     const submitRegister = async (e) => {
         e.preventDefault();
 
-        // const data = { name, email, password, password_confirmation: passwordConfirmation };
-
         const formData = new FormData();
 
         formData.append('name', name);

@@ -79,35 +79,33 @@ export default function App() {
         <Route path="/order" element={<Order />} />
 
 
-        {/* Route สำหรับแอดมิน */}
-        <Route element={<AdminRoute />}>
-          <Route path="/admin/user" element={<ViewUser />} />
+        {/* ผู้ดูแลระบบ */}
+        <Route path="/admin/user" element={<ViewUser />} />
 
-          <Route path="/admin/product" element={<ViewProduct />} />
-          <Route path="/admin/product/create" element={<CreateProduct />} />
-          <Route path="/admin/product/:id/edit" element={<EditProduct />} />
+        <Route path="/admin/product" element={<ViewProduct />} />
+        <Route path="/admin/product/create" element={<CreateProduct />} />
+        <Route path="/admin/product/:id/edit" element={<EditProduct />} />
 
-          <Route path="/admin/category" element={<ViewCategory />} />
-          <Route path="/admin/category/create" element={<CreateCategory />} />
-          <Route path="/admin/category/:id/edit" element={<EditCategory />} />
+        <Route path="/admin/category" element={<ViewCategory />} />
+        <Route path="/admin/category/create" element={<CreateCategory />} />
+        <Route path="/admin/category/:id/edit" element={<EditCategory />} />
 
-          <Route path="/admin/brand" element={<ViewBrand />} />
-          <Route path="/admin/brand/create" element={<CreateBrand />} />
-          <Route path="/admin/brand/:id/edit" element={<EditBrand />} />
+        <Route path="/admin/brand" element={<ViewBrand />} />
+        <Route path="/admin/brand/create" element={<CreateBrand />} />
+        <Route path="/admin/brand/:id/edit" element={<EditBrand />} />
 
-          <Route path="/admin/order" element={<ViewOrder />} />
-          <Route path="/admin/order/:id" element={<DetailOrder />} />
+        <Route path="/admin/order" element={<ViewOrder />} />
+        <Route path="/admin/order/:id" element={<DetailOrder />} />
 
-          <Route path="/admin/bank" element={<ViewBank />} />
-          <Route path="/admin/bank/create" element={<CreateBank />} />
-          <Route path="/admin/bank/:id/edit" element={<EditBank />} />
+        <Route path="/admin/bank" element={<ViewBank />} />
+        <Route path="/admin/bank/create" element={<CreateBank />} />
+        <Route path="/admin/bank/:id/edit" element={<EditBank />} />
 
-          <Route path="/admin/adsbanner" element={<ViewAdsBanner />} />
-          <Route path="/admin/adsbanner/create" element={<CreateAdsBanner />} />
-          <Route path="/admin/adsbanner/:id/edit" element={<EditAdsBanner />} />
+        <Route path="/admin/adsbanner" element={<ViewAdsBanner />} />
+        <Route path="/admin/adsbanner/create" element={<CreateAdsBanner />} />
+        <Route path="/admin/adsbanner/:id/edit" element={<EditAdsBanner />} />
 
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
+        <Route path="/dashboard" element={<Dashboard />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

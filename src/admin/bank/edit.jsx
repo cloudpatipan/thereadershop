@@ -5,7 +5,6 @@ import axios from 'axios';
 import Sidebar from '../../components/Layouts/Sidebar';
 
 import { CiImageOn } from "react-icons/ci";
-import { FaRegSave } from "react-icons/fa";
 import Button from '../../components/Button';
 import baseUrl from '../../routes/BaseUrl';
 import { PiArrowLeftThin, PiArrowLineLeftThin } from 'react-icons/pi';

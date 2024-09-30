@@ -49,18 +49,18 @@ export default function PrivateRoute() {
         }
     }
 
-        if (loading) {
-            return <>
-                (<Rings
-                    visible={true}
-                    height="500"
-                    width="500"
-                    color="black"
-                    ariaLabel="rings-loading"
-                    wrapperClass="flex justify-center"
-                />)
-            </>
-        }
-
-        return authenticated ? <Outlet /> : null;
+    if (loading) {
+        return <>
+            (<Rings
+                visible={true}
+                height="500"
+                width="500"
+                color="black"
+                ariaLabel="rings-loading"
+                wrapperClass="flex justify-center"
+            />)
+        </>
     }
+
+    return authenticated ? <Outlet /> : null;
+}

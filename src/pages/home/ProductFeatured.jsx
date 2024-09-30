@@ -18,7 +18,7 @@ export default function ProductFeatured() {
   const [searchTerm, setSearchTerm] = useState('');
   const [pageNumber, setPageNumber] = useState(0);
   const { setCartCount } = useContext(CartContext);
-  const [quantity, setQuantity] = useState(1); // จำนวนสินค้าค่าเริ่ม ต้นเป็น 1
+  const [quantity, setQuantity] = useState(1);
   const [products, setProducts] = useState([]);
   const productsPerPage = 12;
   const [loading, setLoading] = useState(true);
@@ -81,13 +81,13 @@ export default function ProductFeatured() {
         });
       }
     } catch (error) {
-      Swal.fire({
-        icon: "warning",
-        text: error,
-        confirmButtonText: "ตกลง",
-        confirmButtonColor: "black",
-        focusConfirm: false,
-      });
+        Swal.fire({
+          icon: "warning",
+          text: "กรุณาเข้าสู่ระบบ",
+          confirmButtonText: "ตกลง",
+          confirmButtonColor: "black",
+          focusConfirm: false,
+        });
     }
   }
 
@@ -153,7 +153,7 @@ export default function ProductFeatured() {
                         <p className="text-xs text-clip overflow-hidden text-black/40 font-semibold">{product.category.name}</p>
                         <span className="text-base">{product.price} บาท</span>
                         {product.qty > 0 ? (
-                          <Button onClick={(e) => addToCart(product.id)} className={`w-full mt-1`} name={'เพิ่ม'} icon={<PiShoppingCartSimpleThin size={20} />}  />
+                          <Button onClick={(e) => addToCart(product.id)} className={`w-full mt-1`} name={'เพิ่ม'} icon={<PiShoppingCartSimpleThin size={20} />} />
                         ) : (
                           <Button type="disabled" name={'สินค้าหมด'} icon={<MdOutlineErrorOutline size={25} />} />
                         )}

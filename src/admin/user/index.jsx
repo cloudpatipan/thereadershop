@@ -2,7 +2,7 @@ import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import Swal from 'sweetalert2';
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Sidebar from '../../components/Layouts/Sidebar';
 import { CiSearch } from "react-icons/ci";
 import { PiToggleRight, PiTrashSimpleThin } from "react-icons/pi";
@@ -20,7 +20,8 @@ export default function ViewUser() {
     const [pageNumber, setPageNumber] = useState(0);
     const usersPerPage = 10; // จำนวนสินค้าต่อหน้า
     const [isTableFormat, setIsTableFormat] = useState(true);
-    const [loading, setLoading] = useState(true); // Added loading state
+    const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     const handlePageClick = ({ selected }) => {
         setPageNumber(selected);
@@ -38,13 +39,24 @@ export default function ViewUser() {
                 setLoading(false);        
             }
         } catch (error) {
-            Swal.fire({
-                icon: "warning",
-                text: error,
-                confirmButtonText: "ตกลง",
-                confirmButtonColor: "black",
-                focusConfirm: false,
-            });
+            if (error.response.status === 401) {
+                Swal.fire({
+                    icon: "warning",
+                    text: "กรุณาเข้าสู่ระบบ",
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+              navigate('/');
+            } else if (error.response.status === 403) {
+                Swal.fire({
+                    icon: "warning",
+                    text: "กรุณาเข้าสู่ระบบที่มีระดับถึงแอดมิน",
+                    confirmButtonText: "ตกลง",
+                    confirmButtonColor: "black",
+                    focusConfirm: false,
+                });
+            }
         }
     }
 
