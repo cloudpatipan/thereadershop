@@ -7,6 +7,9 @@ import { CiImageOn } from "react-icons/ci";
 import Button from '../../components/Button';
 import baseUrl from '../../routes/BaseUrl';
 import { PiArrowLineLeftThin, PiTrashSimpleThin } from 'react-icons/pi';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // สไตล์สำหรับ Quill
+
 export default function EditProduct() {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -209,6 +212,23 @@ export default function EditProduct() {
             }
         })
     };
+
+
+    const modules = {
+        toolbar: [
+            [{ 'header': [1, 2, false] }],
+            ['bold', 'italic', 'underline'],
+            ['link', 'image'],
+            ['clean'],
+        ],
+    };
+
+
+    const handleDescriptionChange = (description) => {
+        setDescription(description)
+    }
+
+
     return (
         <Sidebar>
             <h1 className="text-2xl mb-4">สินค้า (แก้ไข)</h1>
@@ -263,12 +283,11 @@ export default function EditProduct() {
 
                             <div className="col-span-2">
                                 <label>รายละเอียด</label>
-                                <textarea
-                                    className="pr-6 block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
-                                    type={`text`}
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    placeholder="รายละเอียด"
+                                <ReactQuill
+                                    value={description} // ใช้ค่าใน state
+                                    onChange={handleDescriptionChange} // เรียกใช้ฟังก์ชันเมื่อมีการเปลี่ยนแปลง
+                                    modules={modules}
+                                    placeholder={`รายละเอียด`}
                                 />
                                 {error && error.description && (
                                     <div className={`my-2 text-sm text-[#d70000]`}>

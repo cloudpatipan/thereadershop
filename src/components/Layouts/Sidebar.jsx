@@ -52,8 +52,8 @@ export default function Sidebar({ children }) {
                             <div className="flex gap-4">
 
                                 <div className="w-[3rem] h-[3rem] rounded-lg overflow-hidden cursor-pointer group">
-                                    {user.avatar ? (
-                                        <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user.avatar}`} alt={`รูปภาพของ ${user.name}`} />
+                                    {user?.avatar ? (
+                                        <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${user?.avatar}`} alt={`รูปภาพของ ${user?.name}`} />
                                     ) : (
                                         <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
                                     )}
@@ -67,14 +67,14 @@ export default function Sidebar({ children }) {
                                                 transitionDelay: `50ms`,
                                             }}
                                             className={`whitespace-pre text-xs duration-500 border rounded-lg text-black px-2 ${!open && ' opacity-0 transition-x-28 overflow-hidden'}`}>
-                                            {user.role}
+                                            {user?.role}
                                         </h2>
                                         <h2
                                             style={{
                                                 transitionDelay: `300ms`,
                                             }}
                                             className={`whitespace-pre duration-500 ${!open && ' opacity-0 transition-x-28 overflow-hidden'}`}>
-                                            {user.name}
+                                            {user?.name}
                                         </h2>
                                     </div>
 

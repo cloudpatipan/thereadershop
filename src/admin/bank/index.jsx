@@ -251,7 +251,7 @@ export default function ViewBank() {
                                                         )}
                                                     </td>
                                                     <td className="py-1 border-b">{bank.name}</td>
-                                                    <td className="py-1 border-b">{bank.description}</td>
+                                                    <td className="py-1 border-b"><div className="text-justify w-full" dangerouslySetInnerHTML={{ __html: bank.description }} /></td>
                                                     <td className="py-1 border-b">
                                                         <button
                                                             type="button"

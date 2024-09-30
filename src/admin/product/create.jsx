@@ -5,10 +5,11 @@ import axios from 'axios';
 import Sidebar from '../../components/Layouts/Sidebar';
 import { CiImageOn } from "react-icons/ci";
 import Button from '../../components/Button';
-import { FaSave } from "react-icons/fa";
-import { IoTrashBinOutline } from "react-icons/io5";
 import baseUrl from '../../routes/BaseUrl';
 import { PiArrowLineLeftThin, PiTrashSimpleThin } from 'react-icons/pi';
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // สไตล์สำหรับ Quill
+
 export default function CreateProduct() {
     const navigate = useNavigate();
 
@@ -92,6 +93,7 @@ export default function CreateProduct() {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+
             if (response.data.status === 200) {
                 Swal.fire({
                     icon: "success",
@@ -168,6 +170,20 @@ export default function CreateProduct() {
         setDragOver(false);
     };
 
+    const modules = {
+        toolbar: [
+            [{ 'header': [1, 2, false] }],
+            ['bold', 'italic', 'underline'],
+            ['link', 'image'],
+            ['clean'],
+        ],
+    };
+
+
+    const handleDescriptionChange = (description) => {
+        setDescription(description)
+    }
+
 
     return (
         <Sidebar>
@@ -219,18 +235,18 @@ export default function CreateProduct() {
 
                             <div className="col-span-2">
                                 <label>รายละเอียด</label>
-                                <textarea
-                                    className="pr-6 block w-full placeholder:text-sm text-base border-b appearance-none focus:outline-none bg-transparent text-black py-1"
-                                    type={`text`}
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    placeholder="รายละเอียด"
+                                <ReactQuill
+                                    value={description} // ใช้ค่าใน state
+                                    onChange={handleDescriptionChange} // เรียกใช้ฟังก์ชันเมื่อมีการเปลี่ยนแปลง
+                                    modules={modules}
+                                    placeholder={`รายละเอียด`}
                                 />
                                 {error && error.description && (
                                     <div className={`my-2 text-sm text-[#d70000]`}>
                                         {error.description}
                                     </div>
                                 )}
+
                             </div>
 
                             <div className="col-span-2 md:col-span-1">

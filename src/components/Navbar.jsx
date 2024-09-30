@@ -27,6 +27,8 @@ import baseUrl from '../routes/BaseUrl';
 
 export default function Navbar() {
 
+  const navigate = useNavigate();
+
   const menus = [
     { name: "หน้าหลัก", link: "/", icon: CiHome },
     { name: "หนังสือ", link: "/product", icon: PiBooksThin },
@@ -34,7 +36,6 @@ export default function Navbar() {
     { name: "แบรนด์หนังสือ", link: "/brand", icon: PiStarFourThin },
   ]
 
-  const navigate = useNavigate();
   const { user, token, setUser, setToken } = useContext(UserContext);
   const { cartCount, setCartCount } = useContext(CartContext);
   const [carts, setCarts] = useState([]);
@@ -86,8 +87,15 @@ export default function Navbar() {
   const SubmitLogout = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/logout');
-      if (response.ok) {
+      await axios.get(`/sanctum/csrf-cookie`, { credentials: 'include' });
+      const response = await axios.post(`/api/logout`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      });
+      if (response.data.status === 200) {
         navigate('/');
         setIsModalOpenLogin(false);
         setIsModalOpenRegister(false);
