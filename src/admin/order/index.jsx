@@ -34,8 +34,11 @@ export default function ViewOrder() {
     const fetchOrder = async () => {
         try {
             const response = await axios.get(`/api/orders`);
+            if (response.ok) {
             setOrders(response.data);
             setLoading(false);
+            }
+
         } catch (error) {
             console.error('Error fetching order:', error);
         }
