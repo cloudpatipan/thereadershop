@@ -459,7 +459,7 @@ export default function ProductDetail() {
                                 <h2 className="text-sm block text-black/30 md:text-base">{product.category.name}</h2>
                                 <h1 className="text-base md:text-lg mb-4">{product.name}</h1>
                                 <span className="text-base">รายละเอียด</span>
-                                <p className="text-sm">{product.description}</p>
+                                <p className="text-sm"><div className="text-justify w-full" dangerouslySetInnerHTML={{ __html: product.description }} /></p>
                                 <p className="mt-4 text-base md:text-lg">
                                     <span className="text-sm md:text-base block text-black/30">
                                         ราคารวม

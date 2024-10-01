@@ -28,28 +28,21 @@ export default function ViewOrder() {
 
     useEffect(() => {
         fetchOrder();
-        fetchOrderItems();
     }, [pageNumber, updateStatus]);
 
     const fetchOrder = async () => {
         try {
             const response = await axios.get(`/api/orders`);
-            if (response.ok) {
-            setOrders(response.data.orders));
+            setOrders(response.data.orders);
             setLoading(false);
-            }
-
         } catch (error) {
-            console.error('Error fetching order:', error);
-        }
-    };
-
-    const fetchOrderItems = async (orderId) => { // ฟังก์ชันสำหรับโหลดข้อมูล order items ตาม orderId
-        try {
-            const response = await axios.get(`/api/orders/${orderId}/orderitems`);
-            setOrderItems(response.data);
-        } catch (error) {
-            console.error('Error fetching order items:', error);
+            Swal.fire({
+                icon: "error",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
         }
     };
 
@@ -59,11 +52,11 @@ export default function ViewOrder() {
         setPageNumber(selected);
     };
 
-    const deleteOrder = (e, id) => {
+    const deleteOrder = async (e, id) => {
         e.preventDefault();
         setDeletingId(id);
-
-        axios.delete(`/api/orders/${id}`).then(response => {
+        try {
+            const response = await axios.delete(`/api/orders/${id}`);
             if (response.status === 200) {
                 Swal.fire({
                     icon: 'success',
@@ -86,54 +79,66 @@ export default function ViewOrder() {
                 });
                 setDeletingId(null);
             }
-        });
-    };
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
+            });
+        }
+    }
 
-    const updateOrderStatus = (order_id, status) => {
+    const updateOrderStatus = async (order_id, status) => {
         // สลับสถานะ 0 เป็น 1 และ 1 เป็น 0
         const newStatus = status === 1 ? 0 : 1;
-
-        axios.put(`/api/order-updatestatus/${order_id}/${newStatus}`)
-            .then(response => {
-                if (response.status === 200) {
-                    Swal.fire({
-                        icon: 'success',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                    const updatedOrders = orders.map(order => {
-                        if (order.id === order_id) {
-                            return {
-                                ...order,
-                                status: newStatus
-                            };
-                        }
-                        return product;
-                    });
-                    setProducts(updatedProducts);
-                } else if (response.status === 400) {
-                    Swal.fire({
-                        icon: 'error',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                } else if (response.status === 401) {
-                    Swal.fire({
-                        icon: 'warning',
-                        text: response.data.message,
-                        confirmButtonText: 'ตกลง',
-                        confirmButtonColor: 'black',
-                        focusConfirm: false,
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error updating order status:', error);
+        try {
+            const response = await axios.put(`/api/order-updatestatus/${order_id}/${newStatus}`);
+            if (response.data.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+                const updatedOrders = orders.map(order => {
+                    if (order.id === order_id) {
+                        return {
+                            ...order,
+                            status: newStatus
+                        };
+                    }
+                    return order;
+                });
+                setOrders(updatedOrders);
+            } else if (response.data.status === 400) {
+                Swal.fire({
+                    icon: 'error',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+            } else if (response.status === 401) {
+                Swal.fire({
+                    icon: 'warning',
+                    text: response.data.message,
+                    confirmButtonText: 'ตกลง',
+                    confirmButtonColor: 'black',
+                    focusConfirm: false,
+                });
+            }
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                text: error,
+                confirmButtonText: "ตกลง",
+                confirmButtonColor: "black",
+                focusConfirm: false,
             });
+        }
     };
 
     const [isModalOrder, setIsModalOrder] = useState({});
