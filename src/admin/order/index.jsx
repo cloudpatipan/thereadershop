@@ -35,7 +35,7 @@ export default function ViewOrder() {
         try {
             const response = await axios.get(`/api/orders`);
             if (response.ok) {
-            setOrders(response.data);
+            setOrders(response.data.oreders);
             setLoading(false);
             }
 
