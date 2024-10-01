@@ -6,7 +6,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import Layout from '../../components/Layouts/Layout';
 import ModalImage from '../../components/ModalImage';
-import { PiArrowFatLineLeftThin, PiPenThin, PiShoppingCartSimpleThin, PiTrashSimpleThin } from "react-icons/pi";
+import { PiArrowFatLineLeftThin, PiArrowFatLineRightThin, PiPenThin, PiShoppingCartSimpleThin, PiTrashSimpleThin } from "react-icons/pi";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
@@ -21,6 +21,9 @@ import ReactPaginate from 'react-paginate';
 import baseUrl from '../../routes/BaseUrl';
 import { PiPaperPlaneTiltThin } from "react-icons/pi";
 import { Rings } from 'react-loader-spinner'
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // สไตล์สำหรับ Quill
+
 export default function ProductDetail() {
 
     const { user, setUser } = useContext(UserContext);
@@ -112,7 +115,7 @@ export default function ProductDetail() {
 
     useEffect(() => {
         fetchCommnets();
-    }, [comments]);
+    }, []);
 
     const fetchCommnets = async () => {
         try {
@@ -236,7 +239,7 @@ export default function ProductDetail() {
         }
     }
 
-    const [text, setText] = useState("");
+    const [text, setText] = useState('');
 
     const [error, setError] = useState([]);
 
@@ -251,7 +254,7 @@ export default function ProductDetail() {
         try {
             const response = await axios.post(`/api/comments/${product.id}`, data);
             if (response.data.status === 200) {
-                setComments(comments.map(comment => comment.id === commentId ? response.data.comment : comment));
+                await fetchCommnets();
                 setError([]);
             } else if (response.data.status === 422) {
                 setError(response.data.errors);
@@ -284,11 +287,11 @@ export default function ProductDetail() {
 
     const cancelEditing = () => {
         setEditingCommentId(null);
-        setEditingText("");
+        setEditingText('');
     }
 
     const [editingCommentId, setEditingCommentId] = useState(null);
-    const [editingText, setEditingText] = useState("");
+    const [editingText, setEditingText] = useState('');
 
     const updateComment = async (commentId) => {
 
@@ -298,6 +301,7 @@ export default function ProductDetail() {
 
         const response = await axios.put(`/api/comments/${commentId}`, data);
         if (response.data.status === 200) {
+            await fetchCommnets();
             cancelEditing();
         } else if (response.data.status === 422) {
             setError(response.data.errors);
@@ -305,10 +309,12 @@ export default function ProductDetail() {
     };
 
 
-    const deleteComment = async (commentId) => {
+    const deleteComment = async (e, commentId) => {
+        e.preventDefault();
         try {
             const response = await axios.delete(`/api/comments/${commentId}`);
             if (response.data.status === 200) {
+                setComments(prev => prev.filter(comment => comment.id !== commentId));
             } else if (response.data.status === 422) {
                 setError(response.data.errors);
             }
@@ -344,6 +350,24 @@ export default function ProductDetail() {
     };
 
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const modules = {
+        toolbar: [
+            [{ 'header': [1, 2, false] }],
+            ['bold', 'italic', 'underline'],
+            ['link', 'image'],
+            ['clean'],
+        ],
+    };
+
+    const handleTextChange = (text) => {
+        setText(text)
+    }
+
+    const handleTextEditChange = (text) => {
+        setEditingText(text)
+    }
+
 
 
     return (
@@ -511,7 +535,7 @@ export default function ProductDetail() {
                                             <div className="flex gap-2">
 
                                                 <div className="w-[3rem] h-[3rem] rounded-lg overflow-hidden cursor-pointer">
-                                                    {comment.user && comment.user.avatar ? (
+                                                    {comment?.user.avatar ? (
                                                         <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${comment.user.avatar}`} alt={`รูปภาพของ ${comment.user.name}`} />
                                                     ) : (
                                                         <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ Avatar`} />
@@ -536,11 +560,11 @@ export default function ProductDetail() {
 
                                             {editingCommentId === comment.id ? (
                                                 <>
-                                                    <textarea
-                                                        value={editingText}
-                                                        onChange={(e) => setEditingText(e.target.value)}
-                                                        placeholder="พิมพ์ความคิดเห็น"
-                                                        className="h-[5rem] p-2 border rounded-lg mt-2 w-full"
+                                                    <ReactQuill
+                                                        value={editingText} // ใช้ค่าใน state
+                                                        onChange={handleTextEditChange}// เรียกใช้ฟังก์ชันเมื่อมีการเปลี่ยนแปลง
+                                                        modules={modules}
+                                                        placeholder={`รายละเอียด`}
                                                     />
                                                     <div className="flex gap-2 mt-2">
                                                         <Button name={'อัพเดท'} className="flex justify-end" icon={<PiPaperPlaneTiltThin size={20} />}
@@ -556,13 +580,13 @@ export default function ProductDetail() {
                                             ) : (
                                                 <>
 
-                                                    <p>{comment.text}</p>
+                                                    <div className="text-justify w-full" dangerouslySetInnerHTML={{ __html: comment.text }} />
                                                     {user?.id === comment.user_id && (
                                                         <div className="flex gap-2">
                                                             <Button className="flex justify-end" name={'แก้ไข'} icon={<PiPenThin size={20} />}
                                                                 onClick={() => startEditing(comment)}
                                                             />
-                                                            <Button className="flex justify-end" name={'ลบ'} icon={<PiTrashSimpleThin size={20} />} onClick={() => deleteComment(comment.id)} />
+                                                            <Button className="flex justify-end" name={'ลบ'} icon={<PiTrashSimpleThin size={20} />} onClick={(e) => deleteComment(e, comment.id)} />
                                                         </div>
 
                                                     )}
@@ -579,12 +603,17 @@ export default function ProductDetail() {
 
                             {user ? (
                                 <form onSubmit={addComment}>
-                                    <textarea
-                                        value={text}
-                                        onChange={(e) => setText(e.target.value)}
-                                        placeholder="เขียนความคิดเห็นของคุณที่นี่..."
-                                        className="p-2 border-b mt-2 w-full"
+                                    <ReactQuill
+                                        value={text} // ใช้ค่าใน state
+                                        onChange={handleTextChange}// เรียกใช้ฟังก์ชันเมื่อมีการเปลี่ยนแปลง
+                                        modules={modules}
+                                        placeholder={`รายละเอียด`}
                                     />
+                                    {error && error.text && (
+                                        <div className={`my-2 text-sm text-[#d70000]`}>
+                                            {error.text}
+                                        </div>
+                                    )}
                                     <div className="flex gap-2">
                                         <Button name={'ส่งความคิดเห็น'} type="submit" icon={<PiTelegramLogoThin size={20} />} />
                                     </div>
