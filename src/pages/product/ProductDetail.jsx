@@ -565,6 +565,7 @@ export default function ProductDetail() {
                                                         onChange={handleTextEditChange}// เรียกใช้ฟังก์ชันเมื่อมีการเปลี่ยนแปลง
                                                         modules={modules}
                                                         placeholder={`รายละเอียด`}
+                                                        className="mt-2"
                                                     />
                                                     <div className="flex gap-2 mt-2">
                                                         <Button name={'อัพเดท'} className="flex justify-end" icon={<PiPaperPlaneTiltThin size={20} />}
@@ -608,13 +609,14 @@ export default function ProductDetail() {
                                         onChange={handleTextChange}// เรียกใช้ฟังก์ชันเมื่อมีการเปลี่ยนแปลง
                                         modules={modules}
                                         placeholder={`รายละเอียด`}
+                                        className="mb-2"
                                     />
                                     {error && error.text && (
                                         <div className={`my-2 text-sm text-[#d70000]`}>
                                             {error.text}
                                         </div>
                                     )}
-                                    <div className="flex gap-2">
+                                    <div className="flex justify-end gap-2">
                                         <Button name={'ส่งความคิดเห็น'} type="submit" icon={<PiTelegramLogoThin size={20} />} />
                                     </div>
                                 </form>
