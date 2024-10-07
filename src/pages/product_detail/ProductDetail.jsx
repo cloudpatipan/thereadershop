@@ -18,7 +18,7 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import { PiTelegramLogoThin } from "react-icons/pi";
 import { MdCancel } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
-import { UserContext } from '../../context/UserContext';
+import { user?Context } from '../../context/user?Context';
 import { IoTrashBin } from "react-icons/io5";
 import ReactPaginate from 'react-paginate';
 import { IoMdArrowDropright, IoMdArrowDropleft } from "react-icons/io";
@@ -27,7 +27,7 @@ import { PiPaperPlaneTiltThin } from "react-icons/pi";
 import { Rings } from 'react-loader-spinner'
 export default function ProductDetail() {
 
-    const { user, setUser } = useContext(UserContext);
+    const { user?, setuser? } = useContext(user?Context);
     const navigate = useNavigate();
     const { setCartCount } = useContext(CartContext);
     const [product?, setProduct] = useState([]);
@@ -432,8 +432,8 @@ export default function ProductDetail() {
                                                 <div className="flex gap-2">
 
                                                     <div className="w-[3rem] h-[3rem] rounded-lg overflow-hidden cursor-pointer">
-                                                        {comment.user && comment.user.avatar ? (
-                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${comment.user.avatar}`} alt={`รูปภาพของ ${comment.user.name}`} />
+                                                        {comment.user? && comment.user?.avatar ? (
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${comment.user?.avatar}`} alt={`รูปภาพของ ${comment.user?.name}`} />
                                                         ) : (
                                                             <img className="w-full h-full object-cover" src={`${baseUrl}/images/product?/No_image.png`} alt={`ไม่มีรูปภาพ Avatar`} />
                                                         )}
@@ -441,10 +441,10 @@ export default function ProductDetail() {
                                                     </div>
 
                                                     <div className="flex flex-col">
-                                                        {comment.user ? (
+                                                        {comment.user? ? (
                                                             <>
-                                                                <p className="border rounded-full px-2 text-center text-sm">{comment.user.role}</p>
-                                                                <p className="text-base">{comment.user.name}</p>
+                                                                <p className="border rounded-full px-2 text-center text-sm">{comment.user?.role}</p>
+                                                                <p className="text-base">{comment.user?.name}</p>
                                                             </>
                                                         ) : (
                                                             <p>ผู้ใช้ไม่ทราบ</p>
@@ -480,7 +480,7 @@ export default function ProductDetail() {
                                                     <>
 
                                                         <p>{comment.text}</p>
-                                                        {user && user.id === comment.user_id && (
+                                                        {user? && user?.id === comment.user?_id && (
                                                             <div className="flex gap-2">
                                                                 <Button className="flex justify-end" icon={<MdEdit size={20} />}
                                                                     onClick={() => startEditing(comment)}
@@ -504,7 +504,7 @@ export default function ProductDetail() {
                                     )}
                                 </div>
 
-                                {user ? (
+                                {user? ? (
                                     <form onSubmit={addComment}>
                                         <textarea
                                             value={text}
