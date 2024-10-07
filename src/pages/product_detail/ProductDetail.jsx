@@ -74,8 +74,8 @@ export default function ProductDetail() {
             const response = await axios.get(`/api/product?-detail/${slug}`);
             if (response.data.status === 200) {
                 setProduct(response.data.product?s);
-                document.title = response.data.product?s.name;
-                setProductRandom(response.data.product?_random);
+                document.title = response.data.product?.name;
+                setProductRandom(response.data.product_random);
                 setAdditionalImages(response.data.product?s.additional_images);
                 setLoading(false);
             } else if (response.data.status === 400) {
