@@ -30,8 +30,8 @@ export default function ProductDetail() {
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
     const { setCartCount } = useContext(CartContext);
-    const [product, setProduct] = useState([]);
-    const [product_random, setProductRandom] = useState([]);
+    const [product?, setProduct] = useState([]);
+    const [product?_random, setProductRandom] = useState([]);
     const [additional_images, setAdditionalImages] = useState([]);
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -54,7 +54,7 @@ export default function ProductDetail() {
         }
     }
     const handleIncrement = () => {
-        if (quantity < product.qty) {
+        if (quantity < product?.qty) {
             setQuantity(prevCount => prevCount + 1);
         } else {
             Swal.fire({
@@ -71,12 +71,12 @@ export default function ProductDetail() {
     useEffect(() => {
         const fetchProductDetail = async () => {
 
-            const response = await axios.get(`/api/product-detail/${slug}`);
+            const response = await axios.get(`/api/product?-detail/${slug}`);
             if (response.data.status === 200) {
-                setProduct(response.data.products);
-                document.title = response.data.products.name;
-                setProductRandom(response.data.product_random);
-                setAdditionalImages(response.data.products.additional_images);
+                setProduct(response.data.product?s);
+                document.title = response.data.product?s.name;
+                setProductRandom(response.data.product?_random);
+                setAdditionalImages(response.data.product?s.additional_images);
                 setLoading(false);
             } else if (response.data.status === 400) {
                 Swal.fire({
@@ -105,9 +105,9 @@ export default function ProductDetail() {
     useEffect(() => {
         const fetchCommnets = async () => {
 
-            const response = await axios.get(`/api/product-detail/${slug}`);
+            const response = await axios.get(`/api/product?-detail/${slug}`);
             if (response.data.status === 200) {
-                setComments(response.data.products.comments);
+                setComments(response.data.product?s.comments);
                 setLoading(false);
             } else if (response.data.status === 400) {
                 Swal.fire({
@@ -136,8 +136,8 @@ export default function ProductDetail() {
 
     const addToCart = async () => {
         const data = {
-            product_id: product.id,
-            product_qty: quantity,
+            product?_id: product?.id,
+            product?_qty: quantity,
         };
 
         const response = await axios.post('/api/add-to-cart', data);
@@ -177,11 +177,11 @@ export default function ProductDetail() {
         e.preventDefault();
 
         const data = {
-            product_id: product.id,
+            product?_id: product?.id,
             text: text,
         };
 
-        axios.post(`/api/comments/${product.id}`, data, {}).then(response => {
+        axios.post(`/api/comments/${product?.id}`, data, {}).then(response => {
             if (response.data.status === 200) {
                 setComments(comments.map(comment => comment.id === commentId ? response.data.comment : comment));
                 setError([]);
@@ -285,17 +285,17 @@ export default function ProductDetail() {
                                                 <MdOutlineFullscreen className="cursour-pointer size-28 hover:size-32 transition-all duration-50" onClick={openModalImage} />
                                             </div>
                                         </div>
-                                        {product.image ? (
-                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/${product.image}`} alt={`รูปภาพสินค้า ${product.name}`} />
+                                        {product?.image ? (
+                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product?/${product?.image}`} alt={`รูปภาพสินค้า ${product?.name}`} />
                                         ) : (
-                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพสินค้า`} />
+                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product?/No_image.png`} alt={`ไม่มีรูปภาพสินค้า`} />
                                         )}
                                         <div>
                                             <ModalImage isOpen={isModalOpenImage} onClose={closeModalImage}>
-                                                {product.image ? (
-                                                    <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product/${product.image}`} alt="" />
+                                                {product?.image ? (
+                                                    <img className="rounded-lg w-full h-full object-cover" src={`${baseUrl}/images/product?/${product?.image}`} alt="" />
                                                 ) : (
-                                                    <img className=" rounded-lg w-full h-full object-cover" src="${baseUrl}/images/product/No_image.png" alt="No Image" />
+                                                    <img className=" rounded-lg w-full h-full object-cover" src="${baseUrl}/images/product?/No_image.png" alt="No Image" />
                                                 )}
                                             </ModalImage>
                                         </div>
@@ -313,7 +313,7 @@ export default function ProductDetail() {
                                                         </div>
                                                     </div>
                                                     {/* รูปภาพเพิ่มเติม */}
-                                                    <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/${item.additional_image}`} alt="" />
+                                                    <img className="w-full h-full object-cover" src={`${baseUrl}/images/product?/${item.additional_image}`} alt="" />
                                                 </div>
                                             ))
                                         ) : null}
@@ -337,7 +337,7 @@ export default function ProductDetail() {
                                                                 >
                                                                     <IoCloseCircleOutline size={40} />
                                                                 </button>
-                                                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/${additional_images[currentImageIndex]?.additional_image}`} alt="" />
+                                                                <img className="w-full h-full object-cover" src={`${baseUrl}/images/product?/${additional_images[currentImageIndex]?.additional_image}`} alt="" />
                                                             </div>
 
                                                             <div className="cursor-pointer" onClick={() => setCurrentImageIndex((currentImageIndex + 1) % additional_images.length)}>
@@ -353,16 +353,16 @@ export default function ProductDetail() {
                                 </div>
 
                                 <div className="w-full md:w-[80%]">
-                                    <h2 className="text-sm block text-black/30 md:text-base">{product?.category.name}</h2>
-                                    {console.log(product.category.name)}
-                                    <h1 className="text-base md:text-lg mb-4">{product.name}</h1>
+                                    <h2 className="text-sm block text-black/30 md:text-base">{product??.category.name}</h2>
+                                    {console.log(product?.category.name)}
+                                    <h1 className="text-base md:text-lg mb-4">{product?.name}</h1>
                                     <span className="text-base">รายละเอียด</span>
-                                    <p className="text-sm">{product.description}</p>
+                                    <p className="text-sm">{product?.description}</p>
                                     <p className="mt-4 text-base md:text-lg">
                                         <span className="text-sm md:text-base block text-black/30">
                                             ราคารวม
                                         </span>
-                                        {product.price} บาท
+                                        {product?.price} บาท
                                     </p>
 
                                     <div className="my-2 flex items-center justify-center gap-4 rounded-full border h-8 w-[6rem] uppercase">
@@ -373,7 +373,7 @@ export default function ProductDetail() {
                                         <button onClick={handleIncrement}><FaPlus /></button>
                                     </div>
 
-                                    {product.qty > 0 ? (
+                                    {product?.qty > 0 ? (
                                         <Button onClick={addToCart} type="submit" icon={<PiShoppingBagOpenThin size={26} />}>
                                             เพิ่มลงตระกร้า
                                         </Button>
@@ -390,10 +390,10 @@ export default function ProductDetail() {
                                 <h1 className="text-sm md:text-base font-semibold my-2">สินค้าที่คุณอาจจะสนใจ</h1>
 
                                 <div className={`grid grid-container grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4`}>
-                                    {product_random.length > 0 ? (
-                                        product_random.map((item, index) => (
+                                    {product?_random.length > 0 ? (
+                                        product?_random.map((item, index) => (
                                             <div key={index} className="overflow-hidden">
-                                                <Link to={`/product/detail/${item.slug}`}>
+                                                <Link to={`/product?/detail/${item.slug}`}>
                                                     <div className="relative overflow-hidden rounded-lg group h-[16rem]">
                                                         <div className="absolute w-full h-full bg-black/40 flex items-center justify-center group-hover:bottom-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
                                                             <div className="flex flex-col items-center text-white text-xl">
@@ -402,9 +402,9 @@ export default function ProductDetail() {
                                                             </div>
                                                         </div>
                                                         {item.image ? (
-                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/${item.image}`} alt={`รูปภาพสินค้า ${item.name}`} />
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product?/${item.image}`} alt={`รูปภาพสินค้า ${item.name}`} />
                                                         ) : (
-                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/no_image.png`} alt={`ไม่มีรูปภาพ`} />
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product?/no_image.png`} alt={`ไม่มีรูปภาพ`} />
                                                         )}
                                                     </div>
                                                 </Link>
@@ -435,7 +435,7 @@ export default function ProductDetail() {
                                                         {comment.user && comment.user.avatar ? (
                                                             <img className="w-full h-full object-cover" src={`${baseUrl}/images/avatar/${comment.user.avatar}`} alt={`รูปภาพของ ${comment.user.name}`} />
                                                         ) : (
-                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product/No_image.png`} alt={`ไม่มีรูปภาพ Avatar`} />
+                                                            <img className="w-full h-full object-cover" src={`${baseUrl}/images/product?/No_image.png`} alt={`ไม่มีรูปภาพ Avatar`} />
                                                         )}
 
                                                     </div>
